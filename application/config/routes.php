@@ -38,7 +38,10 @@
 |
 */
 
-$route['default_controller'] = "welcome";
+$route['default_controller'] = 'home';
+
+//$route['question(:num)/(:any)'] = 'course/question321/$2';
+
 $route['404_override'] = '';
 
 
