@@ -7,7 +7,8 @@ class User extends CI_Controller {
 	}
 	
 	public function index() {
-		
+		$this->load->model('User_M');
+		echo $this->User_M->isStudent();
 	}
 	
 	public function register() {

@@ -10,6 +10,8 @@ class Home extends CI_Controller {
 		echo 'Homepage';
 	}
 	
-	public function classroom()
+	public function classroom() {
+		
+	}
 }
 /* End of file */
