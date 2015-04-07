@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2015 年 04 月 06 日 17:03
+-- 生成日期: 2015 年 04 月 07 日 10:40
 -- 服务器版本: 5.5.28-log
 -- PHP 版本: 5.4.9
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `wg_administrators` (
   `admin_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(64) NOT NULL,
+  `email` varchar(128) NOT NULL,
   `password` varchar(128) NOT NULL,
   `create_time` int(11) unsigned NOT NULL,
   `status` int(11) NOT NULL,
@@ -46,10 +47,13 @@ CREATE TABLE IF NOT EXISTS `wg_articles` (
   `uuid` varchar(16) NOT NULL,
   `admin_id` int(11) unsigned NOT NULL,
   `category` varchar(128) NOT NULL,
+  `cover` varchar(256) NOT NULL,
   `title` varchar(256) NOT NULL,
   `keywords` varchar(256) NOT NULL,
   `content` text NOT NULL,
-  `status` int(11) NOT NULL,
+  `summary` varchar(256) NOT NULL,
+  `recommend` smallint(5) NOT NULL,
+  `status` smallint(5) NOT NULL,
   `create_time` int(11) unsigned NOT NULL,
   `update_time` int(11) unsigned NOT NULL,
   PRIMARY KEY (`article_id`)
