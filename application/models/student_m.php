@@ -106,13 +106,14 @@ class Student_M extends CI_Model {
 				$tmp = array();
 				$tmp['student_id'] = $student_id;
 				$tmp['subject'] = $subject;
-				$tmp['profile'] = "{$key}|{$val}";
+				$tmp['profile'] = $key;
+				$tmp['quality'] = $val;
 				
 				$exams[] = $tmp;
 			}
 		}
 		
-		$this->db_conn->insert_batch('student_standard', $exams);
+		$this->db_conn->insert_batch('student_standardization', $exams);
 		
 		// Family
 		$family = array();
@@ -133,7 +134,8 @@ class Student_M extends CI_Model {
 				$tmp = array();
 				$tmp['student_id'] = $student_id;
 				$tmp['degree'] = $degree;
-				$tmp['profile'] = "{$key}|{$val}";
+				$tmp['profile'] = $key;
+				$tmp['quality'] = $val;
 				
 				$education[] = $tmp;
 			}

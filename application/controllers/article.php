@@ -10,6 +10,17 @@ class Article extends CI_Controller {
 		
 	}
 	
-	
+	public function getArticles() {
+		$this->load->model('Article_M');
+		$articles = $this->Article_M->getArticlesByCategory();
+		
+		foreach ($articles as $one) {
+			foreach ($one as $key => $val) {
+				if ($val === NULL) {
+					echo $key,"\n";
+				}
+			}
+		}
+	}
 }
 /* End of file */

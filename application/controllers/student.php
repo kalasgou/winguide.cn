@@ -40,12 +40,13 @@ class Student extends CI_Controller {
 		$params = array();
 		$post_arr = $this->input->post();
 		foreach ($post_arr as $key => $val) {
+			$val = trim($val);
 			list($table, $blank) = explode(':', $key);
 			if (strpos($blank, '-') !== FALSE) {
 				list($option, $blank) = explode('-', $blank);
-				$params[$table][$option][$blank] = trim($val);
+				$params[$table][$option][$blank] = $val !== '' ? $val : NULL;
 			} else {
-				$params[$table][$blank] = trim($val);
+				$params[$table][$blank] = $val !== '' ? $val : NULL;
 			}
 		}
 		

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2015 年 04 月 07 日 10:40
+-- 生成日期: 2015 年 04 月 07 日 17:22
 -- 服务器版本: 5.5.28-log
 -- PHP 版本: 5.4.9
 
@@ -175,7 +175,7 @@ INSERT INTO `wg_students` (`student_id`, `user_id`, `username`, `password`, `cou
 (88, 0, '00002f_wg', '$2a$08$qbV0uAe9j72/XJYoAOnpcuK5wAxewTP.8f8o6MtwhvZrxOJMqqhcG', 'ielts', 1428295191, 0, 0, 'JJohjM90', 0, 0),
 (89, 0, '00002g_wg', '$2a$08$VpDDSCk0zvSi94MAh6r2Z..W50S6BN7.r6Vte015IEamMe6zr3Jia', 'ielts', 1428295191, 0, 0, '6Z3QuVc0', 0, 0),
 (90, 0, '00002h_wg', '$2a$08$wfVaKZSe1gY2dmc5KOfS.OoAvWR.jdsBy1Rgp6pM6XMXzLHjuInvK', 'ielts', 1428295191, 0, 0, 'D9FMvPvB', 0, 0),
-(91, 1, '00002i_wg', '$2a$08$YwGT/vqmg2g/2c9azhW9EufkA52I1FKkbVyl3slw8se790NvmWp4O', 'ielts', 1428295227, 0, 0, 'lrXKQqRZ', 0, 0),
+(91, 2, '00002i_wg', '$2a$08$YwGT/vqmg2g/2c9azhW9EufkA52I1FKkbVyl3slw8se790NvmWp4O', 'ielts', 1428295227, 0, 0, 'lrXKQqRZ', 0, 1),
 (92, 2, '00002j_wg', '$2a$08$OntrAH1Zir1tpA2wcq8znOIDBITWlJz/fu9.E9TcxUyfJgzyiuzXq', 'ielts', 1428295227, 0, 0, 'l31KDUne', 0, 1),
 (93, 0, '00002k_wg', '$2a$08$bVbCJUwDYv3zttD2PW7abOiEJ2tAEd7b77s9jwwbTWUXLbGJiCprO', 'ielts', 1428295227, 0, 0, 'dqsvmDJs', 0, 0),
 (94, 0, '00002l_wg', '$2a$08$PxKkBxg6.olH75oYmPnDROR4uvohgJfZ277IRDAVpnPbKfIrKryoy', 'ielts', 1428295227, 0, 0, 'Ir6hH6CE', 0, 0),
@@ -214,7 +214,17 @@ CREATE TABLE IF NOT EXISTS `wg_student_application` (
   `school_requirement` int(11) NOT NULL,
   `school_expected` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='拟申请留学信息' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='拟申请留学信息' AUTO_INCREMENT=5 ;
+
+--
+-- 转存表中的数据 `wg_student_application`
+--
+
+INSERT INTO `wg_student_application` (`id`, `student_id`, `degree`, `major`, `entrance_time`, `country_region`, `expenses_expected`, `school_type`, `school_requirement`, `school_expected`) VALUES
+(1, 92, 'werwer', 'ertert', '0000-00-00', 'rete', 'tertsert', 'ertert', 0, 0),
+(2, 91, 'werwer', 'ertert', '0000-00-00', 'rete', 'tertsert', 'ertert', 0, 0),
+(3, 91, 'werwer', 'ertert', '0000-00-00', 'rete', 'tertsert', 'ertert', 0, 0),
+(4, 91, 'werwer', 'ertert', '0000-00-00', 'rete', 'tertsert', 'ertert', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -226,9 +236,44 @@ CREATE TABLE IF NOT EXISTS `wg_student_education` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `student_id` int(11) unsigned NOT NULL,
   `degree` enum('middle','high','college','institute') NOT NULL,
-  `profile` varchar(512) NOT NULL,
+  `profile` varchar(256) NOT NULL,
+  `quality` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='教育背景' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='教育背景' AUTO_INCREMENT=29 ;
+
+--
+-- 转存表中的数据 `wg_student_education`
+--
+
+INSERT INTO `wg_student_education` (`id`, `student_id`, `degree`, `profile`, `quality`) VALUES
+(1, 92, 'middle', 'school', 'test'),
+(2, 92, 'middle', 'property', 'effasgfsdg'),
+(3, 92, 'middle', 'address', 'sdfgsdfgs'),
+(4, 92, 'middle', 'zip_code', 'sdfgdgf'),
+(5, 92, 'middle', 'entrance_time', 'sdgsdfg'),
+(6, 92, 'middle', 'departure_time', 'sdgfsdgf'),
+(7, 92, 'middle', 'languages', 'sdgfsdfg'),
+(8, 91, 'middle', 'school', 'test'),
+(9, 91, 'middle', 'property', 'effasgfsdg'),
+(10, 91, 'middle', 'address', ''),
+(11, 91, 'middle', 'zip_code', ''),
+(12, 91, 'middle', 'entrance_time', 'sdgsdfg'),
+(13, 91, 'middle', 'departure_time', 'sdgfsdgf'),
+(14, 91, 'middle', 'languages', 'sdgfsdfg'),
+(15, 91, 'middle', 'school', 'test'),
+(16, 91, 'middle', 'property', 'effasgfsdg'),
+(17, 91, 'middle', 'address', ''),
+(18, 91, 'middle', 'zip_code', ''),
+(19, 91, 'middle', 'entrance_time', 'sdgsdfg'),
+(20, 91, 'middle', 'departure_time', 'sdgfsdgf'),
+(21, 91, 'middle', 'languages', 'sdgfsdfg'),
+(22, 91, 'middle', 'school', 'test'),
+(23, 91, 'middle', 'property', 'effasgfsdg'),
+(24, 91, 'middle', 'address', NULL),
+(25, 91, 'middle', 'zip_code', NULL),
+(26, 91, 'middle', 'entrance_time', 'sdgsdfg'),
+(27, 91, 'middle', 'departure_time', 'sdgfsdgf'),
+(28, 91, 'middle', 'languages', 'sdgfsdfg');
 
 -- --------------------------------------------------------
 
@@ -245,7 +290,21 @@ CREATE TABLE IF NOT EXISTS `wg_student_family` (
   `company` varchar(128) NOT NULL,
   `position` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='家庭信息' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='家庭信息' AUTO_INCREMENT=9 ;
+
+--
+-- 转存表中的数据 `wg_student_family`
+--
+
+INSERT INTO `wg_student_family` (`id`, `student_id`, `parent`, `real_name`, `cellphone`, `company`, `position`) VALUES
+(1, 92, 'dad', 'gergaeg', 'gser', 'gaerg', 'argser'),
+(2, 92, 'mom', 'aegser', 'aergar', 'awergaer', 'sfwer'),
+(3, 91, 'dad', 'gergaeg', 'gser', 'gaerg', 'argser'),
+(4, 91, 'mom', 'aegser', 'aergar', 'awergaer', 'sfwer'),
+(5, 91, 'dad', 'gergaeg', 'gser', 'gaerg', 'argser'),
+(6, 91, 'mom', 'aegser', 'aergar', 'awergaer', 'sfwer'),
+(7, 91, 'dad', 'gergaeg', 'gser', 'gaerg', 'argser'),
+(8, 91, 'mom', 'aegser', 'aergar', 'awergaer', 'sfwer');
 
 -- --------------------------------------------------------
 
@@ -257,7 +316,7 @@ CREATE TABLE IF NOT EXISTS `wg_student_referee` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `student_id` int(11) unsigned NOT NULL,
   `real_name` int(11) NOT NULL,
-  `sex` enum('男','女') NOT NULL,
+  `sex` enum('male','female') NOT NULL,
   `company` varchar(128) NOT NULL,
   `email` varchar(128) NOT NULL,
   `telephone` int(11) NOT NULL,
@@ -265,7 +324,17 @@ CREATE TABLE IF NOT EXISTS `wg_student_referee` (
   `addr` int(11) NOT NULL,
   `zip_code` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='推荐人信息' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='推荐人信息' AUTO_INCREMENT=5 ;
+
+--
+-- 转存表中的数据 `wg_student_referee`
+--
+
+INSERT INTO `wg_student_referee` (`id`, `student_id`, `real_name`, `sex`, `company`, `email`, `telephone`, `qq_weixin`, `addr`, `zip_code`) VALUES
+(1, 92, 0, '', 'ertwert', 'ertwert', 0, 0, 0, 0),
+(2, 91, 0, '', 'ertwert', 'ertwert', 0, 0, 0, 0),
+(3, 91, 0, '', 'ertwert', 'ertwert', 0, 0, 0, 0),
+(4, 91, 0, '', 'ertwert', 'ertwert', 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -279,23 +348,82 @@ CREATE TABLE IF NOT EXISTS `wg_student_score` (
   `course` enum('TOEFL','IELTS','GRE','GMAT','SAT') NOT NULL,
   `subject` varchar(64) NOT NULL,
   `score` int(11) NOT NULL,
-  `update_time` int(11) unsigned NOT NULL,
+  `last_update` int(11) unsigned NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- 表的结构 `wg_student_standard`
+-- 表的结构 `wg_student_standardization`
 --
 
-CREATE TABLE IF NOT EXISTS `wg_student_standard` (
+CREATE TABLE IF NOT EXISTS `wg_student_standardization` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `student_id` int(11) unsigned NOT NULL,
   `subject` enum('TOEFL','IELTS','GRE','GMAT','SAT') NOT NULL,
   `profile` varchar(256) NOT NULL,
+  `quality` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='标准化信息' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='标准化信息' AUTO_INCREMENT=53 ;
+
+--
+-- 转存表中的数据 `wg_student_standardization`
+--
+
+INSERT INTO `wg_student_standardization` (`id`, `student_id`, `subject`, `profile`, `quality`) VALUES
+(1, 92, 'GMAT', 'total_point', 'sdfsdf'),
+(2, 92, 'GMAT', 'reading', 'gfsdfhsdgh'),
+(3, 92, 'GMAT', 'mathematics', 'dfsdf'),
+(4, 92, 'TOEFL', 'total_point', '123'),
+(5, 92, 'TOEFL', 'listening', '12'),
+(6, 92, 'TOEFL', 'speaking', '23'),
+(7, 92, 'TOEFL', 'reading', '34'),
+(8, 92, 'TOEFL', 'writing', '45'),
+(9, 92, 'TOEFL', 'exam_time', '124234'),
+(10, 92, 'TOEFL', 'login_id', '123'),
+(11, 92, 'TOEFL', 'login_pswd', '123'),
+(12, 92, 'TOEFL', 'ets_id', '13'),
+(13, 92, 'TOEFL', 'reg_serial', '123123'),
+(14, 91, 'GMAT', 'total_point', 'sdfsdf'),
+(15, 91, 'GMAT', 'reading', 'gfsdfhsdgh'),
+(16, 91, 'GMAT', 'mathematics', 'dfsdf'),
+(17, 91, 'TOEFL', 'total_point', '123'),
+(18, 91, 'TOEFL', 'listening', '12'),
+(19, 91, 'TOEFL', 'speaking', '23'),
+(20, 91, 'TOEFL', 'reading', '34'),
+(21, 91, 'TOEFL', 'writing', '45'),
+(22, 91, 'TOEFL', 'exam_time', '124234'),
+(23, 91, 'TOEFL', 'login_id', '123'),
+(24, 91, 'TOEFL', 'login_pswd', '123'),
+(25, 91, 'TOEFL', 'ets_id', '13'),
+(26, 91, 'TOEFL', 'reg_serial', '123123'),
+(27, 91, 'GMAT', 'total_point', 'sdfsdf'),
+(28, 91, 'GMAT', 'reading', 'gfsdfhsdgh'),
+(29, 91, 'GMAT', 'mathematics', 'dfsdf'),
+(30, 91, 'TOEFL', 'total_point', '123'),
+(31, 91, 'TOEFL', 'listening', '12'),
+(32, 91, 'TOEFL', 'speaking', '23'),
+(33, 91, 'TOEFL', 'reading', '34'),
+(34, 91, 'TOEFL', 'writing', '45'),
+(35, 91, 'TOEFL', 'exam_time', '124234'),
+(36, 91, 'TOEFL', 'login_id', '123'),
+(37, 91, 'TOEFL', 'login_pswd', '123'),
+(38, 91, 'TOEFL', 'ets_id', '13'),
+(39, 91, 'TOEFL', 'reg_serial', '123123'),
+(40, 91, 'GMAT', 'total_point', 'sdfsdf'),
+(41, 91, 'GMAT', 'reading', 'gfsdfhsdgh'),
+(42, 91, 'GMAT', 'mathematics', 'dfsdf'),
+(43, 91, 'TOEFL', 'total_point', '123'),
+(44, 91, 'TOEFL', 'listening', '12'),
+(45, 91, 'TOEFL', 'speaking', '23'),
+(46, 91, 'TOEFL', 'reading', '34'),
+(47, 91, 'TOEFL', 'writing', '45'),
+(48, 91, 'TOEFL', 'exam_time', '124234'),
+(49, 91, 'TOEFL', 'login_id', '123'),
+(50, 91, 'TOEFL', 'login_pswd', '123'),
+(51, 91, 'TOEFL', 'ets_id', '13'),
+(52, 91, 'TOEFL', 'reg_serial', '123123');
 
 -- --------------------------------------------------------
 
@@ -305,20 +433,20 @@ CREATE TABLE IF NOT EXISTS `wg_student_standard` (
 
 CREATE TABLE IF NOT EXISTS `wg_users` (
   `user_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `nickname` varchar(64) NOT NULL,
+  `nickname` varchar(64) DEFAULT NULL,
   `password` varchar(128) NOT NULL,
-  `real_name` varchar(64) NOT NULL,
-  `used_name` varchar(64) NOT NULL,
-  `birthday` date NOT NULL,
-  `sex` enum('男','女') NOT NULL,
-  `marriage` enum('未婚','已婚') NOT NULL,
-  `born_city` varchar(64) NOT NULL,
-  `family_addr` varchar(256) NOT NULL,
-  `family_zip_code` varchar(32) NOT NULL,
-  `contact_addr` varchar(256) NOT NULL,
-  `contact_zip_code` varchar(32) NOT NULL,
-  `email` varchar(128) NOT NULL,
-  `telephone` varchar(32) NOT NULL,
+  `real_name` varchar(64) DEFAULT NULL,
+  `used_name` varchar(64) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  `sex` enum('male','female') DEFAULT NULL,
+  `marriage` enum('single','married') DEFAULT NULL,
+  `born_city` varchar(64) DEFAULT NULL,
+  `family_addr` varchar(256) DEFAULT NULL,
+  `family_zip_code` varchar(32) DEFAULT NULL,
+  `contact_addr` varchar(256) DEFAULT NULL,
+  `contact_zip_code` varchar(32) DEFAULT NULL,
+  `email` varchar(128) DEFAULT NULL,
+  `telephone` varchar(32) DEFAULT NULL,
   `cellphone` varchar(32) NOT NULL,
   `account_type` smallint(5) NOT NULL,
   `status` smallint(5) NOT NULL,
@@ -334,8 +462,8 @@ CREATE TABLE IF NOT EXISTS `wg_users` (
 
 INSERT INTO `wg_users` (`user_id`, `nickname`, `password`, `real_name`, `used_name`, `birthday`, `sex`, `marriage`, `born_city`, `family_addr`, `family_zip_code`, `contact_addr`, `contact_zip_code`, `email`, `telephone`, `cellphone`, `account_type`, `status`, `create_time`, `update_time`) VALUES
 (1, '', '', '123123', 'sfsfsf', '2014-02-02', '', '', 'asdfsdf', 'asdfasd', '342342', 'asdfasdfadsf', 'sadfasd', 'asdfasdf', 'asadfasdf', 'asdfasdf', 123, 1, 1428300838, 1428304225),
-(2, '', '', '123123', 'sfsfsf', '2014-02-02', '', '', 'asdfsdf', 'asdfasd', '342342', 'asdfasdfadsf', 'sadfasd', 'asdfasdf', 'asadfasdf', 'asdfasdf123', 123, 1, 1428304312, 1428306819),
-(3, 'akakakak', '$2a$08$a51CfTHTYQePvM8kuOxYgOmolARMVJSlCtVZCUf69twImvYJQrsDG', '', '', '0000-00-00', '男', '未婚', '', '', '', '', '', '', '', '1324525434', 0, 0, 1428307773, 0);
+(2, '', '', '123123', 'sfsfsf', '2014-02-02', 'male', '', 'asdfsdf', 'asdfasd', '342342', 'asdfasdfadsf', 'sadfasd', 'asdfasdf', 'asadfasdf', 'asdfasdf123', 123, 1, 1428304312, 1428426976),
+(3, 'akakakak', '$2a$08$a51CfTHTYQePvM8kuOxYgOmolARMVJSlCtVZCUf69twImvYJQrsDG', '', '', '0000-00-00', '', '', '', '', '', '', '', '', '', '1324525434', 0, 0, 1428307773, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
