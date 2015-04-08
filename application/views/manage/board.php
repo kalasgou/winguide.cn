@@ -8,6 +8,7 @@
 				Dashboard
 			</div>
 			<div class="panel-body">
+				<textarea class="summernote"><p>Seasons <b>coming up</b></p></textarea>
 				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -19,5 +20,24 @@
 	</div>
 	
 </div>
-
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('.summernote').summernote({
+        height: 200,
+        tabsize: 2,
+		lang: 'zh-CN',
+		toolbar: [
+  		    ['style', ['bold', 'italic', 'underline', 'clear']],
+  		    ['color', ['color']],
+  		    ['para', ['ul', 'ol', 'paragraph']],
+  		    ['height', ['height']],
+  		    ['table', ['table']],
+  		    ['insert', ['video']]
+  		  ],
+        codemirror: {
+          theme: 'monokai'
+        }
+      });
+    });
+</script>
 <?php include APPPATH .'views/manage/foot.php'?>

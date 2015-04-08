@@ -368,8 +368,7 @@ $(function () {
 				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="http://www.winguide.cn">
-				<span >广本
-				<!--WinGuide赢凯--></span>
+				WinGuide赢凯
 			</a>
 		</div>
 
