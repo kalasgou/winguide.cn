@@ -367,8 +367,9 @@ $(function () {
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="http://www.winguide.cn/">
-				WinGuide
+			<a class="navbar-brand" href="http://www.winguide.cn">
+				<span >广本
+				<!--WinGuide赢凯--></span>
 			</a>
 		</div>
 
@@ -378,10 +379,10 @@ $(function () {
 				<div class="form-group">
 					<input type="text" name="q" class="form-control" placeholder="Search">
 				</div>
-				<button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+				<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
 			</form>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="http://www.pingpong-labs.com" target="_blank">Visit Site</a></li>
+				<li><a href="http://www.winguide.cn" target="_blank">Visit Site</a></li>
 				<li class="dropdown ">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 					Account

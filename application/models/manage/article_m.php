@@ -6,6 +6,24 @@ class Article_M extends CI_Model {
 		parent::__construct();
 	}
 	
+	public function listArticle($params) {
+		
+	}
 	
+	public function createArticle($params) {
+		
+	}
+	
+	public function updateArticle($params) {
+		
+	}
+	
+	public function deleteArticle($params) {
+		
+	}
+	
+	public function searchArticle($params) {
+		
+	}
 }
 /* End of file */

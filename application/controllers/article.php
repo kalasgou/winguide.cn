@@ -10,7 +10,7 @@ class Article extends CI_Controller {
 		
 	}
 	
-	public function getArticles() {
+	public function listArticles() {
 		$this->load->model('Article_M');
 		$articles = $this->Article_M->getArticlesByCategory();
 		

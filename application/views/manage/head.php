@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>winguide</title>
+		<meta http-equiv="content-type" content="text/html" charset="utf-8">
+		<title>WinGuide</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1<!--, maximum-scale=1, user-scalable=no-->">
 		<script style="text/javascript" src="/www/jquery-1.11.2.js"></script>
 		<link rel="stylesheet" href="/www/bootstrap/css/bootstrap.css">
