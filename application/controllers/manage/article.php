@@ -23,9 +23,11 @@ class Article extends CI_Controller {
 		$params['uuid'] = hex16to64(uuid());
 		$params['category'] = $this->input->post('category', TRUE);
 		$params['title'] = $this->input->post('title', TRUE);
-		$params['keyword'] = $this->input->post('keyword', TRUE);
+		$params['keywords'] = $this->input->post('keywords', TRUE);
 		$params['content'] = $this->input->post('content', TRUE);
 		$params['summary'] = $this->input->post('summary', TRUE);
+		$params['video_url'] = $this->input->post('video_url', TRUE);
+		$params['link'] = $this->input->post('link', TRUE);
 		$params['create_time'] = $_SERVER['REQUEST_TIME'];
 		
 		header('Content-Type: application/json, charset=utf-8');

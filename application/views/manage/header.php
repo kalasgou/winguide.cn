@@ -23,7 +23,11 @@
 		<script style="text/javascript" src="/www/summernote/plugin/summernote-ext-fontstyle.js"></script>
 		
 		<style type="text/css">
-			.footer {position:fixed; bottom:0; width:100%; text-align:center; vertical-align:top;}
+			html, body {height:100%; margin:0; padding:0;}
+			.footer {position:relative; margin-top: -32px; width:100%; text-align:center; vertical-align:top; height:24px;}
+			.input-group {margin:8px auto; width:100%;}
+			.input-group-addon {width:20%;}
+			.input-group-addon-instruction {width:100%; margin:0 auto; text-align:center;}
 		</style>
 	</head>
 	<body>

@@ -7,15 +7,18 @@ h1.page-header {
 	padding-left: 0;
 }
 
+.wrap {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	padding-bottom: 24px;
+}
+
 .main-container { 
 	background: #FFF;
 	padding-top: 15px;
 	margin-top: -20px;
 }
-
-.footer {
-	width: 100%;
-}  
 
 :focus {
 	outline: none;
@@ -356,6 +359,7 @@ $(function () {
   	});
   });
 </script>
+<div class="wrap">
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->

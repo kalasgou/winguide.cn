@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2015 年 04 月 08 日 10:52
+-- 生成日期: 2015 年 04 月 10 日 10:52
 -- 服务器版本: 5.5.28-log
 -- PHP 版本: 5.4.9
 
@@ -52,11 +52,27 @@ CREATE TABLE IF NOT EXISTS `wg_articles` (
   `keywords` varchar(256) NOT NULL,
   `content` text NOT NULL,
   `summary` varchar(256) NOT NULL,
+  `video_url` varchar(1024) NOT NULL,
+  `link` varchar(1024) NOT NULL,
   `recommend` smallint(5) NOT NULL,
   `status` smallint(5) NOT NULL,
   `create_time` int(11) unsigned NOT NULL,
   `update_time` int(11) unsigned NOT NULL,
   PRIMARY KEY (`article_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `wg_article_category`
+--
+
+CREATE TABLE IF NOT EXISTS `wg_article_category` (
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `status` smallint(5) NOT NULL,
+  `category` varchar(64) NOT NULL,
+  `module` varchar(64) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------

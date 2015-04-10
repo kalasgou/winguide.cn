@@ -1,4 +1,4 @@
-<?php include APPPATH .'views/manage/head.php'?>
+<?php include APPPATH .'views/manage/header.php'?>
 	<style type="text/css">
 /*
  * Specific styles of signin component
@@ -250,4 +250,4 @@ function testLocalStorageData() {
     localStorage.setItem("PROFILE_REAUTH_EMAIL", "oneaccount@gmail.com");
 }
 	</script>
-<?php include APPPATH .'views/manage/foot.php'?>
+<?php include APPPATH .'views/manage/footer.php'?>
