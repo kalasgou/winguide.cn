@@ -40,7 +40,8 @@
 
 $route['default_controller'] = 'home';
 
-//$route['question(:num)/(:any)'] = 'course/question321/$2';
+$route['console/(:any)/view/(:any)'] = 'manage/$1/$2View';
+$route['console/(:any)'] = 'manage/$1/index';
 
 $route['404_override'] = '';
 

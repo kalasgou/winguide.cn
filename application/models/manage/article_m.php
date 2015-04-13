@@ -6,7 +6,7 @@ class Article_M extends CI_Model {
 	
 	public function __construct() {
 		parent::__construct();
-		$db_conn = $this->load->database('default', TRUE);
+		$this->db_conn = $this->load->database('default', TRUE);
 	}
 	
 	public function listArticles($params) {
@@ -35,6 +35,17 @@ class Article_M extends CI_Model {
 	
 	public function searchArticle($params) {
 		
+	}
+	
+	public function getArticleModules($upper) {
+		$modules = array();
+		
+		$query = $this->db_conn->select('*')->from('article_module')->where('upper = '.$upper)->get();
+		if ($query->num_rows() > 0) {
+			$modules = $query->result_array();
+		}
+		
+		return $modules;
 	}
 }
 /* End of file */

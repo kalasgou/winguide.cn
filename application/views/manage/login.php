@@ -12,6 +12,13 @@ body, html {
     background-image: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
 }
 
+.container {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	padding-bottom: 24px;
+}
+
 .card-container.card {
     width: 350px;
     padding: 40px 40px;
@@ -151,10 +158,10 @@ body, html {
             <!--<img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" />-->
             <!--<img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />-->
             <p id="profile-name" class="profile-name-card"></p>
-            <form class="form-signin">
+            <form class="form-signin" action="<?= base_url('manage/admin/login') ?>" method="get" onsubmit="return submit_form();">
                 <span id="reauth-email" class="reauth-email"></span>
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email" required autofocus>
+                <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
                 <div id="remember" class="checkbox">
                     <label>
                         <input type="checkbox" value="remember-me"> Remember me
@@ -182,6 +189,12 @@ $( document ).ready(function() {
     // Load profile if it exits
     loadProfile();
 });
+
+function submit_form() {
+	var password = $('#inputPassword').val();
+	$('#inputPassword').val(hex_md5(password));
+	return true;
+}
 
 /**
  * Function that gets the data of the profile in case

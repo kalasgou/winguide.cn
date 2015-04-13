@@ -12,10 +12,10 @@ class Admin_M extends CI_Model {
 		return FALSE;
 	}
 	
-	public function getAdminByUname($username) {
+	public function getAdminByEmail($email) {
 		$admin = array();
-		$query = $this->db_conn->select('admin_id, username, password, status')
-						->from('administrators')->where("username = '{$username}'")->limit(1)->get();
+		$query = $this->db_conn->select('admin_id, username, email, password, status')
+						->from('administrators')->where("email = '{$email}'")->limit(1)->get();
 		
 		if ($query->num_rows() > 0) {
 			$admin = $query->row_array();
@@ -24,6 +24,11 @@ class Admin_M extends CI_Model {
 		$query->free_result();
 		
 		return $admin;
+	}
+	
+	public function doRegistration($params) {
+		$this->db_conn->insert('administrators', $params);
+		return $this->db_conn->insert_id();
 	}
 }
 /* End of file */

@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Student extends CI_Controller {
+class User extends CI_Controller {
 	
 	public function __construct() {
 		parent::__construct();
@@ -12,18 +12,14 @@ class Student extends CI_Controller {
 	
 	public function listsView() {
 		$data = array();
-		$data['hover'] = 'student';
-		$this->load->view('manage/student_lists.php', $data);
+		$data['hover'] = 'user';
+		$this->load->view('manage/user_lists', $data);
 	}
 	
 	public function createView() {
-		$data = array();
-		$data['hover'] = 'student';
-		$this->load->view('manage/student_create.php', $data);
 	}
 	
 	public function searchView() {
-		
 	}
 	
 	public function lists() {
@@ -47,3 +43,4 @@ class Student extends CI_Controller {
 	}
 }
 /* End of file */
+	

@@ -22,6 +22,8 @@
 		<script style="text/javascript" src="/www/summernote/plugin/summernote-ext-video.js"></script>
 		<script style="text/javascript" src="/www/summernote/plugin/summernote-ext-fontstyle.js"></script>
 		
+		<script style="text/javascript" src="/www/jshash/md5.js"></script>
+		
 		<style type="text/css">
 			html, body {height:100%; margin:0; padding:0;}
 			.footer {position:relative; margin-top: -32px; width:100%; text-align:center; vertical-align:top; height:24px;}

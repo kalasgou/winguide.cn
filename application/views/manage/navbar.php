@@ -346,6 +346,9 @@ h1.page-header {
 </style>
 <script type="text/javascript">
 $(function () {
+	var hover = $('#hover').val();
+	$('#' + hover + '_nav').attr('class', 'active');
+	
   	$('.navbar-toggle-sidebar').click(function () {
   		$('.navbar-nav').toggleClass('slide-in');
   		$('.side-body').toggleClass('body-slide-in');
@@ -385,18 +388,20 @@ $(function () {
 				<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
 			</form>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="http://www.winguide.cn" target="_blank">Visit Site</a></li>
+				<li><a href="http://www.winguide.cn" target="_blank">
+					<span class="glyphicon glyphicon-home"></span> 主站首页
+					</a></li>
 				<li class="dropdown ">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-					Account
+					<span class="glyphicon glyphicon-user"></span> 当前帐号
 					<span class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
-						<li class="dropdown-header">SETTINGS</li>
-						<li class=""><a href="#">Other Link</a></li>
-						<li class=""><a href="#">Other Link</a></li>
-						<li class=""><a href="#">Other Link</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Logout</a></li>
+						<!--<li class="dropdown-header">设置</li>-->
+						<!--<li class=""><a href="#"><span class="glyphicon glyphicon-cog"></span> Other Link</a></li>
+						<li class=""><a href="#"><span class="glyphicon glyphicon-cog"></span> Other Link</a></li>
+						<li class=""><a href="#"><span class="glyphicon glyphicon-cog"></span> Other Link</a></li>
+						<li class="divider"></li>-->
+						<li><a href="#"><span class="glyphicon glyphicon-off"></span> 退出系统</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -414,10 +419,12 @@ $(function () {
 				<nav class="navbar navbar-default" role="navigation">
 					<!-- Main Menu -->
 					<div class="side-menu-container">
+						<input id="hover" type="hidden" value="<?= $hover ?>" />
 						<ul class="nav navbar-nav">
-							<li class="active"><a href="#"><span class="glyphicon glyphicon-dashboard"></span> Dashboard</a></li>
-							<li><a href="#"><span class="glyphicon glyphicon-plane"></span> Active Link</a></li>
-							<li><a href="#"><span class="glyphicon glyphicon-cloud"></span> Link</a></li>
+							<li id="article_nav"><a href="/console/article"><span class="glyphicon glyphicon-globe"></span> 文章仓库</a></li>
+							<li id="student_nav"><a href="/console/student"><span class="glyphicon glyphicon-education"></span> 付费帐号</a></li>
+							<li id="user_nav"><a href="/console/user"><span class="glyphicon glyphicon-sunglasses"></span> 普通帐号</a></li>
+							<li id="admin_nav"><a href="/console/admin"><span class="glyphicon glyphicon-user"></span> 后台帐号</a></li>
 
 							<!-- Dropdown-->
 							<li class="panel panel-default" id="dropdown">
@@ -452,7 +459,7 @@ $(function () {
 									</div>
 								</div>
 							</li>
-							<li><a href="#"><span class="glyphicon glyphicon-signal"></span> Link</a></li>
+							<li><a href="#"><span class="glyphicon glyphicon-hdd"></span> 日志记录</a></li>
 						</ul>
 					</div><!-- /.navbar-collapse -->
 				</nav>

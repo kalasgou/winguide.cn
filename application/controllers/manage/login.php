@@ -10,13 +10,6 @@ class Login extends CI_Controller {
 		$this->load->view('manage/login');
 	}
 	
-	public function board() {
-		$this->load->view('manage/board');
-	}
-	
-	public function test() {
-		var_dump($this->input->post());
-	}
 }
 /* End of file */
 	
