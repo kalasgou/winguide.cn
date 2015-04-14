@@ -1,7 +1,9 @@
 <?php include APPPATH .'views/manage/header.php'?>
 
 <?php include APPPATH .'views/manage/navbar.php'?>
-
+	<style type="text/css">
+		.note-editable {min-height:200px;}
+	</style>
 	<div class="col-md-10 content">
 		<div class="panel panel-default">
 			<div class="panel-heading">

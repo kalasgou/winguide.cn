@@ -14,8 +14,21 @@ class Article extends CI_Controller {
 	 * View
 	 */
 	public function listsView() {
+		$params['module_id'] = intval($this->input->get('module_id', TRUE));
+		$params['item'] = intval($this->input->get('item', TRUE));
+		$params['page'] = intval($this->input->get('page', TRUE));
+		
 		$data = array();
 		$data['hover'] = 'article';
+		
+		$this->load->model('manage/Article_M');
+		$data['articles'] = $this->Article_M->listArticles($params);
+		
+		foreach ($data['articles'] as &$one) {
+			list($one['course'], $one['module']) = explode('|', $one['category']);
+			$one['create_time_formatted'] = date('Y-m-d H:i:s', $one['create_time']);
+		}
+		
 		$this->load->view('manage/article_lists.php', $data);
 	}
 	
@@ -24,13 +37,25 @@ class Article extends CI_Controller {
 		$data['hover'] = 'article';
 		
 		$this->load->model('manage/Article_M');
-		$data['module'] = $this->Article_M->getArticleModules(0);
+		$data['module'] = $this->Article_M->listModules(0);
 		
 		$this->load->view('manage/article_create.php', $data);
 	}
 	
 	public function searchView() {
 		
+	}
+	
+	public function detailView() {
+		$params['article_id'] = intval($this->input->get('article_id', TRUE));
+		
+		$data = array();
+		$data['hover'] = 'article';
+		
+		$this->load->model('manage/Article_M');
+		$data['detail'] = $this->Article_M->viewArticle($params);
+		
+		$this->load->view('manage/article_detail.php', $data);
 	}
 	
 	/*

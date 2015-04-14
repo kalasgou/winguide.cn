@@ -12,7 +12,10 @@ class Article_M extends CI_Model {
 	public function listArticles($params) {
 		$articles = array();
 		
-		$query = $this->db_conn->select()->from('articles')->where()->limit(10)->get();
+		$item = $params['item'];
+		$offset = $params['item'] * $params['page'];
+		
+		$query = $this->db_conn->select('*')->from('articles')->order_by('create_time DESC')->limit($item, $offset)->get();
 		if ($query->num_rows() > 0) {
 			$articles = $query->result_array();
 		}
@@ -23,6 +26,20 @@ class Article_M extends CI_Model {
 	public function createArticle($params) {
 		$this->db_conn->set($params)->insert('articles');
 		return $this->db_conn->insert_id();
+	}
+	
+	public function viewArticle($params) {
+		$detail = array();
+		
+		$search = array();
+		$search['article_id'] = $params['article_id'];
+		
+		$query = $this->db_conn->select('*')->from('articles')->where($search)->limit(1)->get();
+		if ($query->num_rows() > 0) {
+			$detail = $query->row_array();
+		}
+		
+		return $detail;
 	}
 	
 	public function updateArticle($params) {
@@ -37,7 +54,7 @@ class Article_M extends CI_Model {
 		
 	}
 	
-	public function getArticleModules($upper) {
+	public function listModules($upper) {
 		$modules = array();
 		
 		$query = $this->db_conn->select('*')->from('article_module')->where('upper = '.$upper)->get();

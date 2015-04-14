@@ -37,76 +37,22 @@
 						</tr>
 					</thead>
 					<tbody>
+						<?php foreach($articles as $one):?>
 						<tr>
-							<td>1</td>
-							<td>测试1</td>
-							<td>GMAT</td>
-							<td>原创文章</td>
-							<td>2015-04-12 13:09:54</td>
+							<td><span data-uuid="<?= $one['uuid']?>"><?= $one['article_id']?></span></td>
+							<td><?= $one['title']?></td>
+							<td><?= $one['course']?></td>
+							<td><?= $one['module']?></td>
+							<td><?= $one['create_time_formatted']?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
-								<a href="#"><span class="glyphicon glyphicon-file"></span></a>
+								<a href="<?= base_url('console/article/view/detail?article_id='.$one['article_id'])?>"><span class="glyphicon glyphicon-file"></span></a>
 								<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
+								<a href="#" data-title="Edit" data-toggle="modal" data-target="#edit"><span class="glyphicon glyphicon-wrench"></span></a>
+								<a href="#" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash"></span></a>
 							</td>
 						</tr>
-						<tr>
-							<td>2</td>
-							<td>测试2</td>
-							<td>GMAT</td>
-							<td>原创文章</td>
-							<td>2015-04-12 13:09:54</td>
-							<td><label class="label label-warning">失效</td>
-							<td>
-								<a href="#"><span class="glyphicon glyphicon-file"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
-							</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>测试3</td>
-							<td>GMAT</td>
-							<td>原创文章</td>
-							<td>2015-04-12 13:09:54</td>
-							<td><label class="label label-danger">禁止</td>
-							<td>
-								<a href="#"><span class="glyphicon glyphicon-file"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
-							</td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>测试4</td>
-							<td>GMAT</td>
-							<td>原创文章</td>
-							<td>2015-04-12 13:09:54</td>
-							<td><label class="label label-default">挂起</td>
-							<td>
-								<a href="#"><span class="glyphicon glyphicon-file"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
-							</td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>测试5</td>
-							<td>GMAT</td>
-							<td>原创文章</td>
-							<td>2015-04-12 13:09:54</td>
-							<td><label class="label label-success">有效</td>
-							<td>
-								<a data-title="Edit" data-toggle="modal" data-target="#edit" href="#"><span class="glyphicon glyphicon-file"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
-								<a data-title="Delete" data-toggle="modal" data-target="#delete" href="#"><span class="glyphicon glyphicon-trash"></span></a>
-							</td>
-						</tr>
+						<?php endforeach;?>
 					</tbody>
 					<tfoot>
 					</tfoot>
