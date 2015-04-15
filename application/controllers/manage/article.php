@@ -43,7 +43,13 @@ class Article extends CI_Controller {
 	}
 	
 	public function searchView() {
+		$data = array();
+		$data['hover'] = 'article';
 		
+		$this->load->model('manage/Article_M');
+		
+		
+		$this->load->view('manage/article_search.php', $data);
 	}
 	
 	public function detailView() {
