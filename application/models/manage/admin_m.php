@@ -12,6 +12,20 @@ class Admin_M extends CI_Model {
 		return FALSE;
 	}
 	
+	public function listAdmins($params) {
+		$admins = array();
+		
+		$item = $params['item'];
+		$offset = $params['item'] * $params['page'];
+		
+		$query = $this->db_conn->select('*')->from('administrators')->order_by('create_time DESC')/*->limit($item, $offset)*/->get();
+		if ($query->num_rows() > 0) {
+			$admins = $query->result_array();
+		}
+		
+		return $admins;
+	}
+	
 	public function getAdminByEmail($email) {
 		$admin = array();
 		$query = $this->db_conn->select('admin_id, username, email, password, status')

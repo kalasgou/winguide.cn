@@ -9,9 +9,10 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<ul class="nav nav-tabs">
-					<li role="presentation" class="active"><a href="#">列表</a></li>
+					<li role="presentation" class="active"><a href="#">学员</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/student/view/accounts') ?>">帐号</a></li>
 					<li role="presentation" class=""><a href="<?= base_url('console/student/view/search') ?>">搜索</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/student/view/create') ?>">增添</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/student/view/create') ?>">添加</a></li>
 				</ul>
 			</div>
 			<div class="panel-body">
@@ -39,13 +40,14 @@
 						</tr>
 					</thead>
 					<tbody>
+						<?php foreach($students as $one):?>
 						<tr>
-							<td>1</td>
-							<td>学生1</td>
-							<td>13450229999</td>
-							<td>GMAT</td>
-							<td>000001_wg</td>
-							<td>2015-04-12 13:09:54</td>
+							<td><span data-user-id="<?= $one['user_id']?>"><?= $one['student_id']?></span></td>
+							<td><?= $one['real_name']?></td>
+							<td><?= $one['cellphone']?></td>
+							<td><?= $one['course']?></td>
+							<td><?= $one['username']?></td>
+							<td><?= $one['purchase_time_formatted']?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
 								<a href="#"><span class="glyphicon glyphicon-file"></span></a>
@@ -54,66 +56,7 @@
 								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
 							</td>
 						</tr>
-						<tr>
-							<td>2</td>
-							<td>学生2</td>
-							<td>13450229999</td>
-							<td>GRE</td>
-							<td>000002_wg</td>
-							<td>2015-04-12 13:09:54</td>
-							<td><label class="label label-warning">失效</td>
-							<td>
-								<a href="#"><span class="glyphicon glyphicon-file"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
-							</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>学生3</td>
-							<td>13450229999</td>
-							<td>TOEFL</td>
-							<td>000003_wg</td>
-							<td>2015-04-12 13:09:54</td>
-							<td><label class="label label-danger">禁止</td>
-							<td>
-								<a href="#"><span class="glyphicon glyphicon-file"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
-							</td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>学生4</td>
-							<td>13450229999</td>
-							<td>IELTS</td>
-							<td>000004_wg</td>
-							<td>2015-04-12 13:09:54</td>
-							<td><label class="label label-default">挂起</td>
-							<td>
-								<a href="#"><span class="glyphicon glyphicon-file"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
-							</td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>学生5</td>
-							<td>13450229999</td>
-							<td>SAT</td>
-							<td>000005_wg</td>
-							<td>2015-04-12 13:09:54</td>
-							<td><label class="label label-success">有效</td>
-							<td>
-								<a href="#"><span class="glyphicon glyphicon-file"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
-							</td>
-						</tr>
+						<?php endforeach;?>
 					</tbody>
 					<tfoot>
 					</tfoot>

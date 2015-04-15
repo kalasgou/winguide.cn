@@ -6,9 +6,10 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<ul class="nav nav-tabs">
-					<li role="presentation" class=""><a href="<?= base_url('console/student/view/lists') ?>">列表</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/student/view/lists') ?>">学员</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/student/view/accounts') ?>">帐号</a></li>
 					<li role="presentation" class=""><a href="<?= base_url('console/student/view/search') ?>">搜索</a></li>
-					<li role="presentation" class="active"><a href="#">增添</a></li>
+					<li role="presentation" class="active"><a href="#">添加</a></li>
 				</ul>
 			</div>
 			<div class="panel-body">

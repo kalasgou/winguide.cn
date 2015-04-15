@@ -35,11 +35,12 @@
 						</tr>
 					</thead>
 					<tbody>
+						<?php foreach($users as $one):?>
 						<tr>
-							<td>1</td>
-							<td>用户1</td>
-							<td>13450229999</td>
-							<td>2015-04-12 13:09:54</td>
+							<td><?= $one['user_id'];?></td>
+							<td><?= $one['nickname'];?></td>
+							<td><?= $one['cellphone'];?></td>
+							<td><?= $one['create_time_formatted'];?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
 								<a href="#"><span class="glyphicon glyphicon-file"></span></a>
@@ -48,58 +49,7 @@
 								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
 							</td>
 						</tr>
-						<tr>
-							<td>2</td>
-							<td>用户2</td>
-							<td>13450229999</td>
-							<td>2015-04-12 13:09:54</td>
-							<td><label class="label label-warning">失效</td>
-							<td>
-								<a href="#"><span class="glyphicon glyphicon-file"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
-							</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>用户3</td>
-							<td>13450229999</td>
-							<td>2015-04-12 13:09:54</td>
-							<td><label class="label label-danger">禁止</td>
-							<td>
-								<a href="#"><span class="glyphicon glyphicon-file"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
-							</td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>用户4</td>
-							<td>13450229999</td>
-							<td>2015-04-12 13:09:54</td>
-							<td><label class="label label-default">挂起</td>
-							<td>
-								<a href="#"><span class="glyphicon glyphicon-file"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
-							</td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>用户5</td>
-							<td>13450229999</td>
-							<td>2015-04-12 13:09:54</td>
-							<td><label class="label label-success">有效</td>
-							<td>
-								<a href="#"><span class="glyphicon glyphicon-file"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
-							</td>
-						</tr>
+						<?php endforeach;?>
 					</tbody>
 					<tfoot>
 					</tfoot>

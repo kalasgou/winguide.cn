@@ -9,38 +9,42 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<ul class="nav nav-tabs">
-					<li role="presentation" class="active"><a href="#">列表</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/admin/view/search') ?>">搜索</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/admin/view/create') ?>">添加</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/student/view/lists') ?>">学员</a></li>
+					<li role="presentation" class="active"><a href="#">帐号</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/student/view/search') ?>">搜索</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/student/view/create') ?>">添加</a></li>
 				</ul>
 			</div>
 			<div class="panel-body">
 				<table class="table table-striped">
 					<colspan>
-						<col style="width:10%;"/>
-						<col style="width:20%;"/>
+						<col style="width:5%;"/>
+						<col style="width:15%;"/>
+						<col style="width:15%;"/>
+						<col style="width:15%"/>
 						<col style="width:20%;"/>
 						<col style="width:20%"/>
 						<col style="width:10%;"/>
-						<col style="width:20%;"/>
 					</colspan>
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>昵 称</th>
-							<th>邮 箱</th>
-							<th>日 期</th>
+							<th>课 程</th>
+							<th>帐 号</th>
+							<th>初始密码</th>
+							<th>购买日期</th>
 							<th>状 态</th>
 							<th>操 作</th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach($admins as $one):?>
+						<?php foreach($accounts as $one):?>
 						<tr>
-							<td><?= $one['admin_id']?></td>
+							<td><?= $one['student_id']?></td>
+							<td><?= $one['course']?></td>
 							<td><?= $one['username']?></td>
-							<td><?= $one['email']?></td>
-							<td><?= $one['create_time_formatted']?></td>
+							<td><?= $one['init_pswd']?></td>
+							<td><?= $one['purchase_time_formatted']?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
 								<a href="#"><span class="glyphicon glyphicon-file"></span></a>

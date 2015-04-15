@@ -11,7 +11,7 @@
 				<ul class="nav nav-tabs">
 					<li role="presentation" class="active"><a href="#">列表</a></li>
 					<li role="presentation" class=""><a href="<?= base_url('console/article/view/search') ?>">搜索</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/article/view/create') ?>">增添</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/article/view/create') ?>">添加</a></li>
 				</ul>
 			</div>
 			<div class="panel-body">

@@ -11,8 +11,19 @@ class Admin extends CI_Controller {
 	}
 	
 	public function listsView() {
+		$params['item'] = intval($this->input->get('item', TRUE));
+		$params['page'] = intval($this->input->get('page', TRUE));
+		
 		$data = array();
 		$data['hover'] = 'admin';
+		
+		$this->load->model('manage/Admin_M');
+		$data['admins'] = $this->Admin_M->listAdmins($params);
+		
+		foreach ($data['admins'] as &$one) {
+			$one['create_time_formatted'] = date('Y-m-d H:i:s', $one['create_time']);
+		}
+		
 		$this->load->view('manage/admin_lists', $data);
 	}
 	

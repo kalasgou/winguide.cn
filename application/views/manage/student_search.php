@@ -9,38 +9,54 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<ul class="nav nav-tabs">
-					<li role="presentation" class="active"><a href="#">列表</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/admin/view/search') ?>">搜索</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/admin/view/create') ?>">添加</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/student/view/lists')?>">学员</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/student/view/accounts')?>">帐号</a></li>
+					<li role="presentation" class="active"><a href="#">搜索</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/student/view/create') ?>">添加</a></li>
 				</ul>
 			</div>
 			<div class="panel-body">
+				<form action="<?= base_url('console/student/view/search')?>" method="get" role="search">
+					<div class="input-group">
+						<input type="search" name="keywords" class="form-control" placeholder="搜索文章">
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-default">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</span>
+					</div>
+				</form>
 				<table class="table table-striped">
 					<colspan>
+						<col style="width:5%;"/>
 						<col style="width:10%;"/>
-						<col style="width:20%;"/>
+						<col style="width:15%;"/>
+						<col style="width:10%"/>
 						<col style="width:20%;"/>
 						<col style="width:20%"/>
 						<col style="width:10%;"/>
-						<col style="width:20%;"/>
+						<col style="width:10%;"/>
 					</colspan>
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>昵 称</th>
-							<th>邮 箱</th>
+							<th>姓 名</th>
+							<th>电 话</th>
+							<th>课 程</th>
+							<th>帐 号</th>
 							<th>日 期</th>
 							<th>状 态</th>
 							<th>操 作</th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach($admins as $one):?>
 						<tr>
-							<td><?= $one['admin_id']?></td>
-							<td><?= $one['username']?></td>
-							<td><?= $one['email']?></td>
-							<td><?= $one['create_time_formatted']?></td>
+							<td>1</td>
+							<td>学生1</td>
+							<td>13450229999</td>
+							<td>GMAT</td>
+							<td>000001_wg</td>
+							<td>2015-04-12 13:09:54</td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
 								<a href="#"><span class="glyphicon glyphicon-file"></span></a>
@@ -49,7 +65,7 @@
 								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
 							</td>
 						</tr>
-						<?php endforeach;?>
+						
 					</tbody>
 					<tfoot>
 					</tfoot>

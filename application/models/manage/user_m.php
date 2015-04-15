@@ -8,7 +8,21 @@ class User_M extends CI_Model {
 		$this->db_conn = $this->load->database('default', TRUE);
 	}
 	
-	
+	public function listUsers($params) {
+		$users = array();
+		
+		$item = $params['item'];
+		$offset = $params['item'] * $params['page'];
+		
+		$query = $this->db_conn->select('user_id, nickname, cellphone, create_time, status')
+					->from('users')/*->order_by('create_time DESC')->limit($item, $offset)*/->get();
+		
+		if ($query->num_rows() > 0) {
+			$users = $query->result_array();
+		}
+		
+		return $users;
+	}
 }
 /* End of file */
 	
