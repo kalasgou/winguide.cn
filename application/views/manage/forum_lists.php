@@ -10,37 +10,46 @@
 			<div class="panel-heading">
 				<ul class="nav nav-tabs">
 					<li role="presentation" class="active"><a href="#">列表</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/user/view/search') ?>">搜索</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/user/view/create') ?>">添加</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/search?visibility=') ?>">搜索</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/create?visibility=') ?>">添加</a></li>
 				</ul>
 			</div>
 			<div class="panel-body">
 				<table class="table table-striped">
 					<colspan>
-						<col style="width:10%;"/>
-						<col style="width:20%;"/>
-						<col style="width:20%;"/>
+						<col style="width:5%;"/>
+						<col style="width:5%;"/>
+						<col style="width:15%;"/>
 						<col style="width:20%"/>
+						<col style="width:5%;"/>
+						<col style="width:15%;"/>
+						<col style="width:15%;"/>
 						<col style="width:10%;"/>
-						<col style="width:20%;"/>
+						<col style="width:10%;"/>
 					</colspan>
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>昵 称</th>
-							<th>电 话</th>
-							<th>日 期</th>
+							<th>课 程</th>
+							<th>话 题</th>
+							<th>发 言</th>
+							<th>置 顶</th>
+							<th>创建时间</th>
+							<th>更新时间</th>
 							<th>状 态</th>
 							<th>操 作</th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach($users as $one):?>
+						<?php foreach($topics as $one):?>
 						<tr>
-							<td><?= $one['user_id'];?></td>
-							<td><?= $one['nickname'];?></td>
-							<td><?= $one['cellphone'];?></td>
+							<td><span data-uuid="<?= $one['uuid']?>"><?= $one['topic_id'];?></span></td>
+							<td><?= $one['module'];?></td>
+							<td><?= $one['topic'];?></td>
+							<td><?= $one['thread'];?></td>
+							<td><?= $one['recommend'];?></td>
 							<td><?= $one['create_time_formatted'];?></td>
+							<td><?= $one['update_time_formatted'];?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
 								<a href="#"><span class="glyphicon glyphicon-file"></span></a>

@@ -349,6 +349,11 @@ $(function () {
 	var hover = $('#hover').val();
 	$('#' + hover + '_nav').attr('class', 'active');
 	
+	if (hover.indexOf('forum') > -1) {
+		$('#dropdown').removeClass('collapsed').attr('aria-expanded', 'true');
+		$('#dropdown-lvl1').addClass('in').attr('aria-expanded', 'true');
+	}
+	
   	$('.navbar-toggle-sidebar').click(function () {
   		$('.navbar-nav').toggleClass('slide-in');
   		$('.side-body').toggleClass('body-slide-in');
@@ -367,7 +372,7 @@ $(function () {
     <div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
-			<button type="button" class="navbar-toggle navbar-toggle-sidebar collapsed">MENU</button>
+			<button type="button" class="navbar-toggle navbar-toggle-sidebar collapsed">菜单</button>
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 				<span class="sr-only">Toggle navigation</span>
 				<span class="icon-bar"></span>
@@ -435,8 +440,8 @@ $(function () {
 								<div id="dropdown-lvl1" class="panel-collapse collapse">
 									<div class="panel-body">
 										<ul class="nav navbar-nav">
-											<li><a href="#"><span class="glyphicon glyphicon-bullhorn"></span> 全站论坛</a></li>
-											<li><a href="#"><span class="glyphicon glyphicon-book"></span> 课程任务</a></li>
+											<li id="forum_public_nav"><a href="/console/forum?v=public"><span class="glyphicon glyphicon-bullhorn"></span> 全站论坛</a></li>
+											<li id="forum_course_nav"><a href="/console/forum?v=course"><span class="glyphicon glyphicon-book"></span> 课程任务</a></li>
 											<!--<li><a href="#">Link</a></li>
 
 											 Dropdown level 2 
