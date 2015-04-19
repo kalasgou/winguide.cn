@@ -22,5 +22,10 @@ class Forum_M extends CI_Model {
 		
 		return $topics;
 	}
+	
+	public function createTopic($params) {
+		$this->db_conn->set($params)->insert('forum_topic');
+		return $this->db_conn->insert_id();
+	}
 }
 /* End of file */

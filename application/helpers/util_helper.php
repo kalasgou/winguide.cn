@@ -84,4 +84,44 @@ function gen_student_serial($student_id) {
 	return $serial;
 }
 
+function gen_pagination($base_url, $uri_segment, $total_rows, $per_page = 15, $num_links = 5) {
+	$CI = & get_instance();
+	
+	$CI->load->library('pagination');
+	$config = array();
+	$config['base_url'] = $base_url;
+	$config['uri_segment'] = $uri_segment;
+	$config['total_rows'] = $total_rows;
+	$config['num_links'] = $num_links;
+	$config['per_page'] = $per_page;
+	$config['use_page_numbers'] = TRUE;
+	
+	if (count($_GET) > 0) {
+		$config['suffix'] = '?'.http_build_query($_GET, '', "&");
+		$config['first_url'] = $config['base_url'].'/1?'.http_build_query($_GET, '', "&");
+	} else {
+		$config['first_url'] = $config['base_url'].'/1';
+	}
+	
+	$config['num_tag_open'] = '<li>';
+	$config['num_tag_close'] = '</li>';
+	$config['cur_tag_open'] = '<li class="active"><a href="#">';
+	$config['cur_tag_close'] = '</a></li>';
+	$config['prev_tag_open'] = '<li>';
+	$config['prev_tag_close'] = '</li>';
+	$config['prev_link'] = '<span class="glyphicon glyphicon-chevron-left"></span>';
+	$config['next_tag_open'] = '<li>';
+	$config['next_tag_close'] = '</li>';
+	$config['next_link'] = '<span class="glyphicon glyphicon-chevron-right"></span>';
+	$config['first_tag_open'] = '<li>';
+	$config['first_tag_close'] = '</li>';
+	$config['first_link'] = '<span class="glyphicon glyphicon-backward"></span>';
+	$config['last_tag_open'] = '<li>';
+	$config['last_tag_close'] = '</li>';
+	$config['last_link'] = '<span class="glyphicon glyphicon-forward"></span>';
+
+	$CI->pagination->initialize($config);
+	return $CI->pagination->create_links();
+}
+
 /* End of file */

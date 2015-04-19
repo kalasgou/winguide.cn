@@ -18,50 +18,50 @@ class Article extends CI_Controller {
 		$params['item'] = intval($this->input->get('item', TRUE));
 		$params['page'] = intval($this->input->get('page', TRUE));
 		
-		$data = array();
-		$data['hover'] = 'article';
+		$output = array();
+		$output['hover'] = 'article';
 		
 		$this->load->model('manage/Article_M');
-		$data['articles'] = $this->Article_M->listArticles($params);
+		$output['articles'] = $this->Article_M->listArticles($params);
 		
-		foreach ($data['articles'] as &$one) {
+		foreach ($output['articles'] as &$one) {
 			list($one['course'], $one['module']) = explode('|', $one['category']);
 			$one['create_time_formatted'] = date('Y-m-d H:i:s', $one['create_time']);
 		}
 		
-		$this->load->view('manage/article_lists.php', $data);
+		$this->load->view('manage/article_lists.php', $output);
 	}
 	
 	public function createView() {
-		$data = array();
-		$data['hover'] = 'article';
+		$output = array();
+		$output['hover'] = 'article';
 		
 		$this->load->model('manage/Article_M');
-		$data['module'] = $this->Article_M->listModules(0);
+		$output['module'] = $this->Article_M->listModules(0);
 		
-		$this->load->view('manage/article_create.php', $data);
+		$this->load->view('manage/article_create.php', $output);
 	}
 	
 	public function searchView() {
-		$data = array();
-		$data['hover'] = 'article';
+		$output = array();
+		$output['hover'] = 'article';
 		
 		$this->load->model('manage/Article_M');
 		
 		
-		$this->load->view('manage/article_search.php', $data);
+		$this->load->view('manage/article_search.php', $output);
 	}
 	
 	public function detailView() {
 		$params['article_id'] = intval($this->input->get('article_id', TRUE));
 		
-		$data = array();
-		$data['hover'] = 'article';
+		$output = array();
+		$output['hover'] = 'article';
 		
 		$this->load->model('manage/Article_M');
-		$data['detail'] = $this->Article_M->viewArticle($params);
+		$output['detail'] = $this->Article_M->viewArticle($params);
 		
-		$this->load->view('manage/article_detail.php', $data);
+		$this->load->view('manage/article_detail.php', $output);
 	}
 	
 	/*

@@ -39,8 +39,9 @@
 */
 
 $route['default_controller'] = 'home';
-
+$route['console/(:any)/view/(:any)/item/(:num)/page/(:num)'] = 'manage/$1/$2View/$3/$4';
 $route['console/(:any)/view/(:any)'] = 'manage/$1/$2View';
+
 $route['console/(:any)'] = 'manage/$1/index';
 
 $route['404_override'] = '';

@@ -36,45 +36,6 @@ class Student_M extends CI_Model {
 		
 	}
 	
-	public function doRegistration($params) {
-		$students = array();
-		
-		require APPPATH .'third_party/pass/PasswordHash.php';
-		
-		for ($i = 1; $i <= $params['amount']; $i++) {
-			$tmp = array();
-			$tmp['course'] = $params['course'];		
-			$tmp['init_pswd'] = gen_random_password(8);
-			$init_pswd_md5 = md5($tmp['init_pswd']);
-			$hasher = new PasswordHash(HASH_COST_LOG2, HASH_PORTABLE);
-			$tmp['password'] = $hasher->HashPassword($init_pswd_md5);
-			$tmp['purchase_time'] = $_SERVER['REQUEST_TIME'];
-			$tmp['status'] = $this->UNAVAILABLE;
-			
-			$students[] = $tmp;
-		}
-		
-		if ($this->db_conn->insert_batch('students', $students)) {
-			$query = $this->db_conn->select('student_id')->from('students')->where('status = ' .$this->UNAVAILABLE)->get();
-			if ($query->num_rows() > 0) {
-				$usernames = array();
-				$rows = $query->result_array();
-				foreach ($rows as $one) {
-					$tmp = array();
-					$tmp['student_id'] = $one['student_id'];
-					$tmp['username'] = gen_student_serial($one['student_id']);
-					$tmp['status'] = $this->INITIALIZED;
-					$usernames[] = $tmp;
-				}
-			}
-			$this->db_conn->update_batch('students', $usernames, 'student_id');
-			
-			return TRUE;
-		}
-		
-		return FALSE;
-	}
-	
 	public function doActivation($params) {
 		$user_id = 0;
 		$student_id = $params['student']['student_id'];

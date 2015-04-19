@@ -11,31 +11,6 @@ class Student extends CI_Controller {
 		echo $this->Student_M->isStudent();
 	}
 	
-	public function addStudent() {
-		$params['course'] = trim($this->input->post('course', TRUE));
-		$params['amount'] = intval($this->input->post('amount', TRUE));
-		
-		if (!check_parameters($params)) {
-			exit('Parameters Not Enough');
-		}
-		
-		header('Content-Type: application/json, charset=utf-8');
-		
-		$ret = array();
-		$ret['code'] = 1;
-		$ret['msg'] = 'fail';
-		
-		$this->load->model('Student_M');
-		$result = $this->Student_M->doRegistration($params);
-		
-		if ($result) {
-			$ret['code'] = 0;
-			$ret['msg'] = 'success';
-		}
-		
-		echo json_encode($ret);
-	}
-	
 	public function activateAccount() {
 		$params = array();
 		$post_arr = $this->input->post();

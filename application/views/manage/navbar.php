@@ -440,8 +440,8 @@ $(function () {
 								<div id="dropdown-lvl1" class="panel-collapse collapse">
 									<div class="panel-body">
 										<ul class="nav navbar-nav">
-											<li id="forum_public_nav"><a href="/console/forum?v=public"><span class="glyphicon glyphicon-bullhorn"></span> 全站论坛</a></li>
-											<li id="forum_course_nav"><a href="/console/forum?v=course"><span class="glyphicon glyphicon-book"></span> 课程任务</a></li>
+											<li id="forum_public_nav"><a href="/console/forum?visibility=public"><span class="glyphicon glyphicon-bullhorn"></span> 全站论坛</a></li>
+											<li id="forum_course_nav"><a href="/console/forum?visibility=course"><span class="glyphicon glyphicon-book"></span> 课程任务</a></li>
 											<!--<li><a href="#">Link</a></li>
 
 											 Dropdown level 2 

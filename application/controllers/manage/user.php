@@ -14,17 +14,17 @@ class User extends CI_Controller {
 		$params['item'] = intval($this->input->get('item', TRUE));
 		$params['page'] = intval($this->input->get('page', TRUE));
 		
-		$data = array();
-		$data['hover'] = 'user';
+		$output = array();
+		$output['hover'] = 'user';
 		
 		$this->load->model('manage/User_M');
-		$data['users'] = $this->User_M->listUsers($params);
+		$output['users'] = $this->User_M->listUsers($params);
 		
-		foreach ($data['users'] as &$one) {
+		foreach ($output['users'] as &$one) {
 			$one['create_time_formatted'] = date('Y-m-d H:i:s', $one['create_time']);
 		}
 		
-		$this->load->view('manage/user_lists', $data);
+		$this->load->view('manage/user_lists', $output);
 	}
 	
 	public function createView() {

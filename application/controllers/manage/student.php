@@ -14,41 +14,45 @@ class Student extends CI_Controller {
 		$params['item'] = intval($this->input->get('item', TRUE));
 		$params['page'] = intval($this->input->get('page', TRUE));
 		
-		$data = array();
-		$data['hover'] = 'student';
+		$output = array();
+		$output['hover'] = 'student';
 		
 		$this->load->model('manage/Student_M');
-		$data['students'] = $this->Student_M->listStudents($params);
-		
-		foreach ($data['students'] as &$one) {
+		$output['students'] = $this->Student_M->listStudents($params);
+		foreach ($output['students'] as &$one) {
 			$one['purchase_time_formatted'] = date('Y-m-d H:i:s', $one['purchase_time']);
 		}
 		
-		$this->load->view('manage/student_lists.php', $data);
+		//gen_pagination();
+		
+		$this->load->view('manage/student_lists.php', $output);
 	}
 	
-	public function accountsView() {
-		$params['item'] = intval($this->input->get('item', TRUE));
-		$params['page'] = intval($this->input->get('page', TRUE));
+	public function accountsView($item = 15, $page = 0) {
+		$params['item'] = intval($item) <= 0 ? 15 : $item;
+		$params['page'] = intval($page) <= 0 ? 0 : $page - 1;
 		
-		$data = array();
-		$data['hover'] = 'student';
+		$output = array();
+		$output['hover'] = 'student';
 		
 		$this->load->model('manage/Student_M');
-		$data['accounts'] = $this->Student_M->listAccounts($params);
+		$output['accounts'] = $this->Student_M->listAccounts($params);
+		$output['total_num'] = $this->Student_M->countAccounts();
 		
-		foreach ($data['accounts'] as &$one) {
+		foreach ($output['accounts'] as &$one) {
 			$one['purchase_time_formatted'] = date('Y-m-d H:i:s', $one['purchase_time']);
 		}
 		
-		$this->load->view('manage/student_accounts.php', $data);
+		$output['pagination'] = gen_pagination(base_url("/console/student/view/accounts/item/{$params['item']}/page/"), 8, $output['total_num']);
+		
+		$this->load->view('manage/student_accounts.php', $output);
 	}
 	
 	
 	public function createView() {
-		$data = array();
-		$data['hover'] = 'student';
-		$this->load->view('manage/student_create.php', $data);
+		$output = array();
+		$output['hover'] = 'student';
+		$this->load->view('manage/student_create.php', $output);
 	}
 	
 	public function searchView() {
@@ -60,7 +64,28 @@ class Student extends CI_Controller {
 	}
 	
 	public function create() {
+		$params['course'] = trim($this->input->post('course', TRUE));
+		$params['amount'] = intval($this->input->post('amount', TRUE));
 		
+		if (!check_parameters($params)) {
+			exit('Parameters Not Enough');
+		}
+		
+		header('Content-Type: application/json, charset=utf-8');
+		
+		$ret = array();
+		$ret['code'] = 1;
+		$ret['msg'] = 'fail';
+		
+		$this->load->model('manage/Student_M');
+		$result = $this->Student_M->doRegistration($params);
+		
+		if ($result) {
+			$ret['code'] = 0;
+			$ret['msg'] = 'success';
+		}
+		
+		echo json_encode($ret);
 	}
 	
 	public function update() {

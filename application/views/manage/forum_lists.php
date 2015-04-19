@@ -10,8 +10,8 @@
 			<div class="panel-heading">
 				<ul class="nav nav-tabs">
 					<li role="presentation" class="active"><a href="#">列表</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/search?visibility=') ?>">搜索</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/create?visibility=') ?>">添加</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/search?visibility='.$_GET['visibility']) ?>">搜索</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/create?visibility='.$_GET['visibility']) ?>">添加</a></li>
 				</ul>
 			</div>
 			<div class="panel-body">
@@ -32,7 +32,7 @@
 							<th>#</th>
 							<th>课 程</th>
 							<th>话 题</th>
-							<th>发 言</th>
+							<th>正 文</th>
 							<th>置 顶</th>
 							<th>创建时间</th>
 							<th>更新时间</th>
@@ -65,13 +65,7 @@
 				</table>
 				<div class="clearfix"></div>
 				<ul class="pagination pull-right">
-					<li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-					<li class="active"><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
+					<?= $pagination?>
 				</ul>
 			</div>
 		</div>

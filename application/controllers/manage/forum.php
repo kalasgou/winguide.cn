@@ -7,7 +7,7 @@ class Forum extends CI_Controller {
 	}
 	
 	public function index() {
-		$visibility = $this->input->get('v', TRUE);
+		$visibility = trim($this->input->get('visibility', TRUE));
 		$this->listsView($visibility);
 	}
 	
@@ -23,22 +23,27 @@ class Forum extends CI_Controller {
 			$params['visibility'] = $visibility;
 		}
 		
-		$data = array();
-		$data['hover'] = 'forum_'.$params['visibility'];
+		$output = array();
+		$output['hover'] = 'forum_'.$params['visibility'];
 		
 		$this->load->model('manage/Forum_M');
-		$data['topics'] = $this->Forum_M->listTopics($params);
+		$output['topics'] = $this->Forum_M->listTopics($params);
 		
-		foreach ($data['topics'] as &$one) {
+		foreach ($output['topics'] as &$one) {
 			$one['create_time_formatted'] = date('Y-m-d H:i:s', $one['create_time']);
 			$one['update_time_formatted'] = date('Y-m-d H:i:s', $one['update_time']);
 		}
 		
-		$this->load->view('manage/forum_lists', $data);
+		$this->load->view('manage/forum_lists', $output);
 	}
 	
 	public function createView() {
+		$params['visibility'] = trim($this->input->get('visibility', TRUE));
 		
+		$output = array();
+		$output['hover'] = 'forum_'.$params['visibility'];
+		
+		$this->load->view('manage/forum_create', $output);
 	}
 	
 	public function searchView() {
@@ -46,7 +51,29 @@ class Forum extends CI_Controller {
 	}
 	
 	public function create() {
+		$params['admin_id'] = 1;
+		$params['uuid'] = hex16to64(uuid());
+		$params['module'] = $this->input->post('module', TRUE);
+		$params['visibility'] = $this->input->post('visibility', TRUE);
+		$params['topic'] = $this->input->post('topic', TRUE);
+		$params['thread'] = $this->input->post('thread');
+		$params['create_time'] = $_SERVER['REQUEST_TIME'];
 		
+		header('Content-Type: application/json, charset=utf-8');
+		
+		$ret = array();
+		$ret['code'] = 1;
+		$ret['msg'] = 'fail';
+		
+		$this->load->model('manage/Forum_M');
+		$result = $this->Forum_M->createTopic($params);
+		
+		if ($result) {
+			$ret['code'] = 0;
+			$ret['msg'] = 'success';
+		}
+		
+		echo json_encode($ret);
 	}
 	
 	public function update() {

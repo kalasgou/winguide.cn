@@ -13,30 +13,30 @@
 				</ul>
 			</div>
 			<div class="panel-body">
-				<form action="<?= base_url('manage/login/test') ?>" method="post">
+				<form action="<?= base_url('manage/student/create') ?>" method="post">
 					<div class="input-group">
 						<span class="input-group-addon">选择课程</span>
-						<select class="form-control">
-							<option value="">GMAT</option>
-							<option value="">GRE</option>
-							<option value="">IELTS</option>
-							<option value="">SAT</option>
-							<option value="">TOEFL</option>
+						<select name="course" class="form-control">
+							<option value="gmat">GMAT</option>
+							<option value="gre">GRE</option>
+							<option value="ielts">IELTS</option>
+							<option value="sat">SAT</option>
+							<option value="toefl">TOEFL</option>
 						</select>
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon">帐号数量</span>
-						<input type="text" class="form-control">
+						<input type="text" name="amount" class="form-control">
 						<span class="input-group-addon">个</span>
 					</div>
 					<div class="input-group">
-						<span class="input-group-addon">开始</span>
-						<input type="text" class="form-control">
+						<span class="input-group-addon">起始</span>
+						<input id="" type="text" class="form-control" disabled placeholder="预计帐号起始编码">
 						<span class="input-group-addon">_wg</span>
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon">结束</span>
-						<input type="text" class="form-control">
+						<input id="" type="text" class="form-control" disabled placeholder="预计帐号结束编码">
 						<span class="input-group-addon">_wg</span>
 					</div>
 					
@@ -50,23 +50,7 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
-      $('.summernote').summernote({
-        height: 200,
-        tabsize: 2,
-		lang: 'zh-CN',
-		/*toolbar: [
-  		    ['style', ['bold', 'italic', 'underline', 'clear']],
-  		    ['color', ['color']],
-  		    ['para', ['ul', 'ol', 'paragraph']],
-  		    ['height', ['height']],
-  		    ['table', ['table']],
-  		    ['insert', ['video']]
-  		  ],*/
-		styleWithSpan: false,
-        codemirror: {
-          theme: 'monokai'
-        }
-      });
+		
     });
 </script>
 <?php include APPPATH .'views/manage/footer.php'?>

@@ -23,6 +23,7 @@
 		<script style="text/javascript" src="/www/summernote/plugin/summernote-ext-fontstyle.js"></script>
 		
 		<script style="text/javascript" src="/www/jshash/md5.js"></script>
+		<script style="text/javascript" src="/www/common.js"></script>
 		
 		<style type="text/css">
 			html, body {height:100%; margin:0; padding:0;}
