@@ -27,7 +27,7 @@
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon">论坛版块</span>
-						<select id="visibility-option" name="visibility" class="form-control" disabled required>
+						<select id="visibility-option" name="visibility" class="form-control" required>
 							<option value="public">全站论坛</option>
 							<option value="course">课程任务</option>
 						</select>
@@ -58,6 +58,7 @@
 <script type="text/javascript">
 	var _visibility = getQueryString('visibility');
 	$('#visibility-option option[value=' + _visibility + ']').attr('selected', 'true');
+	$('#visibility-option').val(_visibility);
     
 	$(document).ready(function() {
       $('.summernote').summernote({

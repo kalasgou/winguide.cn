@@ -88,7 +88,13 @@ class Student_M extends CI_Model {
 	}
 	
 	public function countAccounts() {
-		$total_num = $this->db_conn->select('student_id, username, course, purchase_time, init_pswd, status')->from('students')->count_all_results();
+		$total_num = $this->db_conn->from('students')/*->where()*/->count_all_results();
+		
+		return intval($total_num);
+	}
+	
+	public function countStudents() {
+		$total_num = $this->db_conn->from('students')/*->where()*/->count_all_results();
 		
 		return intval($total_num);
 	}

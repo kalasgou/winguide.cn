@@ -10,9 +10,9 @@ class Student extends CI_Controller {
 		$this->listsView();
 	}
 	
-	public function listsView() {
-		$params['item'] = intval($this->input->get('item', TRUE));
-		$params['page'] = intval($this->input->get('page', TRUE));
+	public function listsView($item = 15, $page = 0) {
+		$params['item'] = intval($item) <= 0 ? 15 : $item;
+		$params['page'] = intval($page) <= 0 ? 0 : $page - 1;
 		
 		$output = array();
 		$output['hover'] = 'student';
@@ -23,7 +23,8 @@ class Student extends CI_Controller {
 			$one['purchase_time_formatted'] = date('Y-m-d H:i:s', $one['purchase_time']);
 		}
 		
-		//gen_pagination();
+		$output['total_num'] = $this->Student_M->countStudents();
+		$output['pagination'] = gen_pagination(base_url("console/student/view/lists/item/{$params['item']}/page/"), 8, $output['total_num'], $params['item']);
 		
 		$this->load->view('manage/student_lists.php', $output);
 	}
@@ -37,13 +38,13 @@ class Student extends CI_Controller {
 		
 		$this->load->model('manage/Student_M');
 		$output['accounts'] = $this->Student_M->listAccounts($params);
-		$output['total_num'] = $this->Student_M->countAccounts();
 		
 		foreach ($output['accounts'] as &$one) {
 			$one['purchase_time_formatted'] = date('Y-m-d H:i:s', $one['purchase_time']);
 		}
 		
-		$output['pagination'] = gen_pagination(base_url("/console/student/view/accounts/item/{$params['item']}/page/"), 8, $output['total_num']);
+		$output['total_num'] = $this->Student_M->countAccounts();
+		$output['pagination'] = gen_pagination(base_url("console/student/view/accounts/item/{$params['item']}/page/"), 8, $output['total_num'], $params['item']);
 		
 		$this->load->view('manage/student_accounts.php', $output);
 	}

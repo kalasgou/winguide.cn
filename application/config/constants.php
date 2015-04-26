@@ -40,5 +40,9 @@ define('HASH_COST_LOG2', 		8);
 define('HASH_PORTABLE', 		FALSE);
 
 
+define('DEFAULT_PER_PAGE',		15);
+define('DEFAULT_START_PAGE',	0);
+
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

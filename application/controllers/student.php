@@ -7,8 +7,7 @@ class Student extends CI_Controller {
 	}
 	
 	public function index() {
-		$this->load->model('Student_M');
-		echo $this->Student_M->isStudent();
+		
 	}
 	
 	public function activateAccount() {
@@ -102,8 +101,6 @@ class Student extends CI_Controller {
 		echo json_encode($ret);
 	}
 	
-	public function logout() {
-		
-	}
+	
 }
 /* End of file */

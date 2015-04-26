@@ -17,6 +17,7 @@
 				<form action="<?= base_url('manage/article/create') ?>" method="post" enctype="multipart/form-data">
 					<div class="input-group">
 						<span class="input-group-addon">课程模块</span>
+						<input id="course-id" type="hidden" name="course_id" value="-1">
 						<select name="course" class="form-control course-options"required>
 							<option value="-1" data-course-id="-1">请选择课程模块</option>
 							<?php foreach ($module as $one):?>
@@ -66,7 +67,7 @@
 						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 						</textarea>
 					</div>
-					<button class="btn btn-default pull-right" type="submit">提交</button>
+					<button class="btn btn-success pull-right" type="submit">提交</button>
 				</form>
 			</div>
 		</div>
@@ -96,6 +97,7 @@
 	  
 		$('.course-options').change(function() {
 			var _upper = $(this).find('option:selected').data('course-id'); 
+			$('#course-id').val(_upper);
 			$.ajax({
 				url: '<?= base_url('manage/article/getModules') ?>',
 				data: {upper: _upper},

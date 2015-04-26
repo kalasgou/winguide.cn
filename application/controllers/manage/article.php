@@ -13,21 +13,29 @@ class Article extends CI_Controller {
 	/*
 	 * View
 	 */
-	public function listsView() {
+	public function listsView($item = DEFAULT_PER_PAGE, $page = DEFAULT_START_PAGE) {
+		$params['item'] = intval($item) <= 0 ? DEFAULT_PER_PAGE : $item;
+		$params['page'] = intval($page) <= 0 ? DEFAULT_START_PAGE : $page - 1;
+		$params['course_id'] = intval($this->input->get('course_id', TRUE));
 		$params['module_id'] = intval($this->input->get('module_id', TRUE));
-		$params['item'] = intval($this->input->get('item', TRUE));
-		$params['page'] = intval($this->input->get('page', TRUE));
+		$params['status'] = 1;
 		
 		$output = array();
 		$output['hover'] = 'article';
 		
 		$this->load->model('manage/Article_M');
+		
+		$output['module'] = $this->Article_M->listModules(0);
+		
 		$output['articles'] = $this->Article_M->listArticles($params);
 		
 		foreach ($output['articles'] as &$one) {
 			list($one['course'], $one['module']) = explode('|', $one['category']);
 			$one['create_time_formatted'] = date('Y-m-d H:i:s', $one['create_time']);
 		}
+		
+		$output['total_num'] = $this->Article_M->countArticles($params);
+		$output['pagination'] = gen_pagination(base_url("console/article/view/lists/item/{$params['item']}/page/"), 8, $output['total_num'], $params['item']);
 		
 		$this->load->view('manage/article_lists.php', $output);
 	}
@@ -74,7 +82,7 @@ class Article extends CI_Controller {
 	public function create() {
 		$params['admin_id'] = 1;
 		$params['uuid'] = hex16to64(uuid());
-		$params['admin_id'] = 123;
+		$params['course_id'] = $this->input->post('course_id', TRUE);
 		$params['module_id'] = $this->input->post('module_id', TRUE);
 		$course = $this->input->post('course', TRUE);
 		$module = $this->input->post('module', TRUE);
@@ -86,6 +94,7 @@ class Article extends CI_Controller {
 		$params['multimedia_url'] = $this->input->post('multimedia_url', TRUE);
 		$params['link'] = $this->input->post('link', TRUE);
 		$params['attachment'] = $this->input->post('attachment', TRUE);
+		$params['status'] = 1;
 		$params['create_time'] = $_SERVER['REQUEST_TIME'];
 		
 		header('Content-Type: application/json, charset=utf-8');
@@ -127,7 +136,7 @@ class Article extends CI_Controller {
 		$ret['msg'] = 'success';
 		
 		$this->load->model('manage/Article_M');
-		$ret['modules'] = $this->Article_M->getArticleModules($upper);
+		$ret['modules'] = $this->Article_M->listModules($upper);
 		
 		echo json_encode($ret);
 	}

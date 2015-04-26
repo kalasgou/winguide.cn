@@ -15,13 +15,17 @@ class User_M extends CI_Model {
 		$offset = $params['item'] * $params['page'];
 		
 		$query = $this->db_conn->select('user_id, nickname, cellphone, create_time, status')
-					->from('users')/*->order_by('create_time DESC')->limit($item, $offset)*/->get();
+					->from('users')->order_by('create_time DESC')->limit($item, $offset)->get();
 		
 		if ($query->num_rows() > 0) {
 			$users = $query->result_array();
 		}
 		
 		return $users;
+	}
+	
+	public function countUsers() {
+		return $this->db_conn->count_all('users');
 	}
 }
 /* End of file */

@@ -7,8 +7,7 @@ class User extends CI_Controller {
 	}
 	
 	public function index() {
-		$this->load->model('User_M');
-		echo $this->User_M->isStudent();
+		
 	}
 	
 	public function register() {
@@ -79,5 +78,15 @@ class User extends CI_Controller {
 		
 		echo json_encode($ret);
 	}
+	
+	public function logout() {
+		
+	}
+	
+	public function userinfo() {
+		
+	}
+	
+	
 }
 /* End of file */

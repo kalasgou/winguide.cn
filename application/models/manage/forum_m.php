@@ -12,15 +12,25 @@ class Forum_M extends CI_Model {
 	public function listTopics($params) {
 		$topics = array();
 		
+		$item = $params['item'];
+		$offset = $params['item'] * $params['page'];
+		
 		$search = array();
 		$search['visibility'] = $params['visibility'];
 		
-		$query = $this->db_conn->select('*')->from('forum_topic')->where($search)->get();
+		$query = $this->db_conn->select('*')->from('forum_topic')->where($search)->order_by('create_time DESC')->limit($item, $offset)->get();
 		if ($query->num_rows() > 0) {
 			$topics = $query->result_array();
 		}
 		
 		return $topics;
+	}
+	
+	public function countTopics($params) {
+		$search = array();
+		$search['visibility'] = $params['visibility'];
+		
+		return $this->db_conn->from('forum_topic')->where($search)->count_all_results();
 	}
 	
 	public function createTopic($params) {

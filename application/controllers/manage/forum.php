@@ -14,9 +14,9 @@ class Forum extends CI_Controller {
 	/*
 	 * View
 	 */
-	public function listsView($visibility = '') {
-		$params['item'] = intval($this->input->get('item', TRUE));
-		$params['page'] = intval($this->input->get('page', TRUE));
+	public function listsView($item = 15, $page = 0, $visibility = '') {
+		$params['item'] = intval($item) <= 0 ? 15 : $item;
+		$params['page'] = intval($page) <= 0 ? 0 : $page - 1;
 		$params['course'] = trim($this->input->get('course', TRUE));
 		$params['visibility'] = trim($this->input->get('visibility', TRUE));
 		if ($visibility !== '') {
@@ -33,6 +33,9 @@ class Forum extends CI_Controller {
 			$one['create_time_formatted'] = date('Y-m-d H:i:s', $one['create_time']);
 			$one['update_time_formatted'] = date('Y-m-d H:i:s', $one['update_time']);
 		}
+		
+		$output['total_num'] = $this->Forum_M->countTopics($params);
+		$output['pagination'] = gen_pagination(base_url("console/forum/view/lists/item/{$params['item']}/page/"), 8, $output['total_num'], $params['item']);
 		
 		$this->load->view('manage/forum_lists', $output);
 	}
@@ -53,11 +56,15 @@ class Forum extends CI_Controller {
 	public function create() {
 		$params['admin_id'] = 1;
 		$params['uuid'] = hex16to64(uuid());
-		$params['module'] = $this->input->post('module', TRUE);
-		$params['visibility'] = $this->input->post('visibility', TRUE);
-		$params['topic'] = $this->input->post('topic', TRUE);
-		$params['thread'] = $this->input->post('thread');
+		$params['module'] = trim($this->input->post('module', TRUE));
+		$params['visibility'] = trim($this->input->post('visibility', TRUE));
+		$params['topic'] = trim($this->input->post('topic', TRUE));
+		$params['thread'] = trim($this->input->post('thread'));
 		$params['create_time'] = $_SERVER['REQUEST_TIME'];
+		
+		if (!check_parameters($params)) {
+			exit('Parameters not enough');
+		}
 		
 		header('Content-Type: application/json, charset=utf-8');
 		

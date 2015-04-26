@@ -10,17 +10,45 @@ class Article extends CI_Controller {
 		
 	}
 	
-	public function listArticles() {
-		$this->load->model('Article_M');
-		$articles = $this->Article_M->getArticlesByCategory();
+	public function lists() {
+		$params['item'] = intval($this->input->get('item', TRUE));
+		$params['page'] = intval($this->input->get('page', TRUE));
+		$params['course'] = trim($this->input->get('course', TRUE));
+		$params['module'] = trim($this->input->get('module', TRUE));
 		
-		foreach ($articles as $one) {
-			foreach ($one as $key => $val) {
-				if ($val === NULL) {
-					echo $key,"\n";
-				}
-			}
+		header('Content-Type: application/json, charset=utf-8');
+		
+		$ret = array();
+		$ret['code'] = 0;
+		$ret['msg'] = 'success';
+		
+		$this->load->model('Article_M');
+		$articles = $this->Article_M->getArticleLists($params);
+		
+		foreach ($articles as &$one) {
+			$one['create_time_formatted'] = date('Y-m-d H:i:s', $one['create_time']);
 		}
+		
+		$ret['articles'] = $articles;
+		
+		echo json_encode($ret);
+	}
+	
+	public function detail() {
+		$params['article_id'] = intval($this->input->get('article_id', TRUE));
+		
+		header('Content-Type: application/json, charset=utf-8');
+		
+		$ret = array();
+		$ret['code'] = 0;
+		$ret['msg'] = 'success';
+		
+		$this->load->model('Article_M');
+		$detail = $this->Article_M->getArticleDetail($params);
+		
+		$ret['detail'] = $detail;
+		
+		echo json_encode($ret);
 	}
 }
 /* End of file */

@@ -15,12 +15,34 @@ class Article_M extends CI_Model {
 		$item = $params['item'];
 		$offset = $params['item'] * $params['page'];
 		
-		$query = $this->db_conn->select('*')->from('articles')->order_by('create_time DESC')->limit($item, $offset)->get();
+		$search = array();
+		$search['status'] = $params['status'];
+		if ($params['course_id'] !== 0) {
+			$search['course_id'] = $params['course_id'];
+		}
+		if ($params['module_id'] !== 0) {
+			$search['module_id'] = $params['module_id'];
+		}
+		
+		$query = $this->db_conn->select('*')->from('articles')->where($search)->order_by('create_time DESC')->limit($item, $offset)->get();
 		if ($query->num_rows() > 0) {
 			$articles = $query->result_array();
 		}
 		
 		return $articles;
+	}
+	
+	public function countArticles($params) {
+		$search = array();
+		$search['status'] = $params['status'];
+		if ($params['course_id'] !== 0) {
+			$search['course_id'] = $params['course_id'];
+		}
+		if ($params['module_id'] !== 0) {
+			$search['module_id'] = $params['module_id'];
+		}
+		
+		return $this->db_conn->where($search)->count_all_results('articles');
 	}
 	
 	public function createArticle($params) {
