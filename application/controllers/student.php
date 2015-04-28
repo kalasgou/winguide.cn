@@ -13,17 +13,32 @@ class Student extends CI_Controller {
 	public function activateAccount() {
 		$params = array();
 		$post_arr = $this->input->post();
+		//var_dump($post_arr);exit();
 		foreach ($post_arr as $key => $val) {
-			$val = trim($val);
 			list($table, $blank) = explode(':', $key);
-			if (strpos($blank, '-') !== FALSE) {
-				list($option, $blank) = explode('-', $blank);
-				$params[$table][$option][$blank] = $val !== '' ? $val : NULL;
-			} else {
-				$params[$table][$blank] = $val !== '' ? $val : NULL;
+			if (is_string($val)) {
+				$actual = trim($val);
+				if (strpos($blank, '-') !== FALSE) {
+					list($option, $sub_blank) = explode('-', $blank);
+					$params[$table][$option][$sub_blank] = $actual !== '' ? $actual : NULL;
+				} else {
+					$params[$table][$blank] = $actual !== '' ? $actual : NULL;
+				}
+			} elseif (is_array($val)) {
+				$index = 1;
+				foreach ($val as $one) {
+					$actual = trim($one);
+					if (strpos($blank, '-') !== FALSE) {
+						list($option, $sub_blank) = explode('-', $blank);
+						$params[$table][$option][$sub_blank."_$index"] = $actual !== '' ? $actual : NULL;
+					} else {
+						$params[$table][$blank."_$index"] = $actual !== '' ? $actual : NULL;
+					}
+					++$index;
+				}
 			}
 		}
-		
+		//var_dump($params);exit();
 		header('Content-Type: application/json, charset=utf-8');
 		
 		$ret = array();

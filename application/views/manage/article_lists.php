@@ -65,10 +65,10 @@
 							<td><?= $one['create_time_formatted']?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
-								<a href="<?= base_url('console/article/view/detail?article_id='.$one['article_id'])?>"><span class="glyphicon glyphicon-file"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-								<a href="#" data-title="Edit" data-toggle="modal" data-target="#edit"><span class="glyphicon glyphicon-wrench"></span></a>
-								<a href="#" data-title="Delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash"></span></a>
+								<a href="<?= base_url('console/article/view/detail?article_id='.$one['article_id'])?>" title="查看文章详情"><span class="glyphicon glyphicon-file"></span></a>
+								<a href="#" data-title="Edit" data-toggle="modal" data-target="#edit" title="编辑文章内容"><span class="glyphicon glyphicon-pencil"></span></a>
+								<a href="#" data-title="Configure" data-toggle="modal" data-target="#configure" title="变更文章属性"><span class="glyphicon glyphicon-wrench"></span></a>
+								<a href="#" data-title="Delete" data-toggle="modal" data-target="#delete" title="删除文章记录"><span class="glyphicon glyphicon-trash"></span></a>
 							</td>
 						</tr>
 						<?php endforeach;?>
@@ -89,21 +89,21 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-					<h4 class="modal-title custom_align" id="Heading">Edit Your Detail</h4>
+					<h4 class="modal-title custom_align" id="Heading">编辑文章内容</h4>
 				</div>
 				<div class="modal-body">
-					<div class="form-group">
+					<div class="input-group">
 						<input class="form-control " type="text" placeholder="Mohsin">
 					</div>
-					<div class="form-group">
+					<div class="input-group">
 						<input class="form-control " type="text" placeholder="Irshad">
 					</div>
-					<div class="form-group">
+					<div class="input-group">
 						<textarea rows="2" class="form-control" placeholder="CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan"></textarea>
 					</div>
 				</div>
 				<div class="modal-footer ">
-					<button type="button" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
+					<button type="button" class="btn btn-warning btn-lg update" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> 更新</button>
 				</div>
 			</div>
 		<!-- /.modal-content --> 
@@ -116,14 +116,14 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-					<h4 class="modal-title custom_align" id="Heading">Delete this entry</h4>
+					<h4 class="modal-title custom_align" id="Heading">删除文章记录</h4>
 				</div>
 				<div class="modal-body">
 					<div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to delete this Record?</div>
 				</div>
 				<div class="modal-footer ">
-					<button type="button" class="btn btn-success" ><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+					<button type="button" class="btn btn-success confirm" ><span class="glyphicon glyphicon-ok-sign"></span> 确定</button>
+					<button type="button" class="btn btn-default cancel" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> 取消</button>
 				</div>
 			</div>
 		<!-- /.modal-content --> 
