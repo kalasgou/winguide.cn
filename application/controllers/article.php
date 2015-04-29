@@ -31,6 +31,10 @@ class Article extends CI_Controller {
 		
 		$ret['articles'] = $articles;
 		
+		$total = $this->Article_M->countArticles($params);
+		$pages = intval($total / $params['item']);
+		$ret['total_page'] = ($total % $params['item']) === 0 ? $pages : $pages + 1;
+		
 		echo json_encode($ret);
 	}
 	

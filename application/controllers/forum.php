@@ -19,7 +19,12 @@ class Forum extends CI_Controller {
 		$ret['msg'] = 'success';
 		
 		$this->load->model('Forum_M');
-		$ret['topic'] = $this->Forum_M->getTopicByVisibility($params);
+		$topic = $this->Forum_M->getTopicByVisibility($params);
+		$ret['topic'] = $topic;
+		
+		$total = $this->Forum_M->countTopicReplies($topic['topic_id']);
+		$pages = intval($total / $params['item']);
+		$ret['total_page'] = ($total % $params['item']) === 0 ? $pages : $pages + 1;
 		
 		echo json_encode($ret);
 	}

@@ -34,6 +34,13 @@ class Forum_M extends CI_Model {
 		return $topic;
 	}
 	
+	public function countTopicReplies($topic_id) {
+		$search = array();
+		$search['topic_id'] = $topic_id;
+		
+		return $this->db_conn->where($search)->count_all_results('forum_reply');
+	}
+	
 	public function saveTopicReply($params) {
 		$this->db_conn->insert('forum_reply', $params);
 		

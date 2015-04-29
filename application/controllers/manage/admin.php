@@ -90,6 +90,8 @@ class Admin extends CI_Controller {
 			if ($chk_lower || $chk_upper) {
 				$ret['code'] = 0;
 				$ret['msg'] = 'success';
+				
+				header('Location: '.base_url('console/article'));
 			} else {
 				$ret['code'] = 2;
 				$ret['msg'] = 'password error';

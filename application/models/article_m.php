@@ -32,6 +32,13 @@ class Article_M extends CI_Model {
 		 return $articles;
 	}
 	
+	public function countArticles($params) {
+		$search = array();
+		$search['category'] = $params['course'].'|'.$params['module'];
+		
+		return intval($this->db_conn->where($search)->count_all_results('articles'));
+	}
+	
 	public function getArticleDetail($params) {
 		$detail = array();
 		
