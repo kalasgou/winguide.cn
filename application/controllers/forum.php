@@ -12,6 +12,10 @@ class Forum extends CI_Controller {
 		$params['module'] = trim($this->input->get('course', TRUE));
 		$params['visibility'] = trim($this->input->get('module', TRUE));
 		
+		if (!check_parameters($params)) {
+			exit('Parameters not enough');
+		}
+		
 		header('Content-Type: application/json, charset=utf-8');
 		
 		$ret = array();
