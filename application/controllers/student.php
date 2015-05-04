@@ -14,6 +14,7 @@ class Student extends CI_Controller {
 		$params = array();
 		$post_arr = $this->input->post();
 		//var_dump($post_arr);exit();
+		//echo json_encode($post_arr); exit();
 		foreach ($post_arr as $key => $val) {
 			list($table, $blank) = explode(':', $key);
 			if (is_string($val)) {
@@ -49,31 +50,33 @@ class Student extends CI_Controller {
 		$student = $this->Student_M->getStudentByUname($params['student']['username']);
 		
 		if (!empty($student)) {
-			require APPPATH .'third_party/pass/PasswordHash.php';
-			$hasher = new PasswordHash(HASH_COST_LOG2, HASH_PORTABLE);
-			$chk_lower = $hasher->CheckPassword(strtolower($params['student']['password']), $student['password']);
-			$chk_upper = $hasher->CheckPassword(strtoupper($params['student']['password']), $student['password']);
-			
-			if ($chk_lower || $chk_upper) {
+			if ($student['status'] === '0') {
+				require APPPATH .'third_party/pass/PasswordHash.php';
+				$hasher = new PasswordHash(HASH_COST_LOG2, HASH_PORTABLE);
+				$chk_lower = $hasher->CheckPassword(strtolower($params['student']['password']), $student['password']);
+				$chk_upper = $hasher->CheckPassword(strtoupper($params['student']['password']), $student['password']);
 				
-				$params['student'] = $student;
-				$result = $this->Student_M->doActivation($params);
-				
-				if ($result) {
-					$ret['code'] = 0;
-					$ret['msg'] = 'success';
+				if ($chk_lower || $chk_upper) {
+					
+					$params['student'] = $student;
+					$result = $this->Student_M->doActivation($params);
+					
+					if ($result) {
+						$ret['code'] = 0;
+						$ret['msg'] = 'success';
+					}
+				} else {
+					$ret['code'] = 2;
+					$ret['msg'] = 'password error';
 				}
 			} else {
-				$ret['code'] = 2;
-				$ret['msg'] = 'password error';
+				$ret['code'] = 4;
+				$ret['msg'] = 'already activated';
 			}
 		} else {
 			$ret['code'] = 3;
 			$ret['msg'] = 'no this student';
 		}
-		
-		
-		
 		
 		echo json_encode($ret);
 	}

@@ -10,9 +10,9 @@ class Admin extends CI_Controller {
 		$this->listsView();
 	}
 	
-	public function listsView() {
-		$params['item'] = intval($this->input->get('item', TRUE));
-		$params['page'] = intval($this->input->get('page', TRUE));
+	public function listsView($item = DEFAULT_PER_PAGE, $page = DEFAULT_START_PAGE) {
+		$params['item'] = intval($item) <= 0 ? DEFAULT_PER_PAGE : $item;
+		$params['page'] = intval($page) <= 0 ? DEFAULT_START_PAGE : $page - 1;
 		
 		$output = array();
 		$output['hover'] = 'admin';
@@ -23,6 +23,9 @@ class Admin extends CI_Controller {
 		foreach ($output['admins'] as &$one) {
 			$one['create_time_formatted'] = date('Y-m-d H:i:s', $one['create_time']);
 		}
+		
+		$output['total_num'] = $this->Admin_M->countAdmins($params);
+		$output['pagination'] = gen_pagination(base_url("console/admin/view/lists/item/{$params['item']}/page/"), 8, $output['total_num'], $params['item']);
 		
 		$this->load->view('manage/admin_lists', $output);
 	}

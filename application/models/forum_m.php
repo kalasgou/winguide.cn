@@ -28,6 +28,8 @@ class Forum_M extends CI_Model {
 			$admin = $query->row_array();
 			$topic['admin_name'] = $admin['username'];
 			
+			$topic['replies'] = array();
+			
 			$query = $this->db_conn->select('R.id, R.topic_id, R.user_id, U.cellphone AS nickname, R.reply, R.create_time')->from('forum_reply AS R')->join('users AS U', 'U.user_id = R.user_id', 'LEFT')->where('R.topic_id = '.$topic['topic_id'])->order_by('R.create_time DESC')->limit($item, $offset)->get();
 			
 			if ($query->num_rows() > 0) {

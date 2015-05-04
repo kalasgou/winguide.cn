@@ -57,7 +57,21 @@ class Student extends CI_Controller {
 	}
 	
 	public function searchView() {
+		$output = array();
+		$output['hover'] = 'student';
+		$this->load->view('manage/student_create.php', $output);
+	}
+	
+	public function detailView() {
+		$student_id = intval($this->input->get('student_id', TRUE));
 		
+		$output = array();
+		$output['hover'] = 'student';
+		
+		$this->load->model('manage/Student_M');
+		$output['detail'] = $this->Student_M->getAccountDetail($student_id);
+		//var_dump($output['detail']);
+		$this->load->view('manage/student_detail', $output);
 	}
 	
 	public function lists() {

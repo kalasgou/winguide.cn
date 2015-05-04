@@ -60,7 +60,7 @@ class Student_M extends CI_Model {
 		$this->db_conn->where("student_id = {$student_id}")
 					->update('students', array('user_id' => $user_id, 'status' => $this->ACTIVATED));
 		
-		// Exams
+		// Standard Exams
 		$exams = array();
 		foreach ($params['exam'] as $subject => $profiles) {
 			foreach ($profiles as $key => $val) {

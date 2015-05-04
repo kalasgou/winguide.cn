@@ -28,7 +28,8 @@ class Forum extends CI_Controller {
 		
 		$total = $this->Forum_M->countTopicReplies($topic['topic_id']);
 		$pages = intval($total / $params['item']);
-		$ret['total_page'] = ($total % $params['item']) === 0 ? $pages : $pages + 1;
+		$ret['topic']['total_page'] = ($total % $params['item']) === 0 ? $pages : $pages + 1;
+		$ret['topic']['total_replies'] = $total;
 		
 		echo json_encode($ret);
 	}

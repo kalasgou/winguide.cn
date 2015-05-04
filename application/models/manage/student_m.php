@@ -98,5 +98,83 @@ class Student_M extends CI_Model {
 		
 		return intval($total_num);
 	}
+	
+	public function getAccountDetail($student_id) {
+		$detail = array();
+		
+		$search = array();
+		$search['student_id'] = $student_id;
+		
+		$query = $this->db_conn->select('user_id, username, course, purchase_time')->from('students')->where('student_id = '.$student_id)->limit(1)->get();
+		if ($query->num_rows() > 0) {
+			$detail['student'] = array();
+			$row = $query->row_array();
+			$detail['student'] = $row;
+			
+			if ($row['user_id'] > 0) {
+				// Basic
+				$query = $this->db_conn->select('real_name, used_name, birthday, sex, marriage, born_city, family_addr, family_zip_code, contact_addr, contact_zip_code, email, telephone, cellphone')
+									->from('users')->where('user_id = '.$row['user_id'])->limit(1)->get();
+				
+				$detail['basic'] = array();
+				if ($query->num_rows() > 0) {
+					$detail['basic'] = $query->row_array();
+				}
+				
+				// Standard Exams
+				$query = $this->db_conn->select('*')->from('student_standardization')->where('student_id = '.$student_id)->get();
+				
+				$detail['exam'] = array();
+				if ($query->num_rows() > 0) {
+					$exams = $query->result_array();
+					foreach ($exams as $one) {
+						$key = strtolower($one['subject'].'-'.$one['profile']);
+						$detail['exam'][$key] = $one['quality'];
+					}
+				}
+				
+				// Family
+				$query = $this->db_conn->select('*')->from('student_family')->where('student_id = '.$student_id)->get();
+				
+				$detail['family'] = array();
+				if ($query->num_rows() > 0) {
+					$family = $query->result_array();
+					foreach ($family as $one) {
+						$detail['family'][$one['parent']] = $one;
+					}
+				}
+				
+				// Education
+				$query = $this->db_conn->select('*')->from('student_education')->where('student_id = '.$student_id)->get();
+				
+				$detail['edu'] = array();
+				if ($query->num_rows() > 0) {
+					$education = $query->result_array();
+					foreach ($education as $one) {
+						$detail['edu'][$one['degree'].'-'.$one['profile']] = $one['quality'];
+					}
+				}
+				
+				// Application
+				$query = $this->db_conn->select('*')->from('student_application')->where('student_id = '.$student_id)->limit(1)->get();
+				
+				$detail['application'] = array();
+				if ($query->num_rows() > 0) {
+					$detail['application'] = $query->row_array();
+				}
+				
+				// Referee
+				$query = $this->db_conn->select('*')->from('student_referee')->where('student_id = '.$student_id)->limit(1)->get();
+				
+				$detail['referee'] = array();
+				if ($query->num_rows() > 0) {
+					$detail['referee'] = $query->row_array();
+				}
+				
+			}
+		}
+		
+		return $detail;
+	}
 }
 /* End of file */

@@ -11,10 +11,12 @@ class User extends CI_Controller {
 	}
 	
 	public function register() {
-		$params['cellphone'] = trim($this->input->post('cellphone'));
-		$params['nickname'] = trim($this->input->post('nickname'));
-		$params['password'] = trim($this->input->post('password'));
+		$params['cellphone'] = trim($this->input->post('cellphone', TRUE));
+		$params['nickname'] = trim($this->input->post('nickname', TRUE));
+		$params['password'] = trim($this->input->post('password', TRUE));		
 		$params['create_time'] = $_SERVER['REQUEST_TIME'];
+		
+		$code = trim($this->input->post('code', TRUE));
 		
 		if (!check_parameters($params)) {
 			exit('Parameters Not Enough');
@@ -25,6 +27,12 @@ class User extends CI_Controller {
 		$ret = array();
 		$ret['code'] = 1;
 		$ret['msg'] = 'fail';
+		
+		// 
+		if (strcasecmp($code, '123456') !== 0) {
+			$ret['code'] = 1;
+			$ret['msg'] = 'fail';
+		}
 		
 		require APPPATH .'third_party/pass/PasswordHash.php';
 		$hasher = new PasswordHash(HASH_COST_LOG2, HASH_PORTABLE);

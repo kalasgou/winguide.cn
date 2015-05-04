@@ -26,6 +26,10 @@ class Admin_M extends CI_Model {
 		return $admins;
 	}
 	
+	public function countAdmins() {
+		return $this->db_conn->count_all('administrators');
+	}
+	
 	public function getAdminByEmail($email) {
 		$admin = array();
 		$query = $this->db_conn->select('admin_id, username, email, password, status')
