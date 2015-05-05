@@ -398,7 +398,13 @@ $(function () {
 						</a></li>
 					<li class="dropdown ">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-						<span class="glyphicon glyphicon-user"></span> 当前帐号
+						<span class="glyphicon glyphicon-user"></span>
+						<?php if (!empty($_SESSION['administrator'])) { 
+								echo '<a href="">'.$_SESSION['administrator']['username'].'</a>';
+							} else {
+								echo 'Forbidden';
+							} 
+						?>
 						<span class="caret"></span></a>
 						<ul class="dropdown-menu" role="menu">
 							<!--<li class="dropdown-header">设置</li>-->
@@ -406,7 +412,7 @@ $(function () {
 							<li class=""><a href="#"><span class="glyphicon glyphicon-cog"></span> Other Link</a></li>
 							<li class=""><a href="#"><span class="glyphicon glyphicon-cog"></span> Other Link</a></li>
 							<li class="divider"></li>-->
-							<li><a href="#"><span class="glyphicon glyphicon-off"></span> 退出系统</a></li>
+							<li><a href="<?= base_url('manage/admin/logout')?>"><span class="glyphicon glyphicon-off"></span> 退出系统</a></li>
 						</ul>
 					</li>
 				</ul>

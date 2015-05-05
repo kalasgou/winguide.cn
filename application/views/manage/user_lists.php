@@ -35,6 +35,7 @@
 						</tr>
 					</thead>
 					<tbody>
+						<?php if (count($users) > 0) { ?>
 						<?php foreach($users as $one):?>
 						<tr>
 							<td><?= $one['user_id'];?></td>
@@ -43,13 +44,18 @@
 							<td><?= $one['create_time_formatted'];?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
-								<a href="#"><span class="glyphicon glyphicon-file"></span></a>
+								<a href="#"><span class="glyphicon glyphicon-info-sign"></span></a>
 								<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
 								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
 								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
 							</td>
 						</tr>
 						<?php endforeach;?>
+						<?php } else { ?>
+						<tr>
+							<td colspan="6" align="center">暂无相关数据</td>
+						</tr>
+						<?php } ?>
 					</tbody>
 					<tfoot>
 					</tfoot>

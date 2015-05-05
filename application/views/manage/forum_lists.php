@@ -41,6 +41,7 @@
 						</tr>
 					</thead>
 					<tbody>
+						<?php if (count($topics) > 0) { ?>
 						<?php foreach($topics as $one):?>
 						<tr>
 							<td><span data-uuid="<?= $one['uuid']?>"><?= $one['topic_id'];?></span></td>
@@ -52,13 +53,18 @@
 							<td><?= $one['update_time_formatted'];?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
-								<a href="#"><span class="glyphicon glyphicon-file"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
+								<a href="#"><span class="glyphicon glyphicon-edit"></span></a>
+								<a href="#"><span class="glyphicon glyphicon-comment"></span></a>
 								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
 								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
 							</td>
 						</tr>
 						<?php endforeach;?>
+						<?php } else { ?>
+						<tr>
+							<td colspan="9" align="center">暂无相关数据</td>
+						</tr>
+						<?php } ?>
 					</tbody>
 					<tfoot>
 					</tfoot>

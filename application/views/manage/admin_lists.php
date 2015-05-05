@@ -35,6 +35,7 @@
 						</tr>
 					</thead>
 					<tbody>
+						<?php if (count($admins) > 0) { ?>
 						<?php foreach($admins as $one):?>
 						<tr>
 							<td><?= $one['admin_id']?></td>
@@ -43,13 +44,18 @@
 							<td><?= $one['create_time_formatted']?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
-								<a href="#"><span class="glyphicon glyphicon-file"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
+								<a href="#"><span class="glyphicon glyphicon-info-sign"></span></a>
+								<a href="#" data-title="Edit" data-toggle="modal" data-target="#edit" title="编辑管理帐户"><span class="glyphicon glyphicon-pencil"></span></a>
+								<a href="#" data-title="Configure" data-toggle="modal" data-target="#configure" title="变更管理帐户"><span class="glyphicon glyphicon-wrench"></span></a>
+								<a href="#" data-title="Delete" data-toggle="modal" data-target="#delete" title="删除管理帐户"><span class="glyphicon glyphicon-trash"></span></a>
 							</td>
 						</tr>
 						<?php endforeach;?>
+						<?php } else { ?>
+						<tr>
+							<td colspan="6" align="center">暂无相关数据</td>
+						</tr>
+						<?php } ?>
 					</tbody>
 					<tfoot>
 					</tfoot>
@@ -62,6 +68,54 @@
 		</div>
 	</div>
 	
+	<input id="hidden-id" type="hidden" placeholder="you cannot see me"/>
+	
+	<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+					<h4 class="modal-title custom_align" id="Heading">编辑管理帐号</h4>
+				</div>
+				<div class="modal-body">
+					<div class="input-group">
+						<input class="form-control " type="text" placeholder="Mohsin">
+					</div>
+					<div class="input-group">
+						<input class="form-control " type="text" placeholder="Irshad">
+					</div>
+					<div class="input-group">
+						<textarea rows="2" class="form-control" placeholder="CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan"></textarea>
+					</div>
+				</div>
+				<div class="modal-footer ">
+					<button type="button" class="btn btn-warning btn-lg update" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> 更新</button>
+				</div>
+			</div>
+		<!-- /.modal-content --> 
+		</div>
+		<!-- /.modal-dialog --> 
+	</div>
+	
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+					<h4 class="modal-title custom_align" id="Heading">删除管理帐号</h4>
+				</div>
+				<div class="modal-body">
+					<div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> 删除 <b class="hints"></b> ，你确定？</div>
+				</div>
+				<div class="modal-footer ">
+					<button type="button" class="btn btn-success confirm" ><span class="glyphicon glyphicon-ok-sign"></span> 确定</button>
+					<button type="button" class="btn btn-default cancel" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> 取消</button>
+				</div>
+			</div>
+		<!-- /.modal-content --> 
+		</div>
+		<!-- /.modal-dialog --> 
+    </div>
 </div>
 </div>
 <script type="text/javascript">

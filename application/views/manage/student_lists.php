@@ -40,6 +40,7 @@
 						</tr>
 					</thead>
 					<tbody>
+						<?php if (count($students) > 0) { ?>
 						<?php foreach($students as $one):?>
 						<tr>
 							<td><span data-user-id="<?= $one['user_id']?>"><?= $one['student_id']?></span></td>
@@ -50,13 +51,17 @@
 							<td><?= $one['purchase_time_formatted']?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
-								<a href="#"><span class="glyphicon glyphicon-file"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
+								<a href="<?= base_url('console/student/view/detail?student_id='.$one['student_id'])?>" target="_blank"><span class="glyphicon glyphicon-edit"></span></a>
 								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
 								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
 							</td>
 						</tr>
 						<?php endforeach;?>
+						<?php } else { ?>
+						<tr>
+							<td colspan="8" align="center">暂无相关数据</td>
+						</tr>
+						<?php } ?>
 					</tbody>
 					<tfoot>
 					</tfoot>
@@ -68,6 +73,10 @@
 			</div>
 		</div>
 	</div>
+	
+	<input id="hidden-id" type="hidden" placeholder="you cannot see me"/>
+	
+	
 	
 </div>
 </div>

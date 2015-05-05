@@ -38,6 +38,7 @@
 						</tr>
 					</thead>
 					<tbody>
+						<?php if (count($accounts) > 0) { ?>
 						<?php foreach($accounts as $one):?>
 						<tr>
 							<td><?= $one['student_id']?></td>
@@ -47,13 +48,18 @@
 							<td><?= $one['purchase_time_formatted']?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
-								<a href="#" title="查看学生信息"><span class="glyphicon glyphicon-file"></span></a>
+								<a href="#" title="查看学生信息"><span class="glyphicon glyphicon-info-sign"></span></a>
 								<a href="#" data-title="Edit" data-toggle="modal" data-target="#edit" title="编辑学生信息"><span class="glyphicon glyphicon-pencil"></span></a>
 								<a href="#" data-title="Configure" data-toggle="modal" data-target="#configure" title="变更学生状态"><span class="glyphicon glyphicon-wrench"></span></a>
 								<a href="#" data-title="Delete" data-toggle="modal" data-target="#delete" title="删除学生记录"><span class="glyphicon glyphicon-trash"></span></a>
 							</td>
 						</tr>
 						<?php endforeach;?>
+						<?php } else { ?>
+						<tr>
+							<td colspan="7" align="center">暂无相关数据</td>
+						</tr>
+						<?php } ?>
 					</tbody>
 					<tfoot>
 					</tfoot>

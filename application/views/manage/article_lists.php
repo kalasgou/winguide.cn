@@ -56,22 +56,27 @@
 						</tr>
 					</thead>
 					<tbody>
+						<?php if (count($articles) > 0) { ?>
 						<?php foreach($articles as $one):?>
 						<tr>
 							<td><span data-uuid="<?= $one['uuid']?>"><?= $one['article_id']?></span></td>
-							<td><?= $one['title']?></td>
+							<td><a href="#"><?= $one['title']?></a></td>
 							<td><?= $one['course']?></td>
 							<td><?= $one['module']?></td>
 							<td><?= $one['create_time_formatted']?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
-								<a href="<?= base_url('console/article/view/detail?article_id='.$one['article_id'])?>" title="查看文章详情"><span class="glyphicon glyphicon-file"></span></a>
-								<a href="#" data-title="Edit" data-toggle="modal" data-target="#edit" title="编辑文章内容"><span class="glyphicon glyphicon-pencil"></span></a>
+								<a href="<?= base_url('console/article/view/detail?article_id='.$one['article_id'])?>" title="编辑文章内容"><span class="glyphicon glyphicon-edit"></span></a>
 								<a href="#" data-title="Configure" data-toggle="modal" data-target="#configure" title="变更文章属性"><span class="glyphicon glyphicon-wrench"></span></a>
 								<a href="#" data-title="Delete" data-toggle="modal" data-target="#delete" title="删除文章记录"><span class="glyphicon glyphicon-trash"></span></a>
 							</td>
 						</tr>
 						<?php endforeach;?>
+						<?php } else { ?>
+						<tr>
+							<td colspan="7" align="center">暂无相关数据</td>
+						</tr>
+						<?php } ?>
 					</tbody>
 					<tfoot>
 					</tfoot>
@@ -83,13 +88,15 @@
 			</div>
 		</div>
 	</div>
-
-	<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+	
+	<input id="hidden-id" type="hidden" placeholder="you cannot see me"/>
+	
+	<div class="modal fade" id="configure" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-					<h4 class="modal-title custom_align" id="Heading">编辑文章内容</h4>
+					<h4 class="modal-title custom_align" id="Heading">变更文章属性</h4>
 				</div>
 				<div class="modal-body">
 					<div class="input-group">
@@ -119,7 +126,7 @@
 					<h4 class="modal-title custom_align" id="Heading">删除文章记录</h4>
 				</div>
 				<div class="modal-body">
-					<div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to delete this Record?</div>
+					<div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> 删除 <b class="hints"></b> ，你确定？</div>
 				</div>
 				<div class="modal-footer ">
 					<button type="button" class="btn btn-success confirm" ><span class="glyphicon glyphicon-ok-sign"></span> 确定</button>
@@ -166,7 +173,7 @@
 			var _entry_id = $($(this).parent().siblings('td')[0]).html()
 			$('input.hidden-id').val(_entry_id);
 			
-			var _cur_title = $($(this).parent().siblings('td')[2]).html();
+			var _cur_title = $($(this).parent().siblings('td')[1]).html();
 			
 			switch ($(this).data('title')) {
 				case 'Edit':
