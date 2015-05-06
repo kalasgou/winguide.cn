@@ -32,10 +32,6 @@ class Student_M extends CI_Model {
 		return $student;
 	}
 	
-	public function doLogin($params) {
-		
-	}
-	
 	public function doActivation($params) {
 		$user_id = 0;
 		$student_id = $params['student']['student_id'];
@@ -123,6 +119,10 @@ class Student_M extends CI_Model {
 		$this->db_conn->insert('student_referee', $referee);
 		
 		return TRUE;
+	}
+	
+	public function retrieveScores() {
+		return FALSE;
 	}
 }
 /* End of file */

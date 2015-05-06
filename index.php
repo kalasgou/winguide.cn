@@ -190,6 +190,8 @@ if (defined('ENVIRONMENT'))
 
 		define('APPPATH', BASEPATH.$application_folder.'/');
 	}
+	
+session_start();
 
 /*
  * --------------------------------------------------------------------
@@ -200,6 +202,8 @@ if (defined('ENVIRONMENT'))
  *
  */
 require_once BASEPATH.'core/CodeIgniter.php';
+
+
 
 /* End of file index.php */
 /* Location: ./index.php */

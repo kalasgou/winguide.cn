@@ -13,8 +13,11 @@ class Student extends CI_Controller {
 	public function activateAccount() {
 		$params = array();
 		$post_arr = $this->input->post();
-		//var_dump($post_arr);exit();
-		//echo json_encode($post_arr); exit();
+		
+		if (empty($post_arr)) {
+			exit('Forbidden');
+		}
+		
 		foreach ($post_arr as $key => $val) {
 			list($table, $blank) = explode(':', $key);
 			if (is_string($val)) {
@@ -70,7 +73,7 @@ class Student extends CI_Controller {
 					$ret['msg'] = 'password error';
 				}
 			} else {
-				$ret['code'] = 4;
+				$ret['code'] = 6;
 				$ret['msg'] = 'already activated';
 			}
 		} else {
@@ -107,6 +110,9 @@ class Student extends CI_Controller {
 			if ($chk_lower || $chk_upper) {
 				$ret['code'] = 0;
 				$ret['msg'] = 'success';
+				
+				$_SESSION['user']['id'] = $student['user_id'];
+				$_SESSION['user']['nickname'] = $student['username'];
 			} else {
 				$ret['code'] = 2;
 				$ret['msg'] = 'password error';
@@ -119,6 +125,9 @@ class Student extends CI_Controller {
 		echo json_encode($ret);
 	}
 	
-	
+	public function scores() {
+		$params['student_id'] = 4;
+		$params['course'] = trim($this->input->get('course', TRUE));
+	}
 }
 /* End of file */
