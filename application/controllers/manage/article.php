@@ -67,7 +67,11 @@ class Article extends CI_Controller {
 		$output['hover'] = 'article';
 		
 		$this->load->model('manage/Article_M');
-		$output['detail'] = $this->Article_M->viewArticle($params);
+		
+		$detail = $this->Article_M->viewArticle($params);
+		$output['courses'] = $this->Article_M->listModules(0);
+		$output['modules'] = $this->Article_M->listModules($detail['course_id']);
+		$output['detail'] = $detail;
 		
 		$this->load->view('manage/article_detail.php', $output);
 	}
@@ -82,18 +86,18 @@ class Article extends CI_Controller {
 	public function create() {
 		$params['admin_id'] = 1;
 		$params['uuid'] = hex16to64(uuid());
-		$params['course_id'] = $this->input->post('course_id', TRUE);
-		$params['module_id'] = $this->input->post('module_id', TRUE);
-		$course = $this->input->post('course', TRUE);
-		$module = $this->input->post('module', TRUE);
+		$params['course_id'] = intval($this->input->post('course_id', TRUE));
+		$params['module_id'] = intval($this->input->post('module_id', TRUE));
+		$course = trim($this->input->post('course', TRUE));
+		$module = trim($this->input->post('module', TRUE));
 		$params['category'] = "$course|$module";
-		$params['title'] = $this->input->post('title', TRUE);
-		$params['keywords'] = $this->input->post('keywords', TRUE);
+		$params['title'] = trim($this->input->post('title', TRUE));
+		//$params['keywords'] = $this->input->post('keywords', TRUE);
 		$params['content'] = $this->input->post('content');
-		$params['summary'] = $this->input->post('summary', TRUE);
-		$params['multimedia_url'] = $this->input->post('multimedia_url', TRUE);
-		$params['link'] = $this->input->post('link', TRUE);
-		$params['attachment'] = $this->input->post('attachment', TRUE);
+		//$params['summary'] = $this->input->post('summary', TRUE);
+		$params['multimedia_url'] = trim($this->input->post('multimedia_url', TRUE));
+		//$params['link'] = $this->input->post('link', TRUE);
+		//$params['attachment'] = $this->input->post('attachment', TRUE);
 		$params['status'] = 1;
 		$params['create_time'] = $_SERVER['REQUEST_TIME'];
 		
@@ -115,7 +119,37 @@ class Article extends CI_Controller {
 	}
 	
 	public function update() {
+		$params['article_id'] = $this->input->post('article_id', TRUE);;
+		$params['course_id'] = $this->input->post('course_id', TRUE);
+		$params['module_id'] = $this->input->post('module_id', TRUE);
+		$course = trim($this->input->post('course', TRUE));
+		$module = trim($this->input->post('module', TRUE));
+		$params['category'] = "$course|$module";
+		$params['title'] = trim($this->input->post('title', TRUE));
+		//$params['keywords'] = $this->input->post('keywords', TRUE);
+		$params['content'] = $this->input->post('content');
+		//$params['summary'] = $this->input->post('summary', TRUE);
+		$params['multimedia_url'] = trim($this->input->post('multimedia_url', TRUE));
+		//$params['link'] = $this->input->post('link', TRUE);
+		//$params['attachment'] = $this->input->post('attachment', TRUE);
+		//$params['status'] = 1;
+		$params['update_time'] = $_SERVER['REQUEST_TIME'];
 		
+		header('Content-Type: application/json, charset=utf-8');
+		
+		$ret = array();
+		$ret['code'] = 1;
+		$ret['msg'] = 'fail';
+		
+		$this->load->model('manage/Article_M');
+		$result = $this->Article_M->modifyArticle($params);
+		
+		if ($result) {
+			$ret['code'] = 0;
+			$ret['msg'] = 'success';
+		}
+		
+		echo json_encode($ret);
 	}
 	
 	public function delete() {

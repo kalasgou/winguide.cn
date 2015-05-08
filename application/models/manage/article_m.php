@@ -64,8 +64,18 @@ class Article_M extends CI_Model {
 		return $detail;
 	}
 	
-	public function updateArticle($params) {
+	public function modifyArticle($params) {
+		$search = array();
+		$search['article_id'] = $params['article_id'];
 		
+		$refresh = array();
+		foreach ($params as $key => $val) {
+			if ($key !== 'article_id' && $val !== '') {
+				$refresh[$key] = $val;
+			}
+		}
+		
+		return $this->db_conn->where($search)->update('articles', $refresh);
 	}
 	
 	public function deleteArticle($params) {
