@@ -70,6 +70,8 @@
 				</ul>
 			</div>
 			
+			<input id="hidden-id" type="hidden" placeholder="You can not see me"/>
+			
 			<div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -79,13 +81,18 @@
 						</div>
 						<div class="modal-body">
 							<div class="input-group">
-								<input class="form-control " type="text" placeholder="Mohsin">
+								<span class="input-group-addon">帐号名称</span>
+								<input class="form-control username" type="text" placeholder="Username" disabled/>
 							</div>
 							<div class="input-group">
-								<input class="form-control " type="text" placeholder="Irshad">
-							</div>
-							<div class="input-group">
-								<textarea rows="2" class="form-control" placeholder="CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan"></textarea>
+								<span class="input-group-addon">选择课程</span>
+								<select class="form-control courses" required>
+									<option value="gmat">GMAT</option>
+									<option value="gre">GRE</option>
+									<option value="ielts">IELTS</option>
+									<option value="sat">SAT</option>
+									<option value="toefl">TOEFL</option>
+								<select>
 							</div>
 						</div>
 						<div class="modal-footer ">
@@ -102,10 +109,10 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-							<h4 class="modal-title custom_align" id="Heading">删除文章记录</h4>
+							<h4 class="modal-title custom_align" id="Heading">删除学生帐号</h4>
 						</div>
 						<div class="modal-body">
-							<div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Are you sure you want to delete this Record?</div>
+							<div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> 删除 <b class="hints"></b> 你确定？</div>
 						</div>
 						<div class="modal-footer ">
 							<button type="button" class="btn btn-success confirm" ><span class="glyphicon glyphicon-ok-sign"></span> 确定</button>
@@ -123,7 +130,60 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
+		$('td a').click(function() {
+			var _entry_id = $($(this).parent().siblings('td')[0]).html()
+			$('input.hidden-id').val(_entry_id);
+			
+			var _cur_course = $($(this).parent().siblings('td')[1]).html();
+			var _cur_username = $($(this).parent().siblings('td')[2]).html();
+			
+			switch ($(this).data('title')) {
+				case 'Edit':
+							$('#edit input.username').val(_cur_username);
+							$('#edit select.courses').val(_cur_course);
+							break;
+				case 'Delete':
+							$('#delete b.hints').html(_cur_username);
+							break;
+			}
+		});
 		
+		$('#edit button.update').click(function() {
+			var _entry_id = $('input.hidden-id').val();
+			var _title = $('#edit input.title').val()
+			
+			$.ajax({
+				url: '<?= base_url('schedule/updateEntry')?>',
+				data: {id:_entry_id, title:_title},
+				type: 'post',
+				dataType: 'json',
+				success: function(json) {
+					alert(json.msg);
+					location.reload();
+				},
+				error: function() {
+					alert('Network Error');
+				}
+			});
+		});
+		
+		$('#delete button.confirm').click(function() {
+			var _entry_id = $('input.hidden-id').val();
+			
+			$.ajax({
+				url: '<?= base_url('schedule/updateEntry')?>',
+				data: {id:_entry_id, status:0},
+				type: 'post',
+				dataType: 'json',
+				success: function(json) {
+					alert(json.msg);
+					location.reload();
+				},
+				error: function() {
+					alert('Network Error');
+				}
+			});
+		});
     });
 </script>
 <?php include APPPATH .'views/manage/footer.php'?>

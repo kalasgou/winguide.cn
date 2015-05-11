@@ -56,11 +56,13 @@
 </div>
 </div>
 <script type="text/javascript">
-	var _visibility = getQueryString('visibility');
-	$('#visibility-option option[value=' + _visibility + ']').attr('selected', 'true');
-	//$('#visibility-option').val(_visibility);
+	
     
 	$(document).ready(function() {
+		var _visibility = getQueryString('visibility');
+		$('#visibility-option option[value=' + _visibility + ']').attr('selected', 'true');
+		//$('#visibility-option').val(_visibility);
+		
       $('.summernote').summernote({
         height: 200,
         tabsize: 2,
