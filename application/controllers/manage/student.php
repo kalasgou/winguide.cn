@@ -53,12 +53,14 @@ class Student extends CI_Controller {
 	public function createView() {
 		$output = array();
 		$output['hover'] = 'student';
+		
 		$this->load->view('manage/student_create.php', $output);
 	}
 	
 	public function searchView() {
 		$output = array();
 		$output['hover'] = 'student';
+		
 		$this->load->view('manage/student_create.php', $output);
 	}
 	

@@ -100,6 +100,34 @@
 	  
 	  var _cur_module_id = $('#module-id').val();
 	  $('.module-options option[data-module-id=' + _cur_module_id + ']').attr('selected', 'true');
+	  
+	  $('.course-options').change(function() {
+			var _upper = $(this).find('option:selected').data('course-id'); 
+			$('#course-id').val(_upper);
+			$.ajax({
+				url: '<?= base_url('manage/article/getModules') ?>',
+				data: {upper: _upper},
+				type: 'get',
+				dataType: 'json',
+				success: function(json) {
+					var modules = '<option value="-1" data-course-id="-1">请选择文章栏目</option>';
+					var len = json.modules.length;
+					for (var i = 0; i < len; i ++) {
+						modules += '<option value="' + json.modules[i].module + '" data-module-id="' + json.modules[i].id + '">' + json.modules[i].module_desc + '</option>';
+					}
+					$('.module-options').empty();
+					$('.module-options').append(modules);
+				},
+				error: function() {
+					alert('Network Error');
+				}
+			});
+		});
+	  
+		$('.module-options').change(function() {
+			var _module_id = $(this).find('option:selected').data('module-id'); 
+			$('#module-id').val(_module_id);
+		});
     });
 </script>
 <?php include APPPATH .'views/manage/footer.php'?>

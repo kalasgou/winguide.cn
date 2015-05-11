@@ -31,40 +31,13 @@ class Admin extends CI_Controller {
 	}
 	
 	public function createView() {
+		$output = array();
+		$output['hover'] = 'admin';
+		
+		$this->load->view('manage/admin_create', $output);
 	}
 	
 	public function searchView() {
-	}
-	
-	public function register() {
-		$params['username'] = trim($this->input->post('username'));
-		$params['email'] = trim($this->input->post('email'));
-		$params['password'] = trim($this->input->post('password'));
-		$params['create_time'] = $_SERVER['REQUEST_TIME'];
-		
-		if (!check_parameters($params)) {
-			exit('Parameters Not Enough');
-		}
-		
-		header('Content-Type: application/json, charset=utf-8');
-		
-		$ret = array();
-		$ret['code'] = 1;
-		$ret['msg'] = 'fail';
-		
-		require APPPATH .'third_party/pass/PasswordHash.php';
-		$hasher = new PasswordHash(HASH_COST_LOG2, HASH_PORTABLE);
-		$params['password'] = $hasher->HashPassword($params['password']);
-		
-		$this->load->model('manage/Admin_M');
-		$admin_id = $this->Admin_M->doRegistration($params);
-		
-		if ($admin_id > 0) {
-			$ret['code'] = 0;
-			$ret['msg'] = 'success';
-		}
-		
-		echo json_encode($ret);
 	}
 	
 	public function login() {
@@ -105,6 +78,47 @@ class Admin extends CI_Controller {
 		}
 		
 		echo json_encode($ret);
+	}
+	
+	public function register() {
+		$params['email'] = trim($this->input->post('email', TRUE));
+		$params['password'] = trim($this->input->post('password', TRUE));
+		$params['username'] = trim($this->input->post('username', TRUE));
+		$params['create_time'] = $_SERVER['REQUEST_TIME'];
+		
+		if (!check_parameters($params)) {
+			exit('Parameters Not Enough');
+		}
+		
+		header('Content-Type: application/json, charset=utf-8');
+		
+		$ret = array();
+		$ret['code'] = 1;
+		$ret['msg'] = 'fail';
+		
+		$this->load->model('manage/Admin_M');
+		$admin = $this->Admin_M->getAdminByEmail($params['email']);
+		
+		if (empty($admin)) {
+			require APPPATH .'third_party/pass/PasswordHash.php';
+			$hasher = new PasswordHash(HASH_COST_LOG2, HASH_PORTABLE);
+			$params['password'] = $hasher->HashPassword($params['password']);
+			
+			$admin_id = $this->Admin_M->doRegistration($params);
+			if ($admin_id > 0) {
+				$ret['code'] = 0;
+				$ret['msg'] = 'success';
+			}
+		} else {
+			$ret['code'] = 4;
+			$ret['msg'] = 'this email already registered';
+		}
+		
+		echo json_encode($ret);
+	}
+	
+	public function update() {
+		
 	}
 }
 /* End of file */

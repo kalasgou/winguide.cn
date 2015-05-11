@@ -40,7 +40,7 @@
 						<span class="input-group-addon">_wg</span>
 					</div>
 					
-					<button class="btn btn-default pull-right" type="submit">提交</button>
+					<button class="btn btn-success pull-right" type="submit">提交</button>
 				</form>
 			</div>
 		</div>

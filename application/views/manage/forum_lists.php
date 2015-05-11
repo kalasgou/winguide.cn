@@ -19,11 +19,11 @@
 					<colspan>
 						<col style="width:5%;"/>
 						<col style="width:5%;"/>
-						<col style="width:15%;"/>
-						<col style="width:20%"/>
-						<col style="width:5%;"/>
-						<col style="width:15%;"/>
-						<col style="width:15%;"/>
+						<col style="width:25%;"/>
+						<!--<col style="width:20%"/>-->
+						<col style="width:9%;"/>
+						<col style="width:18%;"/>
+						<col style="width:18%;"/>
 						<col style="width:10%;"/>
 						<col style="width:10%;"/>
 					</colspan>
@@ -32,7 +32,7 @@
 							<th>#</th>
 							<th>课 程</th>
 							<th>话 题</th>
-							<th>正 文</th>
+							<!--<th>正 文</th>-->
 							<th>置 顶</th>
 							<th>创建时间</th>
 							<th>更新时间</th>
@@ -46,14 +46,14 @@
 						<tr>
 							<td><span data-uuid="<?= $one['uuid']?>"><?= $one['topic_id'];?></span></td>
 							<td><?= $one['module'];?></td>
-							<td><?= $one['topic'];?></td>
+							<!--<td><?= $one['topic'];?></td>-->
 							<td><?= $one['thread'];?></td>
 							<td><?= $one['recommend'];?></td>
 							<td><?= $one['create_time_formatted'];?></td>
 							<td><?= $one['update_time_formatted'];?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
-								<a href="#"><span class="glyphicon glyphicon-edit"></span></a>
+								<a href="<?= base_url('console/forum/view/detail?topic_id='.$one['topic_id'])?>"><span class="glyphicon glyphicon-edit" title=""></span></a>
 								<a href="#"><span class="glyphicon glyphicon-comment"></span></a>
 								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
 								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>

@@ -53,6 +53,24 @@ class Forum extends CI_Controller {
 		
 	}
 	
+	public function detailView() {
+		$params['topic_id'] = trim($this->input->get('topic_id', TRUE));
+		
+		$this->load->model('manage/Forum_M');
+		$detail = $this->Forum_M->viewTopic($params);
+		
+		$output = array();
+		$output['hover'] = 'forum_'.$detail['visibility'];
+		$output['visibility'] = $detail['visibility'];
+		$output['detail'] = $detail;
+		
+		$this->load->view('manage/topic_detail', $output);
+	}
+	
+	public function commentView() {
+		
+	}
+	
 	public function create() {
 		$params['admin_id'] = 1;
 		$params['uuid'] = hex16to64(uuid());
@@ -84,7 +102,32 @@ class Forum extends CI_Controller {
 	}
 	
 	public function update() {
+		$params['topic_id'] = intval($this->input->post('topic_id', TRUE));
+		$params['module'] = trim($this->input->post('module', TRUE));
+		$params['visibility'] = trim($this->input->post('visibility', TRUE));
+		$params['topic'] = trim($this->input->post('topic', TRUE));
+		$params['thread'] = trim($this->input->post('thread'));
+		$params['update_time'] = $_SERVER['REQUEST_TIME'];
 		
+		if (!check_parameters($params)) {
+			exit('Parameters not enough');
+		}
+		
+		header('Content-Type: application/json, charset=utf-8');
+		
+		$ret = array();
+		$ret['code'] = 1;
+		$ret['msg'] = 'fail';
+		
+		$this->load->model('manage/Forum_M');
+		$result = $this->Forum_M->modifyTopic($params);
+		
+		if ($result) {
+			$ret['code'] = 0;
+			$ret['msg'] = 'success';
+		}
+		
+		echo json_encode($ret);
 	}
 	
 	public function delete() {

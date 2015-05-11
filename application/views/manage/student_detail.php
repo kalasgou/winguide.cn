@@ -27,8 +27,8 @@
 							<input class="t1_4" name="basic:sex" type="text" value="<?= $detail['basic']['sex']?>" />
 							
 							<!--第二行 Username-->
-							<input class="t2_1" name="student:username" type="text" value="<?= $detail['student']['username']?>" />
-							<input class="t2_2" name="student:password" type="password" id="password" value="********" />
+							<input class="t2_1" name="student:username" type="text" value="<?= $detail['student']['username']?>" disabled/>
+							<input class="t2_2" name="student:password" type="password" id="password" value="********" disabled/>
 							<input class="t2_3" name="basic:born_city" type="text" value="<?= $detail['basic']['born_city']?>" />
 							<input class="t2_4" name="basic:marriage" type="text" value="<?= $detail['basic']['marriage']?>" />
 

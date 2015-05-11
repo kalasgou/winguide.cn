@@ -37,5 +37,33 @@ class Forum_M extends CI_Model {
 		$this->db_conn->set($params)->insert('forum_topic');
 		return $this->db_conn->insert_id();
 	}
+	
+	public function modifyTopic($params) {
+		$search = array();
+		$search['topic_id'] = $params['topic_id'];
+		
+		$refresh = array();
+		foreach ($params as $key => $val) {
+			if ($key !== 'topic_id' && $val !== '') {
+				$refresh[$key] = $val;
+			}
+		}
+		
+		return $this->db_conn->where($search)->update('forum_topic', $refresh);
+	}
+	
+	public function viewTopic($params) {
+		$detail = array();
+		
+		$search = array();
+		$search['topic_id'] = $params['topic_id'];
+		
+		$query = $this->db_conn->select('*')->from('forum_topic')->where($search)->limit(1)->get();
+		if ($query->num_rows() > 0) {
+			$detail = $query->row_array();
+		}
+		
+		return $detail;
+	}
 }
 /* End of file */

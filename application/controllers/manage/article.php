@@ -119,9 +119,9 @@ class Article extends CI_Controller {
 	}
 	
 	public function update() {
-		$params['article_id'] = $this->input->post('article_id', TRUE);;
-		$params['course_id'] = $this->input->post('course_id', TRUE);
-		$params['module_id'] = $this->input->post('module_id', TRUE);
+		$params['article_id'] = intval($this->input->post('article_id', TRUE));;
+		$params['course_id'] = intval($this->input->post('course_id', TRUE));
+		$params['module_id'] = intval($this->input->post('module_id', TRUE));
 		$course = trim($this->input->post('course', TRUE));
 		$module = trim($this->input->post('module', TRUE));
 		$params['category'] = "$course|$module";

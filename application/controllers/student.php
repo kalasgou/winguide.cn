@@ -85,8 +85,8 @@ class Student extends CI_Controller {
 	}
 	
 	public function login() {
-		$params['username'] = trim($this->input->get('username'));
-		$params['password'] = trim($this->input->get('password'));
+		$params['username'] = trim($this->input->get('username', TRUE));
+		$params['password'] = trim($this->input->get('password', TRUE));
 		
 		if (!check_parameters($params)) {
 			exit('Parameters Not Enough');
@@ -102,20 +102,25 @@ class Student extends CI_Controller {
 		$student = $this->Student_M->getStudentByUname($params['username']);
 		
 		if (!empty($student)) {
-			require APPPATH .'third_party/pass/PasswordHash.php';
-			$hasher = new PasswordHash(HASH_COST_LOG2, HASH_PORTABLE);
-			$chk_lower = $hasher->CheckPassword(strtolower($params['password']), $student['password']);
-			$chk_upper = $hasher->CheckPassword(strtoupper($params['password']), $student['password']);
-			
-			if ($chk_lower || $chk_upper) {
-				$ret['code'] = 0;
-				$ret['msg'] = 'success';
+			if ($student['status'] > 0) {
+				require APPPATH .'third_party/pass/PasswordHash.php';
+				$hasher = new PasswordHash(HASH_COST_LOG2, HASH_PORTABLE);
+				$chk_lower = $hasher->CheckPassword(strtolower($params['password']), $student['password']);
+				$chk_upper = $hasher->CheckPassword(strtoupper($params['password']), $student['password']);
 				
-				$_SESSION['user']['id'] = $student['user_id'];
-				$_SESSION['user']['nickname'] = $student['username'];
+				if ($chk_lower || $chk_upper) {
+					$ret['code'] = 0;
+					$ret['msg'] = 'success';
+					
+					$_SESSION['user']['id'] = $student['user_id'];
+					$_SESSION['user']['nickname'] = $student['username'];
+				} else {
+					$ret['code'] = 2;
+					$ret['msg'] = 'password error';
+				}
 			} else {
-				$ret['code'] = 2;
-				$ret['msg'] = 'password error';
+				$ret['code'] = 7;
+				$ret['msg'] = 'account not activated or cancelled or expired';
 			}
 		} else {
 			$ret['code'] = 3;
