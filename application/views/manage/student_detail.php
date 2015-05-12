@@ -15,8 +15,7 @@
 				</ul>
 			</div>
 			<div class="panel-body">
-				<div class="formDiv">
-									
+				<div class="formDiv">			
 			        <div class="form">
 			        	<form action="" id="form">
 			        		
@@ -306,7 +305,7 @@
 							<input class="t53_2" name="referee:zip_code" type="text" value="<?= $detail['referee']['zip_code']?>" />
 							
 							<div class="btnDiv">
-								<div class="sure">修改</div>
+								<div class="sure" onclick="alert(213);">修改</div>
 							</div>
 			        	</form>       
 			        </div>

@@ -32,9 +32,13 @@ class Student extends CI_Controller {
 	public function accountsView($item = 15, $page = 0) {
 		$params['item'] = intval($item) <= 0 ? 15 : $item;
 		$params['page'] = intval($page) <= 0 ? 0 : $page - 1;
+		$params['course'] = trim($this->input->get('course', TRUE));
+		$params['start_date'] = trim($this->input->get('start_date', TRUE));
+		$params['end_date'] = trim($this->input->get('end_date', TRUE));
 		
 		$output = array();
 		$output['hover'] = 'student';
+		$output['args'] = $params;
 		
 		$this->load->model('manage/Student_M');
 		$output['accounts'] = $this->Student_M->listAccounts($params);
@@ -115,6 +119,30 @@ class Student extends CI_Controller {
 	
 	public function search() {
 		
+	}
+	
+	public function estimateAccount() {
+		$amount = intval($this->input->get('amount', TRUE));
+		
+		header('Content-Type: application/json, charset=utf-8');
+		
+		$ret = array();
+		$ret['code'] = 1;
+		$ret['msg'] = 'fail';
+		$ret['start_serial'] = NULL;
+		$ret['end_serial'] = NULL;
+		
+		$this->load->model('manage/Student_M');
+		$max_id = $this->Student_M->getMaxStudentID();
+		
+		if ($amount > 0 && $max_id >= 0) {
+			$ret['code'] = 1;
+			$ret['msg'] = 'fail';
+			$ret['start_serial'] = gen_student_serial($max_id + 1);
+			$ret['end_serial'] = gen_student_serial($max_id + $amount);
+		}
+		
+		echo json_encode($ret);
 	}
 }
 /* End of file */

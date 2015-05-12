@@ -18,21 +18,27 @@
 				<form action="<?= base_url('console/article/view/lists') ?>" method="get">
 					<div class="input-group">
 						<span class="input-group-addon">课程模块</span>
-						<input id="course-id" type="hidden" name="course_id" value="-1">
-						<select name="course" class="form-control course-options"required>
+						<input id="course-id" type="hidden" name="course_id" value="<?= $args['course_id']?>">
+						<select name="course" class="form-control course-options" required>
 							<option value="-1" data-course-id="-1">请选择课程模块</option>
-							<?php foreach ($module as $one):?>
+							<?php foreach ($courses as $one):?>
 							<option value="<?= $one['module']?>" data-course-id="<?= $one['id']?>"><?= $one['module_desc']?></option>
 							<?php endforeach;?>
 						</select>
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon">文章栏目</span>
-						<input id="module-id" type="hidden" name="module_id" value="-1">
+						<input id="module-id" type="hidden" name="module_id" value="<?= $args['module_id']?>">
 						<select id="module" name="module" class="form-control module-options" required>
+							<option value="-1" data-module-id="-1">请选择文章栏目</option>
+							<?php foreach ($modules as $one):?>
+							<option value="<?= $one['module']?>" data-module-id="<?= $one['id']?>"><?= $one['module_desc']?></option>
+							<?php endforeach;?>
 						</select>
 					</div>
-					<button class="btn btn-primary pull-right" type="submit">筛选</button>
+					<div class="pull-right">
+						<button class="btn btn-primary btn-sm" type="submit">筛选</button>
+					</div>
 				</form>
 				<table class="table table-striped">
 					<colspan>
@@ -141,6 +147,12 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
+		var _cur_course_id = $('#course-id').val();
+		$('.course-options option[data-course-id=' + _cur_course_id + ']').attr('selected', 'true');
+
+		var _cur_module_id = $('#module-id').val();
+		$('.module-options option[data-module-id=' + _cur_module_id + ']').attr('selected', 'true');
+		
 		$('.course-options').change(function() {
 			var _upper = $(this).find('option:selected').data('course-id'); 
 			$('#course-id').val(_upper);

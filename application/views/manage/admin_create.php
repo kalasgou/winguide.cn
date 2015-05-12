@@ -28,8 +28,9 @@
 						<span class="input-group-addon">登录密码</span>
 						<input id="password" type="password" name="password" class="form-control" required />
 					</div>
-					
-					<button class="btn btn-success pull-right" type="submit">提交</button>
+					<div class="pull-right">
+						<button class="btn btn-success btn-sm" type="submit">提交</button>
+					</div>
 				</form>
 			</div>
 		</div>

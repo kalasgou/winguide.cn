@@ -72,7 +72,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
       $('.summernote').summernote({
-        height: 200,
+        height: 300,
         tabsize: 2,
 		lang: 'zh-CN',
 		/*toolbar: [

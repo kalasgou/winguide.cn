@@ -31,16 +31,17 @@
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon">起始</span>
-						<input id="" type="text" class="form-control" disabled placeholder="预计帐号起始编码">
+						<input id="start_serial" type="text" class="form-control" readonly placeholder="预计帐号起始编码">
 						<span class="input-group-addon">_wg</span>
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon">结束</span>
-						<input id="" type="text" class="form-control" disabled placeholder="预计帐号结束编码">
+						<input id="end_serial" type="text" class="form-control" readonly placeholder="预计帐号结束编码">
 						<span class="input-group-addon">_wg</span>
 					</div>
-					
-					<button class="btn btn-success pull-right" type="submit">提交</button>
+					<div class="pull-right">
+						<button class="btn btn-success btn-sm" type="submit">提交</button>
+					</div>
 				</form>
 			</div>
 		</div>

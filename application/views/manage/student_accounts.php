@@ -16,6 +16,33 @@
 				</ul>
 			</div>
 			<div class="panel-body">
+				<form action="<?= base_url('console/student/view/accounts') ?>" method="get">
+					<div class="input-group">
+						<span class="input-group-addon">购买课程</span>
+						<input id="course" type="hidden" name="course" value="<?= $args['course']?>">
+						<select name="course" class="form-control course-options" required>
+							<option value="gmat">GMAT</option>
+							<option value="gre">GRE</option>
+							<option value="ielts">IELTS</option>
+							<option value="sat">SAT</option>
+							<option value="toefl">TOEFL</option>
+						</select>
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">起始</span>
+						<input class="form-control start-date" style="display:inline-block;" type="date" name="start_date" value="<?= $args['start_date']?>"/>
+						<span class="input-group-addon">购买日期</span>
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">结束</span>
+						<input class="form-control end-date" style="display:inline-block;" type="date" name="end_date" value="<?= $args['end_date']?>"/>
+						<span class="input-group-addon">购买日期</span>
+					</div>
+					<div class="pull-right">
+						<button class="btn btn-success btn-sm download-excel" type="button">导出</button>
+						<button class="btn btn-primary btn-sm" type="submit">筛选</button>
+					</div>
+				</form>
 				<table class="table table-striped">
 					<colspan>
 						<col style="width:5%;"/>
@@ -82,7 +109,7 @@
 						<div class="modal-body">
 							<div class="input-group">
 								<span class="input-group-addon">帐号名称</span>
-								<input class="form-control username" type="text" placeholder="Username" disabled/>
+								<input class="form-control username" type="text" placeholder="Username" readonly/>
 							</div>
 							<div class="input-group">
 								<span class="input-group-addon">选择课程</span>
@@ -130,6 +157,9 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
+		var _cur_course = $('#course').val();
+		$('.course-options option[value=' + _cur_course + ']').attr('selected', 'true');
+		
 		$('td a').click(function() {
 			var _entry_id = $($(this).parent().siblings('td')[0]).html()
 			$('input.hidden-id').val(_entry_id);

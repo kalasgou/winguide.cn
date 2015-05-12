@@ -22,10 +22,12 @@ class Article extends CI_Controller {
 		
 		$output = array();
 		$output['hover'] = 'article';
+		$output['args'] = $params;
 		
 		$this->load->model('manage/Article_M');
 		
-		$output['module'] = $this->Article_M->listModules(0);
+		$output['courses'] = $this->Article_M->listModules(0);
+		$output['modules'] = $this->Article_M->listModules($params['course_id']);
 		
 		$output['articles'] = $this->Article_M->listArticles($params);
 		

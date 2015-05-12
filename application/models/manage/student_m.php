@@ -176,5 +176,12 @@ class Student_M extends CI_Model {
 		
 		return $detail;
 	}
+	
+	public function getMaxStudentID() {
+		$query = $this->db_conn->select_max('student_id')->get('students');
+		$row = $query->row_array();
+		
+		return intval($row['student_id']);
+	}
 }
 /* End of file */

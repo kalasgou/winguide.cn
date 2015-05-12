@@ -47,7 +47,9 @@
 						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 						</textarea>
 					</div>
-					<button class="btn btn-default pull-right" type="submit">提交</button>
+					<div class="pull-right">
+						<button class="btn btn-default btn-sm" type="submit">提交</button>
+					</div>
 				</form>
 			</div>
 		</div>
@@ -64,7 +66,7 @@
 		//$('#visibility-option').val(_visibility);
 		
       $('.summernote').summernote({
-        height: 200,
+        height: 300,
         tabsize: 2,
 		lang: 'zh-CN',
 		/*toolbar: [
