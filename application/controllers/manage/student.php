@@ -86,6 +86,7 @@ class Student extends CI_Controller {
 	
 	public function create() {
 		$params['course'] = trim($this->input->post('course', TRUE));
+		$params['duration_day'] = intval($this->input->post('duration_day', TRUE))
 		$params['amount'] = intval($this->input->post('amount', TRUE));
 		
 		if (!check_parameters($params)) {
@@ -136,10 +137,10 @@ class Student extends CI_Controller {
 		$max_id = $this->Student_M->getMaxStudentID();
 		
 		if ($amount > 0 && $max_id >= 0) {
-			$ret['code'] = 1;
-			$ret['msg'] = 'fail';
-			$ret['start_serial'] = gen_student_serial($max_id + 1);
-			$ret['end_serial'] = gen_student_serial($max_id + $amount);
+			$ret['code'] = 0;
+			$ret['msg'] = 'success';
+			$ret['start_serial'] = substr(gen_student_serial($max_id + 1), 0, 6);
+			$ret['end_serial'] = substr(gen_student_serial($max_id + $amount), 0, 6);
 		}
 		
 		echo json_encode($ret);

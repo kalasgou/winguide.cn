@@ -20,7 +20,7 @@ class Student_M extends CI_Model {
 	
 	public function getStudentByUname($username) {
 		$student = array();
-		$query = $this->db_conn->select('student_id, user_id, username, password, course, status')
+		$query = $this->db_conn->select('student_id, user_id, username, password, course, duration, status')
 						->from('students')->where("username = '{$username}'")->limit(1)->get();
 		
 		if ($query->num_rows() > 0) {

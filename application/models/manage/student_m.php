@@ -28,6 +28,7 @@ class Student_M extends CI_Model {
 			$hasher = new PasswordHash(HASH_COST_LOG2, HASH_PORTABLE);
 			$tmp['password'] = $hasher->HashPassword($init_pswd_md5);
 			$tmp['purchase_time'] = $_SERVER['REQUEST_TIME'];
+			$tmp['duration'] = $params['duration_day'];
 			$tmp['status'] = $this->UNAVAILABLE;
 			
 			$students[] = $tmp;

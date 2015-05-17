@@ -17,6 +17,13 @@
 			<div class="panel-body">
 				<form action="<?= base_url('manage/admin/register') ?>" method="post" onsubmit="return submit_form();">
 					<div class="input-group">
+						<span class="input-group-addon">帐号类型</span>
+						<select type="email" name="email" class="form-control" required />
+							<option value="<?= TEACHER?>">老师</option>
+							<option value="<?= AGENCY?>">中介</option>
+						</select>
+					</div>
+					<div class="input-group">
 						<span class="input-group-addon">邮箱地址</span>
 						<input type="email" name="email" class="form-control" required />
 					</div>

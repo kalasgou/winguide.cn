@@ -26,7 +26,7 @@ class Article extends CI_Controller {
 		$articles = $this->Article_M->getArticleLists($params);
 		
 		foreach ($articles as &$one) {
-			$one['create_time_formatted'] = date('Y-m-d H:i:s', $one['create_time']);
+			$one['create_time_formatted'] = date('Y-m-d', $one['create_time']);
 		}
 		
 		$ret['articles'] = $articles;

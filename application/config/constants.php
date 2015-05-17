@@ -43,6 +43,10 @@ define('HASH_PORTABLE', 		FALSE);
 define('DEFAULT_PER_PAGE',		15);
 define('DEFAULT_START_PAGE',	0);
 
+define('ADMIN', 		1);
+define('TEACHER', 		2);
+define('OPERATOR', 		4);
+define('AGENCY', 		8);
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

@@ -412,6 +412,8 @@ $(function () {
 							<li class=""><a href="#"><span class="glyphicon glyphicon-cog"></span> Other Link</a></li>
 							<li class=""><a href="#"><span class="glyphicon glyphicon-cog"></span> Other Link</a></li>
 							<li class="divider"></li>-->
+							<li><a href="<?= base_url('manage/admin/logout')?>"><span class="glyphicon glyphicon-asterisk"></span> 修改密码</a></li>
+							<li class="divider">
 							<li><a href="<?= base_url('manage/admin/logout')?>"><span class="glyphicon glyphicon-off"></span> 退出系统</a></li>
 						</ul>
 					</li>
@@ -435,7 +437,8 @@ $(function () {
 								<li id="article_nav"><a href="/console/article"><span class="glyphicon glyphicon-globe"></span> 文章仓库</a></li>
 								<li id="student_nav"><a href="/console/student"><span class="glyphicon glyphicon-education"></span> 付费帐号</a></li>
 								<li id="user_nav"><a href="/console/user"><span class="glyphicon glyphicon-sunglasses"></span> 普通帐号</a></li>
-
+								<li id="forum_nav"><a href="/console/forum?visibility=public"><span class="glyphicon glyphicon-bullhorn"></span> 讨论留言</a></li>
+								<li id="homework_nav"><a href="/console/forum?visibility=course"><span class="glyphicon glyphicon-book"></span> 课程任务</a></li>
 								<!-- Dropdown-->
 								<li class="panel panel-default" id="dropdown">
 									<a data-toggle="collapse" href="#dropdown-lvl1">
