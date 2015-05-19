@@ -35,6 +35,8 @@ class Student extends CI_Controller {
 		$params['course'] = trim($this->input->get('course', TRUE));
 		$params['start_date'] = trim($this->input->get('start_date', TRUE));
 		$params['end_date'] = trim($this->input->get('end_date', TRUE));
+		$params['start_time'] = strtotime($params['start_date']);
+		$params['end_time'] = strtotime($params['end_date']);
 		
 		$output = array();
 		$output['hover'] = 'student';
@@ -86,7 +88,7 @@ class Student extends CI_Controller {
 	
 	public function create() {
 		$params['course'] = trim($this->input->post('course', TRUE));
-		$params['duration_day'] = intval($this->input->post('duration_day', TRUE))
+		$params['duration_day'] = intval($this->input->post('duration_day', TRUE));
 		$params['amount'] = intval($this->input->post('amount', TRUE));
 		
 		if (!check_parameters($params)) {

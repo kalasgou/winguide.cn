@@ -26,6 +26,7 @@
 							<option value="ielts">IELTS</option>
 							<option value="sat">SAT</option>
 							<option value="toefl">TOEFL</option>
+							<option value="gaokao">高考</option>
 						</select>
 					</div>
 					<div class="input-group">

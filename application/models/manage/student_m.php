@@ -78,8 +78,12 @@ class Student_M extends CI_Model {
 		$item = $params['item'];
 		$offset = $params['item'] * $params['page'];
 		
-		$query = $this->db_conn->select('student_id, username, course, purchase_time, init_pswd, status')
-					->from('students')->order_by('purchase_time DESC, student_id DESC')->limit($item, $offset)->get();
+		$search = array();
+		/*if ()
+		$search['']*/
+		
+		$query = $this->db_conn->select('student_id, username, course, purchase_time, init_pswd, duration, status')
+					->from('students')->where($search)->order_by('purchase_time DESC, student_id DESC')->limit($item, $offset)->get();
 		
 		if ($query->num_rows() > 0) {
 			$accounts = $query->result_array();
