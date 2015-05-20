@@ -61,8 +61,22 @@ class Student_M extends CI_Model {
 		$item = $params['item'];
 		$offset = $params['item'] * $params['page'];
 		
+		$search = array();
+		$search['S.status'] = 1;
+		if ($params['course'] !== '') {
+			$search['course'] = $params['course'];
+		}
+		if ($params['start_date'] !== '') {
+			$start_time = strtotime($params['start_date']);
+			$search['start_time >= '] = $start_time;
+		}
+		if ($params['end_date'] !== '') {
+			$end_time = strtotime($params['end_date']);
+			$search['start_time <= '] = $end_time;
+		}
+		
 		$query = $this->db_conn->select('S.student_id, S.username, S.course, S.purchase_time, S.start_time, S.end_time, S.status, U.user_id, U.real_name, U.cellphone')
-					->from('students AS S')->join('users AS U', 'U.user_id = S.user_id')
+					->from('students AS S')->join('users AS U', 'U.user_id = S.user_id')->where($search)
 					->order_by('start_time DESC, student_id DESC')->limit($item, $offset)->get();
 		
 		if ($query->num_rows() > 0) {
@@ -79,8 +93,17 @@ class Student_M extends CI_Model {
 		$offset = $params['item'] * $params['page'];
 		
 		$search = array();
-		/*if ()
-		$search['']*/
+		if ($params['course'] !== '') {
+			$search['course'] = $params['course'];
+		}
+		if ($params['start_date'] !== '') {
+			$start_time = strtotime($params['start_date']);
+			$search['purchase_time >= '] = $start_time;
+		}
+		if ($params['end_date'] !== '') {
+			$end_time = strtotime($params['end_date']);
+			$search['purchase_time <= '] = $end_time;
+		}
 		
 		$query = $this->db_conn->select('student_id, username, course, purchase_time, init_pswd, duration, status')
 					->from('students')->where($search)->order_by('purchase_time DESC, student_id DESC')->limit($item, $offset)->get();
@@ -92,14 +115,41 @@ class Student_M extends CI_Model {
 		return $accounts;
 	}
 	
-	public function countAccounts() {
-		$total_num = $this->db_conn->from('students')/*->where()*/->count_all_results();
+	public function countAccounts($params) {
+		$search = array();
+		if ($params['course'] !== '') {
+			$search['course'] = $params['course'];
+		}
+		if ($params['start_date'] !== '') {
+			$start_time = strtotime($params['start_date']);
+			$search['purchase_time >= '] = $start_time;
+		}
+		if ($params['end_date'] !== '') {
+			$end_time = strtotime($params['end_date']);
+			$search['purchase_time <= '] = $end_time;
+		}
+		
+		$total_num = $this->db_conn->from('students')->where($search)->count_all_results();
 		
 		return intval($total_num);
 	}
 	
-	public function countStudents() {
-		$total_num = $this->db_conn->from('students')/*->where()*/->count_all_results();
+	public function countStudents($params) {
+		$search = array();
+		$search['status'] = 1;
+		if ($params['course'] !== '') {
+			$search['course'] = $params['course'];
+		}
+		if ($params['start_date'] !== '') {
+			$start_time = strtotime($params['start_date']);
+			$search['start_time >= '] = $start_time;
+		}
+		if ($params['end_date'] !== '') {
+			$end_time = strtotime($params['end_date']);
+			$search['start_time <= '] = $end_time;
+		}
+		
+		$total_num = $this->db_conn->from('students')->where($search)->count_all_results();
 		
 		return intval($total_num);
 	}

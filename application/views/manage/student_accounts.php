@@ -21,6 +21,7 @@
 						<span class="input-group-addon">购买课程</span>
 						<input id="course" type="hidden" name="course" value="<?= $args['course']?>">
 						<select name="course" class="form-control course-options" required>
+							<option value=" ">全部课程</option>
 							<option value="gmat">GMAT</option>
 							<option value="gre">GRE</option>
 							<option value="ielts">IELTS</option>
@@ -51,7 +52,8 @@
 						<col style="width:15%;"/>
 						<col style="width:15%"/>
 						<col style="width:20%;"/>
-						<col style="width:20%"/>
+						<col style="width:10%;"/>
+						<col style="width:10%"/>
 						<col style="width:10%;"/>
 					</colspan>
 					<thead>
@@ -61,6 +63,7 @@
 							<th>帐 号</th>
 							<th>初始密码</th>
 							<th>购买日期</th>
+							<th>有限时长</th>
 							<th>状 态</th>
 							<th>操 作</th>
 						</tr>
@@ -74,6 +77,7 @@
 							<td><?= $one['username']?></td>
 							<td><?= $one['init_pswd']?></td>
 							<td><?= $one['purchase_time_formatted']?></td>
+							<td><?= $one['duration']?>天</td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
 								<a href="#" title="查看学生信息"><span class="glyphicon glyphicon-info-sign"></span></a>

@@ -16,11 +16,12 @@
 				</ul>
 			</div>
 			<div class="panel-body">
-				<form action="<?= base_url('console/student/view/accounts') ?>" method="get">
+				<form action="<?= base_url('console/student/view/lists') ?>" method="get">
 					<div class="input-group">
 						<span class="input-group-addon">购买课程</span>
 						<input id="course" type="hidden" name="course" value="<?= $args['course']?>">
 						<select name="course" class="form-control course-options" required>
+							<option value=" ">全部课程</option>
 							<option value="gmat">GMAT</option>
 							<option value="gre">GRE</option>
 							<option value="ielts">IELTS</option>
@@ -47,11 +48,12 @@
 				<table class="table table-striped">
 					<colspan>
 						<col style="width:5%;"/>
-						<col style="width:10%;"/>
+						<col style="width:15%;"/>
 						<col style="width:15%;"/>
 						<col style="width:10%"/>
-						<col style="width:20%;"/>
-						<col style="width:20%"/>
+						<col style="width:15%;"/>
+						<col style="width:10%"/>
+						<col style="width:10%"/>
 						<col style="width:10%;"/>
 						<col style="width:10%;"/>
 					</colspan>
@@ -62,7 +64,8 @@
 							<th>电 话</th>
 							<th>课 程</th>
 							<th>帐 号</th>
-							<th>日 期</th>
+							<th>生效日期</th>
+							<th>结束日期</th>
 							<th>状 态</th>
 							<th>操 作</th>
 						</tr>
@@ -76,7 +79,8 @@
 							<td><?= $one['cellphone']?></td>
 							<td><?= $one['course']?></td>
 							<td><?= $one['username']?></td>
-							<td><?= $one['purchase_time_formatted']?></td>
+							<td><?= $one['start_time_formatted']?></td>
+							<td><?= $one['end_time_formatted']?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
 								<a href="<?= base_url('console/student/view/detail?student_id='.$one['student_id'])?>" target="_blank"><span class="glyphicon glyphicon-edit"></span></a>
@@ -110,7 +114,8 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
-		
+		var _cur_course = $('#course').val();
+		$('.course-options option[value=' + _cur_course + ']').attr('selected', 'true');
     });
 </script>
 <?php include APPPATH .'views/manage/footer.php'?>

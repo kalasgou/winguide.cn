@@ -33,6 +33,10 @@ class User_M extends CI_Model {
 	}
 	
 	public function retrieveUserinfo() {
+		if (empty($_SESSION['user'])) {
+			return FALSE;
+		}
+		
 		$user_info = array();
 		$user_info['basic'] = $_SESSION['user'];
 		$user_info['course'] = array();

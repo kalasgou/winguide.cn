@@ -13,17 +13,23 @@ class Student extends CI_Controller {
 	public function listsView($item = 15, $page = 0) {
 		$params['item'] = intval($item) <= 0 ? 15 : $item;
 		$params['page'] = intval($page) <= 0 ? 0 : $page - 1;
+		$params['course'] = trim($this->input->get('course', TRUE));
+		$params['start_date'] = trim($this->input->get('start_date', TRUE));
+		$params['end_date'] = trim($this->input->get('end_date', TRUE));
 		
 		$output = array();
 		$output['hover'] = 'student';
+		$output['args'] = $params;
 		
 		$this->load->model('manage/Student_M');
 		$output['students'] = $this->Student_M->listStudents($params);
 		foreach ($output['students'] as &$one) {
-			$one['purchase_time_formatted'] = date('Y-m-d H:i:s', $one['purchase_time']);
+			//$one['purchase_time_formatted'] = date('Y-m-d H:i:s', $one['purchase_time']);
+			$one['start_time_formatted'] = date('Y-m-d', $one['start_time']);
+			$one['end_time_formatted'] = date('Y-m-d', $one['end_time']);
 		}
 		
-		$output['total_num'] = $this->Student_M->countStudents();
+		$output['total_num'] = $this->Student_M->countStudents($params);
 		$output['pagination'] = gen_pagination(base_url("console/student/view/lists/item/{$params['item']}/page/"), 8, $output['total_num'], $params['item']);
 		
 		$this->load->view('manage/student_lists.php', $output);
@@ -35,8 +41,6 @@ class Student extends CI_Controller {
 		$params['course'] = trim($this->input->get('course', TRUE));
 		$params['start_date'] = trim($this->input->get('start_date', TRUE));
 		$params['end_date'] = trim($this->input->get('end_date', TRUE));
-		$params['start_time'] = strtotime($params['start_date']);
-		$params['end_time'] = strtotime($params['end_date']);
 		
 		$output = array();
 		$output['hover'] = 'student';
@@ -49,7 +53,7 @@ class Student extends CI_Controller {
 			$one['purchase_time_formatted'] = date('Y-m-d H:i:s', $one['purchase_time']);
 		}
 		
-		$output['total_num'] = $this->Student_M->countAccounts();
+		$output['total_num'] = $this->Student_M->countAccounts($params);
 		$output['pagination'] = gen_pagination(base_url("console/student/view/accounts/item/{$params['item']}/page/"), 8, $output['total_num'], $params['item']);
 		
 		$this->load->view('manage/student_accounts.php', $output);

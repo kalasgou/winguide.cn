@@ -110,9 +110,11 @@ class User extends CI_Controller {
 		$this->load->model('User_M');
 		$user_info = $this->User_M->retrieveUserinfo();
 		
-		$ret['code'] = 0;
-		$ret['msg'] = 'success';
-		$ret['user_info'] = $user_info;
+		if (!empty($user_info)) {
+			$ret['code'] = 0;
+			$ret['msg'] = 'success';
+			$ret['user_info'] = $user_info;
+		}
 		
 		echo json_encode($ret);
 	}
