@@ -1,0 +1,185 @@
+*{ margin: 0; padding: 0;}
+li{ list-style: none;}
+a{ text-decoration: none;}
+img{ vertical-align: top; border: none;}
+
+body{ font-family: '微软雅黑'; background-color: #f2f2f2;}
+
+/*banner*/
+.banner{ width: 100%; height: 345px; background-color: #0d6fb8;}
+.banner .ban{ width: 1000px; height: 345px;  margin: 0 auto; position: relative;}
+.banner .gmat{background: url(../img/banner.jpg) no-repeat top center;}
+.banner .toefl{background: url(../img/toefl.jpg) no-repeat top center;}
+.banner .sat{background: url(../img/sat.jpg) no-repeat top center;}
+.banner .ielts{background: url(../img/ielts.jpg) no-repeat top center;}
+.banner .gaokao{background: url(../img/gaokao.jpg) no-repeat top center;}
+.banner .ban .txt{ position: absolute; font-size: 14px; color: #fff; width: 790px; left: 35px; top: 155px; line-height: 26px;}
+
+/*middle*/
+.middle{ width: 930px; margin: 0 auto; padding-top: 56px; padding-bottom: 60px;}
+
+.gmatNav{ width: 930px; overflow: hidden;}
+.gmatNav ul{ overflow: hidden; width: 984px;}
+.gmatNav ul li{position:relative; width: 273px; height: 95px; margin-right: 55px; margin-bottom: 56px; background: url(../img/gmat_btn.png) no-repeat; overflow: hidden; float: left; cursor:pointer;}
+.gmatNav ul li a{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	vertical-align: middle;
+}
+.gmatNav ul li p{ 
+	margin-left: 18px;
+	margin-top: 34px;
+	font-size: 24px;
+	color: #fff;
+
+}
+.gmatNav ul li.two p{ margin-top: 15px;}
+
+.gmatNav ul li.on{ background-position: 0 -105px;}
+
+/*最新动态*/
+.news{ overflow: hidden;}
+.news h4{ font-weight: normal; color: #fff; height: 54px; background-color: #0d6fb8; padding-left: 25px; font-size: 18px; line-height: 54px;}
+
+.newslistDiv{ background-color: #fff; overflow: hidden; margin-top: 10px;}
+.newslist{ margin: 10px 25px 30px; overflow: hidden;}
+.newslist li{ overflow: hidden; float: left; height: 52px; border-bottom: 1px solid #808080; width: 100%; line-height: 52px;}
+.newslist li a{ font-size: 14px; color: #808080; display: block; width: 100%; height: 100%; background: url(../img/list_bg.png) no-repeat 10px 18px;}
+.newslist li a:hover{ color: #0d6fb8; background-position: 10px -42px;}
+.newslist li .txt{ float: left; width: 650px; height: 52px; overflow: hidden; margin-left: 25px;}
+.newslist li .time{ float: right; width: 120px; margin-right: 10px; text-align: right;}
+
+
+/*gmat二级页*/
+.gmatLogo{ width: auto; height: 77px; margin-bottom: 54px;}
+.gSunNav{ overflow: hidden; width: 930px; height: 62px;}
+.gSunNav ul{ overflow: hidden; width: 940px; height: 62px;}
+
+.gSunNav li{ cursor: pointer; float: left; height: 53px; background: url(../img/gsun_bg.png) no-repeat left 0; margin-right: -6px;}
+.gSunNav li a{ display: block; padding-left: 6px; background: url(../img/gsun_bg.png) no-repeat right -53px; height: 53px;}
+.gSunNav li a span{ font-size: 17px; padding: 0 5px; background-color: #0d6fb8; display: block; height: 53px; margin-right: 17px; position: relative; color: #fff; line-height: 48px;}
+.gSunNav li a span em{ width: 17px; height: 10px; background: url(../img/gsun_bg.png) no-repeat center bottom; position: absolute; left: 50%; margin-left: -8px; bottom: -8px;}
+.gSunNav li.on{background: url(../img/gsun_bg_h.png) no-repeat left 0;}
+.gSunNav li.on a{background: url(../img/gsun_bg_h.png) no-repeat right -53px;}
+.gSunNav li.on a span{ background-color: #90c31f;}
+.gSunNav li.on a span em{ background: url(../img/gsun_bg_h.png) no-repeat center bottom;}
+
+.gSunMid{ width: 810px; height: 560px; padding: 50px 60px; background-color: #fff; margin-top: 10px; position: relative;}
+.gSunMid .gCon{ position: absolute; top: 50px; left: 60px; width: 810px; height: 560px; font-size: 14px; color: #808080; line-height: 30px;}
+
+/*原创文章*/
+.gSunMid .gCon .article_area{
+	position:relative;
+	width: 100%;
+	height:580px;
+	background-color: transparent;
+	overflow:hidden;
+}
+
+.gSunMid .gCon .article_area ul{
+	position:relative;
+	width: 100%;
+	height:520px;
+	background-color: transparent;
+	overflow:hidden;
+}
+
+.gSunMid .gCon .article_area ul li{
+	list-style: none;
+	width: 100%;
+	height:50px;
+	margin: 1px 0px 0px 0px;
+	border-bottom:1px solid #ccc;
+	overflow:hidden;
+	position:relative;
+	font-size: 22px;
+	color:#999999;
+	line-height: 50px;
+	text-align: left;
+}
+
+.gSunMid .gCon .article_area ul li em{
+	position: relative;
+	display: inline-block;
+	width: 20px;
+	height: 50px;
+	text-align: center;
+	vertical-align: top;
+	font-style: normal;
+	font-size: 20px;
+	line-height: 54px;
+}
+
+.gSunMid .gCon .article_area ul li p{
+	position:relative;
+	display:inline-block;
+	width: 560px;
+	height:50px;
+	overflow:hidden;
+	margin-left: 10px;
+	cursor:pointer;
+	font-size: 16px;
+}
+
+.gSunMid .gCon .article_area ul li span{
+	position: relative;
+	display: inline-block;
+	width: 206px;
+	height: 50px;
+	overflow: hidden;
+	float: right;
+	white-space: nowrap;
+	text-align: right;
+	font-size: 16px;
+}
+
+
+
+
+/*答题页面*/
+.gmatAnsDiv h4{ font-weight: normal; color: #fff; height: 52px; background-color: #0d6fb8; line-height: 52px; font-size: 18px; text-indent: 30px;}
+.gmatAns{ margin-top: 10px; margin-bottom: 2px;}
+.gmatAns .t{ height: 38px; background-color: #90c31f; color: #fff; font-size: 16px; line-height: 38px;}
+.gmatAns .t span{ float: left; margin-left: 30px;}
+.gmatAns .t span em{ font-style: normal;}
+
+.ansMid{ background-color: #0d6fb8; overflow: hidden; height: 590px; position: relative;}
+.ansSel{ overflow: hidden;}
+.ansSel ul{ overflow: hidden;}
+.ansSel li{ width: 152px; height: 38px; background: url(../img/sel_bg.png) no-repeat; font-size: 18px; line-height: 38px; text-indent: 10px; margin-right: 2px; float: left; color: #fff; cursor: pointer;}
+.ansSel li.on{ background-position: 0 -38px;}
+
+.ansCon{ margin-top: 30px; margin-left: 30px; color: #fff;}
+.ansCon .instr{ overflow: hidden;}
+.ansCon .instr span{ float: left; margin-right: 30px;}
+.ansCon .instr span em{ font-style: normal; color: #90c31f;}
+.ansCon .con{ font-size: 16px; margin: 30px 0; width: 850px; line-height: 24px;}
+
+.que{ overflow: hidden;}
+.que .t{ font-size: 18px;}
+.que .leval{ overflow: hidden; margin-bottom: 20px; margin-top: 20px;}
+.que .leval li{ float: left; padding-left: 30px; background: url(../img/leval_bg.png) no-repeat 0 0; height: 18px; line-height: 18px; font-size: 16px; cursor: pointer; margin-right: 30px;}
+.que .leval li.on{ background-position: 0 -18px;}
+
+.handle{ position: absolute; height: 24px; line-height: 24px; width: 300px; bottom: 40px; left: 50%; margin-left: -150px;}
+.handle a{ color: #fff; float: left; margin: 0 20px; width: 60px; text-align: center;}
+.handle a:hover{ color: #90c31f;}
+
+
+/*文章详情弹窗*/
+.detail_bg{ display:none; position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 99; opacity: 0.5; background-color: #000;}
+.detail_div{ display:none; position: fixed; width: 930px; height: 600px; top: 50%; left: 50%; margin-top: -315px; margin-left: -465px; z-index: 100; background-color: #fff;}
+.detail_closed{ width: 32px; height: 32px; cursor: pointer; background: url(../img/detail_closed.png) no-repeat; position: absolute; top: 10px; right: 10px;}
+.deta_title{ font-size: 24px; color: #0d6fb8; text-align: center; margin-top: 10px; margin-bottom: 60px;}
+.deta_div{ width: 810px; margin-left: 66px; height: 450px; overflow: hidden; position: relative;}
+.deta_div video{ width:640px;height:360px;background-color: rgba(0,0,0,1); margin: 0 auto; margin-top: 20px; position: relative; display: block;}
+.deta_div .deta_con{ position: relative; width: 760px; overflow: hidden; color: #000000; font-size: 14px; line-height: 28px;}
+.deta_div .deta_bar{ height: 450px; width: 2px; background-color: #dbdbdb; position: absolute; right: 0; top: 0;}
+.deta_div .deta_bar div{ cursor:pointer; height: 50px; width: 2px; background-color: #1975ba; position: absolute; top: 0; left: 0;}
+
+
+

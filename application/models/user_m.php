@@ -39,11 +39,13 @@ class User_M extends CI_Model {
 		
 		$user_info = array();
 		$user_info['basic'] = $_SESSION['user'];
-		$user_info['course'] = array();
+		$user_info['basic']['is_student'] = FALSE;
+		$user_info['courses'] = array();
 		
 		$query = $this->db_conn->select('student_id, course')->where('user_id = '.$_SESSION['user']['id'])->get('students');
 		if ($query->num_rows() > 0) {
-			$user_info['course'] = $query->result_array();
+			$user_info['basic']['is_student'] = TRUE;
+			$user_info['courses'] = $query->result_array();
 		}
 		
 		return $user_info;

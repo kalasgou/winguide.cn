@@ -1,0 +1,421 @@
+*{
+	margin: 0;
+	padding: 0;
+	outline: none;
+}
+
+html,body{
+	width: 100%;
+	height: auto;
+	min-width: 1000px;
+	max-width: 1920px;
+	font-family: '微软雅黑';
+}
+
+li{
+	list-style: none;
+}
+
+a{
+	text-decoration: none;
+}
+
+img{
+	vertical-align: top;
+}
+
+body{
+	width:100%;
+	height:auto;
+}
+
+.header{
+	width:100%;
+	height:90px;
+	background-color: white;
+}
+
+.header_main{
+	height: 90px;
+}
+
+.header_main .logo_area{
+	position: absolute;
+	width: 175px;
+	height: 90px;
+	top: 0;
+	left: 0;
+	line-height: 90px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.header_main .logo_area img{
+	vertical-align: middle;
+	zoom: 1;
+}
+
+.header_main .nav_area{
+	position:absolute;
+	right: 130px;
+	height:90px;
+	line-height: 90px;
+	text-align: center;
+	width: 400px;
+}
+
+.header_main .nav_area ul{
+	position: relative;
+	width: 100%;
+	height: 90px;
+	overflow: hidden;
+}
+
+.header_main .nav_area ul li{
+	position:relative;
+	float: left;
+	width: 100px;
+}
+
+.header_main .nav_area ul li a{
+	font-family: arial;
+	font-size: 20px;
+	color:#999999;
+}
+
+.header_main .nav_area ul li a:hover{
+	color:#0d6fb8;
+}
+
+
+.header_main .login_area{
+	position:absolute;
+	width: 222px;
+	right: 0;
+	top: 0;
+	height: 90px;
+
+}
+
+.header_main .login_area .login_not{
+	position: absolute;
+	width: 94px;
+	right: 0;
+	top: 0;
+	height: 90px;
+	line-height: 90px;
+	background: url(../img/index/login_bg.png) no-repeat center center;
+	text-align: center;
+	color:white;
+	font-size: 16px;
+	font-family: arial;
+	cursor: pointer;
+}
+
+.wraper_all{
+	width: 100%;
+	position: relative;
+	height: auto;
+	margin: 0 auto;
+	background:#0d6fb8;
+}
+
+.main_context{
+	position: relative;
+	width:930px;
+	margin:0 auto;
+}
+
+.forum_area{
+	width:100%;
+	height:400px;
+	position: relative;
+	padding-bottom: 38px;
+}
+
+.forum_main{
+	height: 400px;
+}
+
+.forum_main .fm_header{
+	width:100%;
+	height: 56px;
+	overflow:hidden;
+	position:relative;
+}
+
+.forum_main .fm_header .fmh_title{
+	width: 110px;
+	height:20px;
+	padding : 18px 27px;
+	line-height: 20px;
+	text-align: left;
+	color:white;
+	float:left;
+	position:absolute;
+	top:0;
+	left: 0;
+	background-color: #0d6fb8;
+	
+}
+
+.forum_main .fm_header .fmh_title_index{
+	background-color: #90c31f;
+}
+
+.forum_main .fm_header .df_color{
+	background-color: #90c31f;
+}
+
+.forum_main .fm_header .fmh_input{
+	position: absolute;
+	right: 0;
+	width: 765px;
+	height:56px;
+	top: 0px;
+	background-color: #fff;
+	overflow:hidden;
+}
+
+.forum_main .fm_header .fmh_input_index{
+
+	background-color: #569acd;
+
+}
+
+.forum_main .fm_header .fmh_input .all_num{
+	width: 110px;
+	height: 56px;
+	float: left;
+	text-align: center;
+	line-height: 56px;
+	font-size: 14px;
+	color:#003b83;
+}
+
+
+
+.forum_main .fm_header .fmh_input .input_wraper {
+  width: 530px;
+  height: 40px;
+  position: absolute;
+  top: 6px;
+  left: 115px;
+  /* background-color: #89b8dc; */
+  overflow: hidden;
+  border: 1px #a1a1a1 solid;
+}
+
+.forum_main .fm_header .fmh_input .input_wraper_index{
+	width: 530px;
+	height: 40px;
+	position: absolute;
+	top: 9px;
+	left: 115px;
+	background-color: #89b8dc;
+	overflow:hidden;
+	border:none;
+}
+
+
+.forum_main .fm_header .fmh_input .input_wraper .write_logo{
+	width: 40px;
+	height: 40px;
+	float: left;
+	background:url(../img/index/write.png) no-repeat center center;
+}
+
+.forum_main .fm_header .fmh_input .input_wraper input{
+	display:block;
+	width: 485px;
+	float: left;
+	height: 40px;
+	color:#003b83;
+	background-color: transparent;
+	line-height: 40px;
+	text-align: left;
+	border: none;
+	font-size: 18px;
+}
+
+.forum_main .fm_header .fmh_input .input_wraper input::-webkit-input-placeholder {
+color: #003b83 !important; 
+}
+.forum_main .fm_header .fmh_input .input_wraper input:-moz-placeholder {
+color: #003b83 !important; 
+}
+.forum_main .fm_header .fmh_input .input_wraper input::-moz-placeholder {
+color: #003b83 !important; 
+}
+.forum_main .fm_header .fmh_input .input_wraper input:-ms-input-placeholder {
+color: #003b83 !important;
+}
+
+.forum_main .fm_header .fmh_input  .input_submit_btn{
+	background: url(../img/index/s_btn_bg.png) no-repeat center center;
+	width: 94px;
+	height: 36px;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	line-height: 36px;
+	letter-spacing: 8px;
+	color:white;
+	text-align: center;
+	cursor:pointer;
+}
+
+
+.forum_main .fm_header .fmh_input  .input_submit_btn:hover{
+	background: url(../img/index/s_btn_bg_hover.png) no-repeat center center;
+}
+
+
+
+.forum_main .fm_contain{
+	position:relative;
+	width: 100%;
+	height: 338px;
+	background-color: transparent;
+}
+
+.forum_main .fm_contain_index{
+	background-color: #569acd;
+}
+
+.forum_main .fm_contain .show_talk{
+	height: 300px;
+	width: 876px;
+	position: relative;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+
+.show_talk ul{
+	width:100%;
+	height: 300px;
+	position: relative;
+	overflow: hidden;
+}
+
+.show_talk ul li{
+	padding: 26px 0 0 22px;
+	width: 100%;
+	border-bottom:solid 1px #003b83;
+	height: 68px;
+	color:#003b83;
+	position: relative;
+}
+
+.show_talk ul li .tk_user_info{
+	width: 100%;
+	height: 26px;
+	position: absolute;
+	top: 26px;
+	left: 0;
+	line-height: 26px;
+	text-align: left;
+}
+
+.show_talk ul li .tk_user_info span{
+	padding-left: 10px;
+}
+
+.show_talk ul li .tk_user_info span img{
+	vertical-align: top;
+}
+
+.show_talk ul li .tk_user_info span:nth-child(1){
+	padding-left: 0px;
+}
+
+.show_talk ul li .say_something{
+	position: absolute;
+	left: 0px;
+	bottom: 14px;
+	text-align: left;
+	color: #a1a1a1;
+}
+
+.forum_main .fm_contain .page_chose{
+	width: 100%;
+	height: 20px;
+	background-color: #003b83;
+	color: white;
+	text-align: center;
+}
+
+.footer{
+	width: 100%;
+	height: 76px;
+	padding-top: 60px;
+	text-align: center;
+	line-height: 76px;
+	color: #9fbbdb;
+	font-size: 12px;
+	
+}
+
+
+.footer_index{
+	background-color: #0D6FB8;
+}
+
+
+/*弹窗*/
+.alert_bg{ position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: 99; background: rgba(0,0,0,0.5); display: none;}
+.alert{ position: fixed; width: 500px; height: 300px; background: #fff; font-size: 18px; top: 50%; left: 50%; margin-left: -250px; margin-top: -150px; z-index: 100;}
+.alert .title{ height: 50px; overflow: hidden; width: 500px;}
+.alert .title div{ text-align: center; width: 250px; cursor: pointer; height: 50px; line-height: 50px; color: #fff; background-color: #999999; float: left;}
+.alert .title div.on{ background-color: #0d6fb8;}
+
+.alert .conDiv{ width: 500px; height: 250px; position: relative; overflow: hidden;}
+.alert .conDiv .con{ width: 340px; overflow: hidden; position: absolute; top: 40px; left: 80px; display: none;}
+.alert .conDiv .con p{ height: 36px; line-height: 36px; overflow: hidden; margin-bottom: 20px;}
+.alert .conDiv .con p span{ color: #0d6fb8; float: left; width: 120px; text-align: right;}
+.alert .conDiv .con p input{ float: left; width: 198px; padding: 0 10px; border: 0; border: 1px solid #aaa; border-radius: 5px; height: 34px; line-height: 34px\9;}
+.alert .conDiv .con p a{ display: inline-block; margin: 0 5px; color: #fff; width: 94px; height: 36px; line-height: 36px; text-align: center; background: url(../img/index/login_bg.png) no-repeat;}
+.alert .conDiv .con p.al_btn{ text-align: center; margin-top: 40px;}
+.alert .conDiv .con_on{ display: block;}
+
+/*登录*/
+.loginAlert{ display: none;}
+
+
+/*注册*/
+.regAlert{ display: none;}
+.regAlert .conDiv .con{ top: 30px;}
+.regAlert .conDiv .con p{ margin-bottom: 10px;}
+.regAlert .conDiv .con p.al_btn{ margin-top: 20px;}
+.regAlert .conDiv .con p.regCode input{ width: 98px;}
+.regAlert .conDiv .con p.regCode a{ margin-right: 0; margin-left: 6px; font-size: 12px; float: left;}
+
+.userName{
+	position:relative;
+	float:left;
+	overflow:hidden;
+	padding: 0px 6px 0px 80px;
+	line-height: 90px;
+	color:#999;
+	text-align: right;
+}
+
+.loginOut{
+	position:relative;
+	float: right;
+	overflow:hidden;
+	padding: 0px 0px;
+	line-height: 90px;
+	color:#999;
+	cursor:pointer;
+	/* background-color: #999999; */
+}
+
+.loginOut:hover{
+	text-decoration: underline;
+}
+
+.spit_page{ width:100%; text-align: center; overflow: hidden;}
+.spit_page a,.spit_page span{border-radius: 4px;cursor:pointer; padding: 0px 10px; color: #000;vertical-align: top;margin: 0px 4px;display:inline-block;}
+.spit_page span{ background: #ccc;}
+.spit_page span.noClick{ background: none;}

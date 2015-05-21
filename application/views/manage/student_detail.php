@@ -117,10 +117,10 @@
 
 							<!--第十三行 SAT-->
 							<div class="t13_1">
-								<span>总分：</span><input name="exam:sat-total_point" type="text" value="<?= $detail['exam']['sat-total_point']?>" />
-								<span>数学：</span><input name="exam:sat-mathematics" type="text" value="<?= $detail['exam']['sat-mathematics']?>" />
-								<span>阅读：</span><input name="exam:sat-reading" type="text" value="<?= $detail['exam']['sat-reading']?>" />
-								<span>写作：</span><input name="exam:sat-writing" type="text" value="<?= $detail['exam']['sat-writing']?>" />
+								<span title="总分">总：</span><input name="exam:sat-total_point" type="text" value="<?= $detail['exam']['sat-total_point']?>" />
+								<span title="数学">数：</span><input name="exam:sat-mathematics" type="text" value="<?= $detail['exam']['sat-mathematics']?>" />
+								<span title="阅读">阅：</span><input name="exam:sat-reading" type="text" value="<?= $detail['exam']['sat-reading']?>" />
+								<span title="写作">写：</span><input name="exam:sat-writing" type="text" value="<?= $detail['exam']['sat-writing']?>" />
 							</div>
 							<input class="t13_2" name="exam:sat-exam_time" type="text" value="<?= $detail['exam']['sat-exam_time']?>" />
 							<input class="t13_3" name="exam:sat-exam_place" type="text" value="<?= $detail['exam']['sat-exam_place']?>" />

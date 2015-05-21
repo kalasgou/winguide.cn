@@ -14,7 +14,7 @@ body{ font-family: '微软雅黑'; background-color: #f2f2f2;}
 /*form*/
 .form{ width: 880px; margin: 0 auto; background: url(./form_bg.jpg) no-repeat; height: 1340px; position: relative;}
 .form input,.form div{ position: absolute; border: 0; outline: none; height: 20px; color: #0d6fb8; line-height: 20px; font-size: 14px;}
-.form div input{ width: 18px; height: 18px; position: relative; text-align: center; margin: 0 2px; vertical-align: top;}
+.form div input{ width: 30px; height: 18px; position: relative; text-align: center; margin: 0 2px; vertical-align: top;}
 .form div span{ vertical-align: top;}
 
 .form input.t1_1{ top: 3px;  left: 145px; width: 115px;}
@@ -45,9 +45,9 @@ body{ font-family: '微软雅黑'; background-color: #f2f2f2;}
 .form input.t7_3{ top: 141px;  left: 605px; width: 105px;}
 .form input.t7_4{ top: 141px;  left: 802px; width: 67px;}
 
-.form div.t8_1{ top: 163px;  left: 145px; width: 200px;}
-.form input.t8_2{ top: 163px;  left: 425px; width: 90px;}
-.form input.t8_3{ top: 163px;  left: 605px; width: 105px;}
+.form div.t8_1{ top: 163px;  left: 145px; width: 268px;}
+.form input.t8_2{ top: 163px;  left: 471px; width: 90px;}
+.form input.t8_3{ top: 163px;  left: 646px; width: 100px;}
 .form input.t8_4{ top: 163px;  left: 802px; width: 67px;}
 
 .form div.t9_1{ top: 185px;  left: 145px; width: 162px;}
@@ -116,11 +116,11 @@ body{ font-family: '微软雅黑'; background-color: #f2f2f2;}
 .form input.t26_3{ top: 596px;  left: 702px; width: 168px;}
 
 .form input.t27_1{ top: 618px;  left: 145px; width: 210px;}
-.form div.t27_2{ top: 618px;  left: 578px; width: 290px;}
+.form div.t27_2{ top: 618px;  left: 578px; width: 292px;}
 .form div.t27_2 input,.form div.t28_2 input,.form div.t33_2 input,.form div.t34_2 input,.form div.t39_2 input,.form div.t40_2 input{ width: 110px;}
 
 .form input.t28_1{ top: 640px;  left: 145px; width: 210px;}
-.form div.t28_2{ top: 640px;  left: 578px; width: 290px;}
+.form div.t28_2{ top: 640px;  left: 578px; width: 292px;}
 
 .form input.t29_1{ top: 662px;  left: 145px; width: 210px;}
 .form input.t29_2{ top: 662px;  left: 578px; width: 290px;}
@@ -136,10 +136,10 @@ body{ font-family: '微软雅黑'; background-color: #f2f2f2;}
 .form input.t32_3{ top: 728px;  left: 702px; width: 168px;}
 
 .form input.t33_1{ top: 750px;  left: 145px; width: 210px;}
-.form div.t33_2{ top: 750px;  left: 578px; width: 290px;}
+.form div.t33_2{ top: 750px;  left: 578px; width: 292px;}
 
 .form input.t34_1{ top: 772px;  left: 145px; width: 210px;}
-.form div.t34_2{ top: 772px;  left: 578px; width: 290px;}
+.form div.t34_2{ top: 772px;  left: 578px; width: 292px;}
 
 .form input.t35_1{ top: 794px;  left: 145px; width: 210px;}
 .form input.t35_2{ top: 794px;  left: 578px; width: 290px;}
@@ -154,10 +154,10 @@ body{ font-family: '微软雅黑'; background-color: #f2f2f2;}
 .form input.t38_3{ top: 863px;  left: 702px; width: 168px;}
 
 .form input.t39_1{ top: 885px;  left: 145px; width: 210px;}
-.form div.t39_2{ top: 885px;  left: 578px; width: 290px;}
+.form div.t39_2{ top: 885px;  left: 578px; width: 292px;}
 
 .form input.t40_1{ top: 907px;  left: 145px; width: 210px;}
-.form div.t40_2{ top: 907px;  left: 578px; width: 290px;}
+.form div.t40_2{ top: 907px;  left: 578px; width: 292px;}
 
 .form input.t41_1{ top: 929px;  left: 145px; width: 720px;}
 

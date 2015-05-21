@@ -1,0 +1,207 @@
+
+
+
+
+
+/*中部介绍*/
+
+.introduce_part{
+	width: 100%;
+	height:612px;
+	position:relative;
+	background: url(../img/index/index_bg.jpg) no-repeat bottom center;
+}
+
+.introduce_main{
+	height:612px;
+}
+
+.introduce_main .introduce_text{
+	position: absolute;
+	width: 610px;
+	height: 252px;
+	padding: 15px;
+	top:139px;
+	left: 0;
+	background-color: rgba(0,0,0,0.2);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = #20000000,endColorstr = #20000000);
+	color: white;
+	line-height: 36px;
+	word-wrap: break-word;
+}
+
+.introduce_main .introduce_text h4{
+	font-size: 18px;
+}
+
+.introduce_main .introduce_text p{
+	font-size: 16px;
+}
+
+/*选择区域*/
+
+.chose_area{
+	width: 100%;
+	height:614px;
+	position:relative;
+	background:#97cc22;
+}
+
+.chose_main{
+	height:614px;
+}
+
+.chose_btn_area{
+	position: absolute;
+	top: 64px;
+	width: 100%;
+	height: 480px;
+}
+
+.chose_btn_area .btn_1{
+	position:absolute;
+	top: 0;
+	left: 0;
+	width: 459px;
+	height: 234px;
+	background:url(../img/index/btn_1.png) no-repeat center center;
+	cursor: pointer;
+}
+
+.chose_btn_area .btn_2{
+	position:absolute;
+	top: 0;
+	right: 0;
+	width: 459px;
+	height: 234px;
+	background:url(../img/index/btn_2.png) no-repeat center center;
+	cursor: pointer;
+}
+
+.chose_btn_area .btn_3{
+	position:absolute;
+	bottom: 0;
+	left: 0;
+	width: 459px;
+	height: 234px;
+	background:url(../img/index/btn_3.png) no-repeat center center;
+	cursor: pointer;
+}
+
+.chose_btn_area .btn_4{
+	position:absolute;
+	bottom: 0;
+	right: 0;
+	width: 459px;
+	height: 234px;
+	background:url(../img/index/btn_4.png) no-repeat center center;
+	cursor: pointer;
+}
+
+.chose_btn_area .btn_cover{
+	display: none;
+	width: 100%;
+	height: 100%;
+	background: url(../img/index/btn_cover.png) no-repeat top left;
+	font-size: 28px;
+	color: white;
+	line-height: 224px;
+	text-align: center;
+}
+
+/*功能选择部分*/
+
+.middle_chose{
+	width: 100%;
+	height: 240px;
+	position:relative;
+}
+
+.middle_chose .middle_main{
+	height:95px;
+	padding: 72px 0px 73px 0px;
+}
+
+.middle_chose .middle_main .mm_btn{
+	position: absolute;
+	background: url(../img/index/btn_bg.png) no-repeat center center;
+	width: 250px;
+	height: 95px;
+	line-height: 95px;
+	text-align: center;
+	font-size: 24px;
+	color:white;
+}
+
+.middle_chose .middle_main .mm_btn:hover{
+	background: url(../img/index/btn_bg_hover.png) no-repeat center center;
+}
+
+.middle_chose .middle_main .mm_btn_1{
+	top: 72px;
+	left: 0;
+}
+
+.middle_chose .middle_main .mm_btn_1 a{
+	display:block;
+	width: 156px;
+	height:52px;
+	position: absolute;
+	top: 22px;
+	left:44px;
+	line-height: 26px;
+	color:white;
+	text-align: left;
+}
+
+.middle_chose .middle_main .mm_btn_2{
+	top: 72px;
+	left: 275px;
+}
+
+.middle_chose .middle_main .mm_btn_2 a{
+	display:block;
+	width: 156px;
+	height:52px;
+	position: absolute;
+	top: 22px;
+	left:44px;
+	line-height: 52px;
+	color:white;
+	text-align: left;
+}
+
+.middle_chose .middle_main .mm_text{
+	  width: 320px;
+	  height: 95px;
+	  position: absolute;
+	  top: 66px;
+	  right: 20px;
+	  color: white;
+	  text-align: left;
+	  font-size: 16px;
+	  line-height: 36px;
+}
+
+.middle_chose .middle_main .mm_text a{
+	color: white;
+}
+
+.middle_chose .middle_main .mm_text a:hover{
+	text-decoration: underline;
+}
+
+.middle_chose .middle_main .mm_text #link_s{
+	position: relative;
+	width: 338px;
+	height:72px;
+	overflow: hidden;
+}
+
+.middle_chose .middle_main .mm_text #link_s .right_link{
+	width: 258px;
+	float: right;
+}
+
+/*论坛板块*/
+
