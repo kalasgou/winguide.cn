@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = 'home';
+$route['default_controller'] = 'welcome';
 $route['console/(:any)/view/(:any)/item/(:num)/page/(:num)'] = 'manage/$1/$2View/$3/$4';
 $route['console/(:any)/view/(:any)'] = 'manage/$1/$2View';
 
