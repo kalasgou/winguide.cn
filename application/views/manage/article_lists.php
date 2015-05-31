@@ -46,7 +46,8 @@
 						<col style="width:30%;"/>
 						<col style="width:10%;"/>
 						<col style="width:15%"/>
-						<col style="width:20%;"/>
+						<col style="width:10%;"/>
+						<col style="width:10%;"/>
 						<col style="width:10%"/>
 						<col style="width:10%;"/>
 					</colspan>
@@ -56,7 +57,8 @@
 							<th>标 题</th>
 							<th>模 块</th>
 							<th>栏 目</th>
-							<th>日 期</th>
+							<th>创建日期</th>
+							<th>更新日期</th>
 							<th>状 态</th>
 							<th>操 作</th>
 						</tr>
@@ -69,7 +71,8 @@
 							<td><a href="#"><?= $one['title']?></a></td>
 							<td><?= $one['course']?></td>
 							<td><?= $one['module']?></td>
-							<td><?= $one['create_time_formatted']?></td>
+							<td title="<?= $one['create_time_formatted'];?>"><?= substr($one['create_time_formatted'], 0, 10);?></td>
+							<td title="<?= $one['update_time_formatted'];?>"><?= substr($one['update_time_formatted'], 0, 10);?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
 								<a href="<?= base_url('console/article/view/detail?article_id='.$one['article_id'])?>" title="编辑文章内容"><span class="glyphicon glyphicon-edit"></span></a>

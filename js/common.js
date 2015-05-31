@@ -91,7 +91,7 @@ $('.gmatNav ul li').on('mouseenter',function(){
 
 /*定义当前页面的index值*/
 
-var tabIndex = ['gmat_article','gmat_system','gmat_video','gmat_info','gmat_dynamic','gmat_about'];
+var tabIndex = ['article','system','video','info','dynamic','gmat_about'];
 var markTabIndex = null;
 var markI = tabIndex.length;
 
@@ -214,6 +214,18 @@ function setArticle(name,page,course,module){
 
 			totalArcticlePageMark = dataJson.total_page;
 
+			if(dataJson.code >= 10){
+				alert('只有学员才能进入改系统或者测试，请在首页登录后，再操作');
+				window.location.href = '../index.html'
+				return;
+			}
+
+			if(dataJson.code >= 7){
+				$('.alert_bg,.loginAlert').show();
+				showLoginTag(0);
+				return;
+			}
+
 
 			if(dataJson.code === 0 && dataJson.articles.length > 0){
 
@@ -226,10 +238,16 @@ function setArticle(name,page,course,module){
 
 				for (i; i < limit; i++) {
 					
-					writeArticle(obj,data[i].title,data[i].create_time_formatted,data[i].article_id);
+					writeArticle(obj,data[i].title,data[i].create_time_formatted,data[i].uuid);
 
 				};
 
+			} else {
+				var str = '';
+				str += '<div style="width:100%;height:60px;position:absolute;top:50%;margin-top:-30px;color:#90c31f;font-size:46px;line-height:60px;text-align:center;">';
+				str +=	'敬请期待';
+				str += '</div>';
+				$('.gCon').empty().append(str);
 			}
 		}
 	});
@@ -254,7 +272,12 @@ function writeComment(obj,nickname,time,reply){
 	str +=									time
 	str +=								'</span>';
 	str +=							'</div>';
-	str +=							'<div class="say_something">';
+	if(obj.attr('id') == 'indexComment'){
+		str +=							'<div class="say_something_index">';
+	} else {
+		str +=							'<div class="say_something">';
+	}
+	
 	str +=								reply;
 	str +=							'</div>';
 	str +=						'</li>';
@@ -265,11 +288,13 @@ function writeComment(obj,nickname,time,reply){
 
 function setComment(name,page,course,module){
 
+
 	var obj = $('#'+name+'');
+
 	obj.empty();
 
 	var dataOpt = {
-		item : 3,
+		item : 5,
 		page : page,
 		course : course,
 		module : module,
@@ -302,8 +327,9 @@ function setComment(name,page,course,module){
 				};
 
 			} else {
-				$('.spit_page').remove();
-				$('.show_talk').children('ul').append('<li style="text-align: center;font-size:34px;">no data to show(暂无数据)</li>');
+				$('.spit_page').eq(1).remove();
+				$('.show_talk').children('ul').empty();
+				$('.show_talk').children('ul').append('<li style="text-align: center;font-size:24px;">暂无留言</li>');
 			}
 		}
 	});
@@ -329,9 +355,16 @@ function pushComment(reply){
 		type : 'post',
 		success : function(dataJson){
 			if(dataJson.code == 0){
-				alert('评论成功')
+				alert('评论成功');
+				var str = '<li><div class="tk_user_info"><span><img src="../img/index/user_mimo.png" height="26" width="25" alt=""></span><span>'+dataJson.nickname+'</span><span>'+dataJson.post_time+'</span></div><div class="say_something">'+opt.reply+'</div></li>'
+				if(window.location.href.indexOf('system')){
+					$('.show_talk').find('ul').eq(1).find('li').eq(0).before(str);
+				} else {
+					$('.show_talk').find('li').eq(0).before(str);
+				}
+				
 			} else {
-				alert('评论失败')
+				alert('评论失败');
 			}
 		}
 	});
@@ -343,9 +376,9 @@ function pushComment(reply){
 // 设置sum的动态
 
 
-function writeSumDynamic(obj,title,time){
+function writeSumDynamic(obj,articleId,title,time){
 	var str = '';
-	str += 				'<li>';
+	str += 				'<li data-articleId="'+articleId+'">';
 	str +=					'<a href="javascript:">';
 	str +=						'<span class="txt">';
 	str +=							title;
@@ -359,19 +392,17 @@ function writeSumDynamic(obj,title,time){
 	obj.append(str);
 } 
 
-function setSumDynamic(name,page,course){
+function setSumDynamic(name,course){
 	
 	var obj = $('#'+name+'');
 	obj.empty();
 	var dataOpt = {
-		item : 5,
-		page : page,
-		course : course,
-		module : 'news',
+		course : course
 	};
 
+
 	$.ajax({
-		url:'http://120.25.228.56/article/lists',
+		url:'http://120.25.228.56/article/news',
 		data:dataOpt,
 		type : 'get',
 		dataType : 'json',
@@ -389,7 +420,7 @@ function setSumDynamic(name,page,course){
 
 				for (i; i < limit; i++) {
 					
-					writeSumDynamic(obj,data[i].title,data[i].create_time_formatted);
+					writeSumDynamic(obj,data[i].uuid,data[i].title,data[i].create_time_formatted);
 
 				};
 
@@ -406,7 +437,7 @@ $('.input_submit_btn').click(function(){
 
 	var _reply = $('#replyArea').val();
 	if(_reply == ''){
-		alert('reply empty');
+		alert('请输入留言');
 		return;
 	}
 
@@ -603,6 +634,7 @@ function MouseWheel_2(e) {
     
 
 
+// 详情弹出
 
 $('.article_area ul').delegate('li', 'click', function(event) {
 
@@ -622,8 +654,13 @@ $('.article_area ul').delegate('li', 'click', function(event) {
 			$('.deta_con').html(dataJson.detail.content);
 
 			if(dataJson.detail.multimedia_url != null && dataJson.detail.multimedia_url != ''){
-				var str = '<video width="640" height="360" controls="" autoplay="" name="media"><source src="'+dataJson.detail.multimedia_url+'" type="video/mp4"></video>'
+
+				var str = '<video style="background:rgba(0,0,0,1)" width="640" height="360" controls="controls" preload="none" src="'+dataJson.detail.multimedia_url+'" name="media"></video>';
 				$('.deta_con').append(str);
+
+				setTimeout(function(){
+					$('video').css('marginTop','0px');
+				},0);
 			}
 			setTimeout(function(){
 				iScroll('deta_div','deta_con','deta_bar','auto');
@@ -657,8 +694,281 @@ $('.detail_closed').on('click',function(){
 		event.preventDefault();	
 	}
 
+	if($('video').length > 0){
+		$('video')[0].pause();
+		$('video').remove();
+	}
+	
 	$('.detail_bg,.detail_div').hide();
-	$('#deta_con').empty();
+	$('.deta_con').empty();
 });
+
+
+// sum
+// 详情弹出
+$('.newslistDiv ul').delegate('li', 'click', function(event) {
+
+	firefox ? document.addEventListener('DOMMouseScroll', MouseWheel_2, false) : (document.onmousewheel = MouseWheel_2);
+
+	var _articleId = $(this).attr('data-articleId');
+
+	//console.log(_articleId);
+
+	$.ajax({
+		url : 'http://120.25.228.56/article/detail',
+		data: {article_id:_articleId},
+		type : 'get',
+		dataType : 'json',
+		success : function(dataJson){
+			$('.deta_con').empty();
+			$('.deta_con').html(dataJson.detail.content);
+
+			if(dataJson.detail.multimedia_url != null && dataJson.detail.multimedia_url != ''){
+				$('.deta_title').text('如需观看视频，请使用google－chrome,firefox,ie9以上浏览器');	
+				var str = '<video style="background:rgba(0,0,0,1)" width="640" height="360" controls="controls" preload="none" src="'+dataJson.detail.multimedia_url+'" name="media"></video>';
+				$('.deta_con').append(str);
+
+				setTimeout(function(){
+					$('video').css('marginTop','0px');
+				},1000);
+			}
+			setTimeout(function(){
+				iScroll('deta_div','deta_con','deta_bar','auto');
+			},0)
+			
+
+			$('.detail_bg,.detail_div').show();
+		}
+	});
+});
+
+
+
+
+// 作业留言
+
+var markExNum = 0;
+var markExArr = [];
+var markExSub = '';
+
+function setTeachInfo(name,time,say,arr){
+	$('#teacherName').text(name);
+	$('#teacherCreateTime').text(time);
+	$('.teacherSaySomething').html('').html(say);
+
+	var i = arr.length;
+	var str = '';
+	while(i--){
+		str += '<li data-exercise="'+arr[i].exercise_id+'">'+arr[i].subject_cn+':共'+arr[i].amount+'题</li>';
+	}
+	$('#teacherWords').empty();
+	$('#teacherWords').append(str);
+
+}
+
+function setSystemComment(obj,page,course){
+
+	var opt = {
+		item : 5,
+		page : page,
+		course : course
+	}
+
+	var obj = $('#'+obj+'');
+	var _obj = obj;
+
+	_obj.empty();
+	$.ajax({
+		url:'http://120.25.228.56/course/homework',
+		data:opt,
+		type : 'get',
+		dataType : 'json',
+		async : false,
+		success : function(dataJson){
+
+			markTopicID = dataJson.homework.topic_id;
+			totalCommentPageMark = dataJson.homework.total_page;
+
+			$('.all_num').find('span').text(dataJson.homework.total_replies);
+
+			setTeachInfo(dataJson.homework.admin_name,dataJson.homework.create_time_formatted,dataJson.homework.thread,dataJson.homework.remark);
+
+			if(dataJson.code === 0 && dataJson.homework.replies.length > 0){
+
+				var i = 0;
+				var data = dataJson.homework.replies;
+				var limit = data.length;
+
+				for (i; i < limit; i++) {
+					writeComment(_obj,data[i].nickname,data[i].create_time_formatted,data[i].reply);
+
+				};
+
+			} else {
+				$('.spit_page').remove();
+				$('.show_talk').children('ul').append('<li style="text-align: center;font-size:24px;">暂无留言</li>');
+			}
+		}
+	});
+
+}
+
+
+
+
+
+$('.btn_block').delegate('li', 'click', function(event) {
+
+	var exercise_id = $(this).attr('data-exercise');
+	$.ajax({
+		url:'http://120.25.228.56/course/exercises',
+		data:{exercise_id:exercise_id},
+		type : 'get',
+		dataType : 'json',
+		async : false,
+		success : function(dataJson){
+
+			if(dataJson.code === 0){
+				markExNum = 0;
+				markExSub = dataJson.exercises.subject;
+				var _link = 'http://121.40.146.153/index.php?action='+dataJson.exercises.subject+'&t_no='+dataJson.exercises.numbers_arr[0];
+				$('iframe').attr('src',_link);
+
+				markExArr = dataJson.exercises.numbers_arr;
+				$('iframe')[0].contentWindow.location.href = _link;
+
+
+				$('.btn_ex').css('display','inline-block');
+			} else {
+				alert('网络错误');
+			}
+			
+		},
+		error:function(){
+			alert('网络错误');
+		}
+	});
+});
+
+
+
+function setExFn(num){
+
+	if(num < 0){
+		alert('已经是第一题,没有题目了哦！');
+		markExNum = 0;
+		return;
+	} else if(num > markExArr.length) {
+		markExNum = markExArr.length;
+		alert('已经是最后一题,没有题目了哦！');
+		return;
+	}
+
+	var str = 'http://121.40.146.153/index.php?action='+markExSub+'&t_no='+markExArr[num];
+	$('iframe').attr('src',str);
+	$('iframe')[0].contentWindow.location.href = str;
+
+}
+
+$('#btnExPre').click(function(){
+	markExNum--;
+	setExFn(markExNum);
+});
+
+$('#btnExNext').click(function(){
+	markExNum++;
+	setExFn(markExNum);
+});
+
+
+// 录入数据信息
+
+
+function macthUrl(arr){
+	var _url = window.location.href;
+	var i = 0;
+	var course = '';
+	for(i; i < arr.length; i++){
+		if(_url.indexOf(arr[i]) > -1){
+			course = arr[i];
+		}
+	}
+	return course;
+}
+
+if(_url.indexOf('system')>-1){
+
+	var courseArr = ['gmat','gre','gaokao','ielts','sat','toefl'];
+	var course = macthUrl(courseArr);
+
+	$.ajax({
+		url:'http://120.25.228.56/course/scores',
+		data:{course:'sat'},
+		type : 'get',
+		dataType : 'json',
+		async : false,
+		success : function(dataJson){
+
+			if(dataJson.code === 0){
+				var str = '';
+				$('#courseUserInfo').empty();
+
+				str +=	'<span>客户资料姓名：<em>'+dataJson.realname+'</em></span>';
+				str +=	'<span>账户：<em>'+dataJson.nickname+'</em></span>';
+
+				var i = 0;
+				for(i; i < dataJson.scores.length; i++){
+					str += '<span>'+dataJson.scores[i].subject+':<em>'+dataJson.scores[i].yes+'</em></span>'
+				}
+				$('#courseUserInfo').append(str);
+
+			} else {
+				alert('用户没有登录！请注册成为学员！');
+				window.location.href = '../index.html';
+			}
+			
+		},
+		error:function(){
+			alert('网络错误');
+		}
+	});
+
+
+}
+
+
+
+
+// 权限控制
+
+$('.gmatNav a,.gSunNav a').click(function(){
+
+
+	var _link = $(this).attr('data-href');
+	var _level = $(this).attr('data-level');
+
+	console.log(_link+'aasdasd_---'+_level);
+	if(_link == 'javascript:void(0)'){
+		return;
+	};
+
+
+	if(userData == null && _level == '1'){
+		$('.alert_bg,.loginAlert').show();
+		showLoginTag(0);
+		return;
+	};
+
+	if(userData == null && _level == '2' || (userData != null && userData.basic.is_student == false && _level == '2')){
+		$('.alert_bg,.loginAlert').show();
+		showLoginTag(1);
+		return;
+	};
+
+	window.location.href = _link;
+
+});
+
+
 
 

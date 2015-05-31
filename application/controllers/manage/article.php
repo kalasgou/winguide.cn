@@ -27,13 +27,15 @@ class Article extends CI_Controller {
 		$this->load->model('manage/Article_M');
 		
 		$output['courses'] = $this->Article_M->listModules(0);
-		$output['modules'] = $this->Article_M->listModules($params['course_id']);
+		$output['modules'] = array();
+		$params['course_id'] > 0 && $output['modules'] = $this->Article_M->listModules($params['course_id']);
 		
 		$output['articles'] = $this->Article_M->listArticles($params);
 		
 		foreach ($output['articles'] as &$one) {
 			list($one['course'], $one['module']) = explode('|', $one['category']);
 			$one['create_time_formatted'] = date('Y-m-d H:i:s', $one['create_time']);
+			$one['update_time_formatted'] = date('Y-m-d H:i:s', $one['update_time']);
 		}
 		
 		$output['total_num'] = $this->Article_M->countArticles($params);
@@ -116,7 +118,7 @@ class Article extends CI_Controller {
 			$ret['code'] = 0;
 			$ret['msg'] = 'success';
 		}
-		
+		header('Location: '.base_url('console/article/view/lists'));
 		echo json_encode($ret);
 	}
 	
@@ -150,7 +152,7 @@ class Article extends CI_Controller {
 			$ret['code'] = 0;
 			$ret['msg'] = 'success';
 		}
-		
+		header('Location: '.base_url('console/article/view/lists'));
 		echo json_encode($ret);
 	}
 	

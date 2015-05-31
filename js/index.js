@@ -89,7 +89,7 @@ $('#infoLogin').click(function(){
 
 $('.mm_btn_2').click(function(){
 
-	window.location.href = 'http://www.winguide.cn/manage/login'
+	window.location.href = 'http://www.winguide.cn/manage/login';
 
 });
 

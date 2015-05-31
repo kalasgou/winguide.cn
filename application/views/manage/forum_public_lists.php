@@ -10,20 +10,20 @@
 			<div class="panel-heading">
 				<ul class="nav nav-tabs">
 					<li role="presentation" class="active"><a href="#">列表</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/search?visibility='.$_GET['visibility']) ?>">搜索</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/create?visibility='.$_GET['visibility']) ?>">添加</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/search?visibility=public')?>">搜索</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/create?visibility=public')?>">添加</a></li>
 				</ul>
 			</div>
 			<div class="panel-body">
 				<table class="table table-striped">
 					<colspan>
 						<col style="width:5%;"/>
-						<col style="width:5%;"/>
-						<col style="width:25%;"/>
+						<col style="width:10%;"/>
+						<col style="width:40%;"/>
 						<!--<col style="width:20%"/>-->
-						<col style="width:9%;"/>
-						<col style="width:18%;"/>
-						<col style="width:18%;"/>
+						<col style="width:5%;"/>
+						<col style="width:10%;"/>
+						<col style="width:10%;"/>
 						<col style="width:10%;"/>
 						<col style="width:10%;"/>
 					</colspan>
@@ -46,11 +46,11 @@
 						<tr>
 							<td><span data-uuid="<?= $one['uuid']?>"><?= $one['topic_id'];?></span></td>
 							<td><?= $one['module'];?></td>
-							<!--<td><?= $one['topic'];?></td>-->
-							<td><?= $one['thread'];?></td>
+							<td><?= $one['topic'];?></td>
+							<!--<td><?= $one['thread'];?></td>-->
 							<td><?= $one['recommend'];?></td>
-							<td><?= $one['create_time_formatted'];?></td>
-							<td><?= $one['update_time_formatted'];?></td>
+							<td title="<?= $one['create_time_formatted'];?>"><?= substr($one['create_time_formatted'], 0, 10);?></td>
+							<td title="<?= $one['update_time_formatted'];?>"><?= substr($one['update_time_formatted'], 0, 10);?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
 								<a href="<?= base_url('console/forum/view/detail?topic_id='.$one['topic_id'])?>"><span class="glyphicon glyphicon-edit" title=""></span></a>

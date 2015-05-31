@@ -39,11 +39,28 @@ class Article_M extends CI_Model {
 		return intval($this->db_conn->where($search)->count_all_results('articles'));
 	}
 	
+	public function getNewsLists($params) {
+		$articles = array();
+		
+		$query = $this->db_conn->select('article_id, uuid, title, create_time')
+								->from('articles')
+								->like('category', $params['course'], 'after')
+								->order_by('create_time DESC')
+								->limit(10)
+								->get();
+		
+		if ($query->num_rows() > 0) {
+			$articles = $query->result_array();
+		}
+		 
+		 return $articles;
+	}
+	
 	public function getArticleDetail($params) {
 		$detail = array();
 		
 		$search = array();
-		$search['article_id'] = $params['article_id'];
+		$search['uuid'] = $params['uuid'];
 		
 		$query = $this->db_conn->select('article_id, uuid, cover, title, keywords, content, summary, multimedia_url, link, attachment, create_time')
 								->from('articles')

@@ -17,19 +17,23 @@
 			<div class="panel-body">
 				<table class="table table-striped">
 					<colspan>
+						<col style="width:5%;"/>
 						<col style="width:10%;"/>
-						<col style="width:20%;"/>
-						<col style="width:20%;"/>
-						<col style="width:20%"/>
+						<col style="width:15%;"/>
+						<col style="width:26%"/>
+						<col style="width:12%;"/>
+						<col style="width:12%;"/>
 						<col style="width:10%;"/>
-						<col style="width:20%;"/>
+						<col style="width:10%;"/>
 					</colspan>
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>昵 称</th>
+							<th>类 型</th>
+							<th>姓 名</th>
 							<th>邮 箱</th>
-							<th>日 期</th>
+							<th>创建日期</th>
+							<th>更新日期</th>
 							<th>状 态</th>
 							<th>操 作</th>
 						</tr>
@@ -38,10 +42,12 @@
 						<?php if (count($admins) > 0) { ?>
 						<?php foreach($admins as $one):?>
 						<tr>
+							<td><?= $one['privilege']?></td>
 							<td><?= $one['admin_id']?></td>
 							<td><?= $one['username']?></td>
 							<td><?= $one['email']?></td>
-							<td><?= $one['create_time_formatted']?></td>
+							<td title="<?= $one['create_time_formatted']?>"><?= substr($one['create_time_formatted'], 0, 10)?></td>
+							<td title="<?= $one['update_time_formatted']?>"><?= substr($one['update_time_formatted'], 0, 10)?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
 								<a href="#"><span class="glyphicon glyphicon-info-sign"></span></a>

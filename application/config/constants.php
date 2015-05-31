@@ -48,5 +48,12 @@ define('TEACHER', 		2);
 define('OPERATOR', 		4);
 define('AGENCY', 		8);
 
+define('STUDENT', 		1024);
+define('CELLPHONE',		2048);
+
+define('UNAVAILABLE',	-1);
+define('INITIALIZED',	0);
+define('ACTIVATED',		1);
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

@@ -22,9 +22,9 @@
         	<form action="" id="form">
         		
         		<!--第一行 姓名-->
-				<input class="t1_1" name="basic:real_name" name="" type="text" value="" />
-				<input class="t1_2" name="basic:used_name" name="" type="text" value="" />
-				<input class="t1_3" name="basic:birthday" name="" type="text" value="" />
+				<input class="t1_1" name="basic:real_name" type="text" value="" />
+				<input class="t1_2" name="basic:used_name" type="text" value="" />
+				<input class="t1_3" name="basic:birthday" type="text" value="" />
 				<input class="t1_4" name="basic:sex" type="text" value="" />
 				
 				<!--第二行 Username-->
@@ -81,7 +81,7 @@
 					<span>总分：  分数</span><input name="exam:gre-total_point" type="text" value="" />%
 				</div>
 				<div class="t9_2">
-					<span>阅读：  分数</span><input name="exam:ger-reading" type="text" value="" />%
+					<span>阅读：  分数</span><input name="exam:gre-reading" type="text" value="" />%
 				</div>
 				<div class="t9_3">
 					<span>数学：  分数</span><input name="exam:gre-mathematics" type="text" value="" />%
@@ -307,11 +307,10 @@
 				<input class="t53_2" name="referee:zip_code" type="text" value="" />
 				
 				<div class="btnDiv">
-					<div class="sure" id="infoLogin">登录</div>
-					<div class="close">关闭</div>
+					<div class="activate" id="info-submit">提交</div>
+					<div class="refresh" id="info-clean">清空</div>
 				</div>
 				
-
         	</form>       
         </div>
 
@@ -323,7 +322,62 @@
 	<script src="/js/index.js"></script>
 	
 	<script>
+		var _form = $("#form");
+		
+		//表单提交
+		$('#info-clean').click(function(){
+			document.getElementById('form').reset();
+		});
+		
+		//表单提交
+		$('#info-submit').click(function(){
 
+			var _realName = $('input[name="basic:real_name"]').val();  //姓名
+			var _stuName = $('input[name="student:username"]').val();   //userName
+			var _stuPwd = $('input[name="student:password"]').val(); //密码			
+			var _cellPhone = $('input[name="basic:cellphone"]').val();  //手机
+
+			// console.log(_realName+'+'+_stuName+'+'+_stuPwd+'+'+_cellPhone);
+
+			if(_realName==''||_stuName==''||_stuPwd==''||_cellPhone==''){
+				alert('带*的为必填项！');
+				return;
+			}
+
+			var _passWord = $('#password'),
+				_passWordVal = _passWord.val(),
+				_md5PassWord = hex_md5(_passWordVal);
+
+			_passWord.val(_md5PassWord);
+			var _dataStr = _form.serialize();
+			console.log(_dataStr);
+			$.ajax({
+				url: 'http://www.winguide.cn/manage/application/activateAccount',
+				type: 'POST',
+				dataType: 'JSON',
+				data: _dataStr,
+				success:function(dataJson){
+					if(dataJson.code == 0){
+						alert('注册成功，帐号已激活');
+						window.location.reload();
+					}else if(dataJson.code == 2){
+						alert('帐号密码不正确！');
+					}else if(dataJson.code == 3){
+						alert('该帐号不存在！');
+					}else if(dataJson.code == 6){
+						alert('该帐号已经注册！');
+					} else {
+						alert('注册失败,请检查');
+					}
+				},
+				error:function(){
+					alert('网络异常');
+				}
+			});
+			
+		});
+		
+		
 		setComment('indexComment',0,'gre','public');
 		$('#indexCommentPage').creat_page({
 		    countPage:totalCommentPageMark,

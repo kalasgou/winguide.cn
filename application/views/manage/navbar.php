@@ -349,10 +349,10 @@ $(function () {
 	var hover = $('#hover').val();
 	$('#' + hover + '_nav').attr('class', 'active');
 	
-	if (hover.indexOf('forum') > -1) {
+	/*if (hover.indexOf('forum') > -1) {
 		$('#dropdown').removeClass('collapsed').attr('aria-expanded', 'true');
 		$('#dropdown-lvl1').addClass('in').attr('aria-expanded', 'true');
-	}
+	}*/
 	
   	$('.navbar-toggle-sidebar').click(function () {
   		$('.navbar-nav').toggleClass('slide-in');
@@ -437,20 +437,20 @@ $(function () {
 								<li id="article_nav"><a href="/console/article"><span class="glyphicon glyphicon-globe"></span> 文章仓库</a></li>
 								<li id="student_nav"><a href="/console/student"><span class="glyphicon glyphicon-education"></span> 付费帐号</a></li>
 								<li id="user_nav"><a href="/console/user"><span class="glyphicon glyphicon-sunglasses"></span> 普通帐号</a></li>
-								<li id="forum_nav"><a href="/console/forum?visibility=public"><span class="glyphicon glyphicon-bullhorn"></span> 讨论留言</a></li>
-								<li id="homework_nav"><a href="/console/forum?visibility=course"><span class="glyphicon glyphicon-book"></span> 课程任务</a></li>
+								<li id="forum_public_nav"><a href="/console/forum?visibility=public"><span class="glyphicon glyphicon-bullhorn"></span> 讨论留言</a></li>
+								<li id="forum_course_nav"><a href="/console/forum?visibility=course"><span class="glyphicon glyphicon-book"></span> 课程任务</a></li>
 								<!-- Dropdown-->
-								<li class="panel panel-default" id="dropdown">
+								<!--<li class="panel panel-default" id="dropdown">
 									<a data-toggle="collapse" href="#dropdown-lvl1">
 										<span class="glyphicon glyphicon-edit"></span> 讨论留言 <span class="caret"></span>
-									</a>
+									</a>-->
 
 									<!-- Dropdown level 1 -->
-									<div id="dropdown-lvl1" class="panel-collapse collapse">
+									<!--<div id="dropdown-lvl1" class="panel-collapse collapse">
 										<div class="panel-body">
 											<ul class="nav navbar-nav">
 												<li id="forum_public_nav"><a href="/console/forum?visibility=public"><span class="glyphicon glyphicon-bullhorn"></span> 全站论坛</a></li>
-												<li id="forum_course_nav"><a href="/console/forum?visibility=course"><span class="glyphicon glyphicon-book"></span> 课程任务</a></li>
+												<li id="forum_course_nav"><a href="/console/forum?visibility=course"><span class="glyphicon glyphicon-book"></span> 课程任务</a></li>-->
 												<!--<li><a href="#">Link</a></li>
 
 												 Dropdown level 2 
@@ -468,10 +468,10 @@ $(function () {
 														</div>
 													</div>
 												</li>-->
-											</ul>
+											<!--</ul>
 										</div>
 									</div>
-								</li>
+								</li>-->
 								
 								<li id="admin_nav"><a href="/console/admin"><span class="glyphicon glyphicon-user"></span> 后台帐号</a></li>
 								<li><a href="#"><span class="glyphicon glyphicon-hdd"></span> 日志记录</a></li>

@@ -80,7 +80,7 @@ $autoload['helper'] = array('util', 'url');
 |
 */
 
-$autoload['config'] = array();
+$autoload['config'] = array('exercise_tags');
 
 
 /*

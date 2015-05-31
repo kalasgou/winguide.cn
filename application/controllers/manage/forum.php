@@ -37,7 +37,7 @@ class Forum extends CI_Controller {
 		$output['total_num'] = $this->Forum_M->countTopics($params);
 		$output['pagination'] = gen_pagination(base_url("console/forum/view/lists/item/{$params['item']}/page/"), 8, $output['total_num'], $params['item']);
 		
-		$this->load->view('manage/forum_lists', $output);
+		$this->load->view("manage/forum_{$params['visibility']}_lists", $output);
 	}
 	
 	public function createView() {
@@ -46,7 +46,7 @@ class Forum extends CI_Controller {
 		$output = array();
 		$output['hover'] = 'forum_'.$params['visibility'];
 		
-		$this->load->view('manage/forum_create', $output);
+		$this->load->view("manage/forum_{$params['visibility']}_create", $output);
 	}
 	
 	public function searchView() {
@@ -64,7 +64,7 @@ class Forum extends CI_Controller {
 		$output['visibility'] = $detail['visibility'];
 		$output['detail'] = $detail;
 		
-		$this->load->view('manage/topic_detail', $output);
+		$this->load->view("manage/topic_{$detail['visibility']}_detail", $output);
 	}
 	
 	public function commentView() {
@@ -104,7 +104,7 @@ class Forum extends CI_Controller {
 	public function update() {
 		$params['topic_id'] = intval($this->input->post('topic_id', TRUE));
 		$params['module'] = trim($this->input->post('module', TRUE));
-		$params['visibility'] = trim($this->input->post('visibility', TRUE));
+		//$params['visibility'] = trim($this->input->post('visibility', TRUE));
 		$params['topic'] = trim($this->input->post('topic', TRUE));
 		$params['thread'] = trim($this->input->post('thread'));
 		$params['update_time'] = $_SERVER['REQUEST_TIME'];

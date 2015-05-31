@@ -14,7 +14,7 @@ class User_M extends CI_Model {
 		$item = $params['item'];
 		$offset = $params['item'] * $params['page'];
 		
-		$query = $this->db_conn->select('user_id, nickname, cellphone, create_time, status')
+		$query = $this->db_conn->select('user_id, nickname, cellphone, create_time, update_time, status')
 					->from('users')->order_by('create_time DESC')->limit($item, $offset)->get();
 		
 		if ($query->num_rows() > 0) {

@@ -13,7 +13,8 @@ class User extends CI_Controller {
 	public function register() {
 		$params['cellphone'] = trim($this->input->post('cellphone', TRUE));
 		//$params['nickname'] = trim($this->input->post('nickname', TRUE));
-		$params['password'] = trim($this->input->post('password', TRUE));		
+		$params['password'] = trim($this->input->post('password', TRUE));
+		$params['account_type'] = CELLPHONE;
 		$params['create_time'] = $_SERVER['REQUEST_TIME'];
 		
 		$code = trim($this->input->post('code', TRUE));
@@ -85,8 +86,9 @@ class User extends CI_Controller {
 				$ret['code'] = 0;
 				$ret['msg'] = 'success';
 				
-				$_SESSION['user']['id'] = $user['user_id'];
-				$_SESSION['user']['nickname'] = $user['cellphone'];
+				session_unset();
+				
+				$this->User_M->retrieveUserinfo($user);
 			} else {
 				$ret['code'] = 2;
 				$ret['msg'] = 'password error';
@@ -108,7 +110,7 @@ class User extends CI_Controller {
 		$ret['msg'] = 'not logged in yet';
 		
 		$this->load->model('User_M');
-		$user_info = $this->User_M->retrieveUserinfo();
+		$user_info = $this->User_M->retrieveUserinfo(array());
 		
 		if (!empty($user_info)) {
 			$ret['code'] = 0;
@@ -122,12 +124,9 @@ class User extends CI_Controller {
 	public function logout() {
 		header('Content-Type: application/json, charset=utf-8');
 		
+		session_unset();
+		
 		$ret = array();
-		$ret['code'] = 1;
-		$ret['msg'] = 'fail';
-		
-		unset($_SESSION['user']);
-		
 		$ret['code'] = 0;
 		$ret['msg'] = 'success';
 		

@@ -79,8 +79,8 @@
 							<td><?= $one['cellphone']?></td>
 							<td><?= $one['course']?></td>
 							<td><?= $one['username']?></td>
-							<td><?= $one['start_time_formatted']?></td>
-							<td><?= $one['end_time_formatted']?></td>
+							<td title="<?= $one['start_time_formatted'];?>"><?= substr($one['start_time_formatted'], 0, 10);?></td>
+							<td title="<?= $one['end_time_formatted'];?>"><?= substr($one['end_time_formatted'], 0, 10);?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
 								<a href="<?= base_url('console/student/view/detail?student_id='.$one['student_id'])?>" target="_blank"><span class="glyphicon glyphicon-edit"></span></a>

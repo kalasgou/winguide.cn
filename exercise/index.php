@@ -113,7 +113,7 @@ function Fun_tail(){
 	echo "<br><input type=\"submit\" name=\"\" value=\"提交\"></td></tr></form></table>";
 }
 
-$db=new mysqli("localhost", "root", "", "winguide");  $db->query("set names utf8");
+$db=new mysqli("localhost", "root", "eeb703f4", "winguide");  $db->query("set names utf8");
 $action=(empty($_REQUEST['action'])) ? '' : $_REQUEST['action'];
 if(!isset($_SESSION['userid']) && empty($action)){ $action="logon"; }
 

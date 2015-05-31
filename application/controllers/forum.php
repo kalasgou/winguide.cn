@@ -35,7 +35,18 @@ class Forum extends CI_Controller {
 	}
 	
 	public function postReply() {
-		$params['user_id'] = 1;
+		header('Content-Type: application/json, charset=utf-8');
+		
+		$ret = array();
+		
+		if (empty($_SESSION['user']) || !$_SESSION['user']['is_student']) {
+			$ret['code'] = 11;
+			$ret['msg'] = 'only students can discuss';
+			
+			exit(json_encode($ret));
+		}
+		
+		$params['user_id'] = $_SESSION['user']['id'];
 		$params['topic_id'] = trim($this->input->post('topic_id', TRUE));
 		$params['reply'] = trim($this->input->post('reply', TRUE));
 		$params['ip_addr'] = ip2long($this->input->ip_address());
@@ -46,9 +57,6 @@ class Forum extends CI_Controller {
 			exit('Parameters not enough');
 		}
 		
-		header('Content-Type: application/json, charset=utf-8');
-		
-		$ret = array();
 		$ret['code'] = 1;
 		$ret['msg'] = 'fail';
 		
@@ -59,6 +67,8 @@ class Forum extends CI_Controller {
 			$ret['code'] = 0;
 			$ret['msg'] = 'success';
 			$ret['reply_id'] = $result;
+			$ret['nickname'] = $_SESSION['user']['nickname'];;
+			$ret['post_time'] = date('Y-m-d H:i:s', $_SERVER['REQUEST_TIME']);
 		}
 		
 		echo json_encode($ret);

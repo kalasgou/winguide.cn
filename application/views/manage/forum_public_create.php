@@ -8,45 +8,49 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<ul class="nav nav-tabs">
-					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/lists?visibility='.$visibility)?>">列表</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/search?visibility='.$visibility)?>">搜索</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/create?visibility='.$visibility)?>">添加</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/lists?visibility=public')?>">列表</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/search?visibility=public')?>">搜索</a></li>
+					<li role="presentation" class="active"><a href="#">添加</a></li>
 				</ul>
 			</div>
 			<div class="panel-body">
-				<form action="<?= base_url('manage/forum/update') ?>" method="post" enctype="multipart/form-data">
-					<input type="hidden" name="topic_id" value="<?= $detail['topic_id']?>"/>
+				<form action="<?= base_url('manage/forum/create') ?>" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="visibility" value="public" required />
 					<div class="input-group">
 						<span class="input-group-addon">课程模块</span>
-						<input type="hidden" id="cur-module" value="<?= $detail['module']?>"/>
-						<select id="module-option" name="module" class="form-control" required>
+						<select name="module" class="form-control" required>
 							<option value="gmat">GMAT</option>
 							<option value="gre">GRE</option>
 							<option value="ielts">IELTS</option>
 							<option value="sat">SAT</option>
 							<option value="toefl">TOEFL</option>
+							<option value="gaokao">高考</option>
 						</select>
 					</div>
-					<div class="input-group">
+					<!--<div class="input-group">
 						<span class="input-group-addon">论坛版块</span>
-						<input type="hidden" id="cur-visibility" value="<?= $detail['visibility']?>"/>
 						<select id="visibility-option" name="visibility" class="form-control" required>
 							<option value="public">全站论坛</option>
 							<option value="course">课程任务</option>
 						</select>
-					</div>
+					</div>-->
 					<div class="input-group">
 						<span class="input-group-addon">讨论主题</span>
-						<input name="topic" type="text" class="form-control" value="<?= $detail['topic']?>" required>
+						<input name="topic" type="text" class="form-control" required>
 					</div>
 					<div class="input-group">
 						<div class="input-group-addon-instruction">~~~~~~~~主题正文内容~~~~~~~~</div>
 						<textarea name="thread" class="summernote form-control" required>
-						<?= $detail['thread']?>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 						</textarea>
 					</div>
 					<div class="pull-right">
-						<button class="btn btn-success btn-sm" type="submit">提交</button>
+						<button class="btn btn-default btn-sm" type="submit">提交</button>
 					</div>
 				</form>
 			</div>
@@ -56,11 +60,6 @@
 </div>
 </div>
 <script type="text/javascript">
-	var _module = $('#cur-module').val();
-	var _visibility = $('#cur-visibility').val();
-	$('#module-option option[value=' + _module + ']').attr('selected', 'true');
-	$('#visibility-option option[value=' + _visibility + ']').attr('selected', 'true');
-	
 	$(document).ready(function() {
       $('.summernote').summernote({
         height: 300,
@@ -80,6 +79,7 @@
         }
       });
 	  
+		
     });
 </script>
 <?php include APPPATH .'views/manage/footer.php'?>

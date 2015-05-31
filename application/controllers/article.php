@@ -22,6 +22,32 @@ class Article extends CI_Controller {
 		$ret['code'] = 0;
 		$ret['msg'] = 'success';
 		
+		if (empty($_SESSION['user'])) {
+			if (!in_array($params['module'], array('origin', 'news', 'information', 'requirement'))) {
+				$ret['code'] = 8;
+				$ret['msg'] = 'only for registered members';
+				
+				exit(json_encode($ret));
+			}
+			
+			if ($params['item'] > 10 || $params['page'] > 0) {
+				$ret['code'] = 9;
+				$ret['msg'] = 'only first page with most 10 items';
+				
+				exit(json_encode($ret));
+			}
+			
+			$params['item'] = 10;
+			$params['page'] = 0;
+		} elseif (!$_SESSION['user']['is_student']) {
+			if (!in_array($params['module'], array('origin', 'news', 'information', 'requirement', 'exercise', 'multimedia'))) {
+				$ret['code'] = 10;
+				$ret['msg'] = 'only for student members';
+				
+				exit(json_encode($ret));
+			}
+		}
+		
 		$this->load->model('Article_M');
 		$articles = $this->Article_M->getArticleLists($params);
 		
@@ -38,8 +64,29 @@ class Article extends CI_Controller {
 		echo json_encode($ret);
 	}
 	
+	public function news() {
+		$params['course'] = trim($this->input->get('course', TRUE));
+		
+		header('Content-Type: application/json, charset=utf-8');
+		
+		$ret = array();
+		$ret['code'] = 0;
+		$ret['msg'] = 'success';
+		
+		$this->load->model('Article_M');
+		$articles = $this->Article_M->getNewsLists($params);
+		
+		foreach ($articles as &$one) {
+			$one['create_time_formatted'] = date('Y-m-d', $one['create_time']);
+		}
+		
+		$ret['articles'] = $articles;
+		
+		echo json_encode($ret);
+	}
+	
 	public function detail() {
-		$params['article_id'] = intval($this->input->get('article_id', TRUE));
+		$params['uuid'] = trim($this->input->get('article_id', TRUE));
 		
 		header('Content-Type: application/json, charset=utf-8');
 		

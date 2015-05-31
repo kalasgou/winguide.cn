@@ -64,6 +64,22 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
+$db['exercise']['hostname'] = 'localhost';
+$db['exercise']['username'] = 'root';
+$db['exercise']['password'] = '';
+$db['exercise']['database'] = 'winguide';
+$db['exercise']['dbdriver'] = 'mysqli';
+$db['exercise']['dbprefix'] = 'en_';
+$db['exercise']['pconnect'] = FALSE;
+$db['exercise']['db_debug'] = TRUE;
+$db['exercise']['cache_on'] = FALSE;
+$db['exercise']['cachedir'] = '';
+$db['exercise']['char_set'] = 'utf8';
+$db['exercise']['dbcollat'] = 'utf8_general_ci';
+$db['exercise']['swap_pre'] = '';
+$db['exercise']['autoinit'] = TRUE;
+$db['exercise']['stricton'] = FALSE;
+
 
 /* End of file database.php */
 /* Location: ./application/config/database.php */
