@@ -304,9 +304,9 @@
 							<input class="t53_1" name="referee:addr" type="text" value="<?= $detail['referee']['addr']?>" />
 							<input class="t53_2" name="referee:zip_code" type="text" value="<?= $detail['referee']['zip_code']?>" />
 							
-							<div class="btnDiv">
+							<!--<div class="btnDiv">
 								<div class="sure" onclick="alert(213);">修改</div>
-							</div>
+							</div>-->
 			        	</form>       
 			        </div>
 				</div>

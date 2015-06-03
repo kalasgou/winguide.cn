@@ -105,7 +105,7 @@ class Student_M extends CI_Model {
 			$search['purchase_time <= '] = $end_time;
 		}
 		
-		$query = $this->db_conn->select('student_id, username, course, purchase_time, init_pswd, duration, status')
+		$query = $this->db_conn->select('student_id, username, course, purchase_time, start_time, init_pswd, duration, status')
 					->from('students')->where($search)->order_by('purchase_time DESC, student_id DESC')->limit($item, $offset)->get();
 		
 		if ($query->num_rows() > 0) {

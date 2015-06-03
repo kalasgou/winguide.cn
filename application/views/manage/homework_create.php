@@ -69,14 +69,22 @@
         height: 300,
         tabsize: 2,
 		lang: 'zh-CN',
-		/*toolbar: [
-  		    ['style', ['bold', 'italic', 'underline', 'clear']],
+		toolbar: [
+  		    ['misc', ['undo', 'redo']],
+			['fontname', ['fontname']],
+  		    ['style', ['style']],
+  		    ['fontsize', ['fontsize']],
+			['height', ['height']],
+  		    ['style', ['bold', 'italic', 'underline']],
+  		    ['style', ['strikethrough', 'superscript', 'subscript']],
+  		    ['style', ['clear']],
   		    ['color', ['color']],
   		    ['para', ['ul', 'ol', 'paragraph']],
-  		    ['height', ['height']],
   		    ['table', ['table']],
-  		    ['insert', ['video']]
-  		  ],*/
+  		    ['hr', ['hr']],
+  		    ['insert', ['picture', 'link', 'video']],
+  		    ['misc', ['fullscreen', 'codeview', 'help']],
+  		  ],
 		styleWithSpan: false,
         codemirror: {
           theme: 'monokai'

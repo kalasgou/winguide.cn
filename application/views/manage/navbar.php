@@ -379,7 +379,7 @@ $(function () {
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="http://www.winguide.cn">
+				<a class="navbar-brand" href="http://www.winguide.cn" target="_blank">
 					WinGuide赢凯
 				</a>
 			</div>
@@ -393,14 +393,14 @@ $(function () {
 					<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
 				</form>-->
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="http://www.winguide.cn" target="_blank">
+					<li><a href="<?= base_url()?>" target="_blank">
 						<span class="glyphicon glyphicon-home"></span> 主站首页
 						</a></li>
 					<li class="dropdown ">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 						<span class="glyphicon glyphicon-user"></span>
-						<?php if (!empty($_SESSION['administrator'])) { 
-								echo '<a href="">'.$_SESSION['administrator']['username'].'</a>';
+						<?php if (!empty($_SESSION['admin'])) { 
+								echo $_SESSION['admin']['username'];
 							} else {
 								echo 'Forbidden';
 							} 
@@ -412,7 +412,7 @@ $(function () {
 							<li class=""><a href="#"><span class="glyphicon glyphicon-cog"></span> Other Link</a></li>
 							<li class=""><a href="#"><span class="glyphicon glyphicon-cog"></span> Other Link</a></li>
 							<li class="divider"></li>-->
-							<li><a href="<?= base_url('manage/admin/logout')?>"><span class="glyphicon glyphicon-asterisk"></span> 修改密码</a></li>
+							<li><a href="<?= base_url('manage/admin/logout')?>"><span class="glyphicon glyphicon-lock"></span> 修改密码</a></li>
 							<li class="divider">
 							<li><a href="<?= base_url('manage/admin/logout')?>"><span class="glyphicon glyphicon-off"></span> 退出系统</a></li>
 						</ul>

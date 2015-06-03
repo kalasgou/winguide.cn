@@ -10,8 +10,8 @@
 			<div class="panel-heading">
 				<ul class="nav nav-tabs">
 					<li role="presentation" class="active"><a href="#">列表</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/user/view/search') ?>">搜索</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/user/view/create') ?>">添加</a></li>
+					<!--<li role="presentation" class=""><a href="<?= base_url('console/user/view/search') ?>">搜索</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/user/view/create') ?>">添加</a></li>-->
 				</ul>
 			</div>
 			<div class="panel-body">
@@ -56,7 +56,7 @@
 						<?php endforeach;?>
 						<?php } else { ?>
 						<tr>
-							<td colspan="6" align="center">暂无相关数据</td>
+							<td colspan="7" align="center">暂无相关数据</td>
 						</tr>
 						<?php } ?>
 					</tbody>

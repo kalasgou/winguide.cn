@@ -65,5 +65,28 @@ class Forum_M extends CI_Model {
 		
 		return $detail;
 	}
+	
+	public function loadComments($params) {
+		$comments = array();
+		
+		$item = $params['item'];
+		$offset = $params['item'] * $params['page'];
+		
+		$search = array();
+		$search['topic_id'] = $params['topic_id'];
+		
+		$query = $this->db_conn->select('R.reply_id, U.user_id, U.real_name, R.reply, R.create_time')
+								->from('forum_reply AS R')->join('users AS U', 'U.user_id = R.user_id')
+								->where($search)
+								->order_by('R.create_time DESC')
+								->limit($item, $offset)
+								->get();
+								
+		if ($query->num_rows() > 0) {
+			$comments = $query->result_array();
+		}
+		
+		return $comments;
+	}
 }
 /* End of file */

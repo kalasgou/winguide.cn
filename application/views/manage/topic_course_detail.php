@@ -8,10 +8,10 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<ul class="nav nav-tabs">
-					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/lists?visibility=course')?>">列表</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/search?visibility=course')?>">搜索</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/lists?visibility=course')?>">任务</a></li>
 					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/create?visibility=course')?>">布置作业</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/create?visibility=course')?>">新建习题</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/exercise/view/lists')?>">题库</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/exercise/view/create')?>">新建习题</a></li>
 				</ul>
 			</div>
 			<div class="panel-body">
@@ -69,14 +69,22 @@
         height: 300,
         tabsize: 2,
 		lang: 'zh-CN',
-		/*toolbar: [
-  		    ['style', ['bold', 'italic', 'underline', 'clear']],
+		toolbar: [
+  		    ['misc', ['undo', 'redo']],
+			['fontname', ['fontname']],
+  		    ['style', ['style']],
+  		    ['fontsize', ['fontsize']],
+			['height', ['height']],
+  		    ['style', ['bold', 'italic', 'underline']],
+  		    ['style', ['strikethrough', 'superscript', 'subscript']],
+  		    ['style', ['clear']],
   		    ['color', ['color']],
   		    ['para', ['ul', 'ol', 'paragraph']],
-  		    ['height', ['height']],
   		    ['table', ['table']],
-  		    ['insert', ['video']]
-  		  ],*/
+  		    ['hr', ['hr']],
+  		    ['insert', ['picture', 'link', 'video']],
+  		    ['misc', ['fullscreen', 'codeview', 'help']],
+  		  ],
 		styleWithSpan: false,
         codemirror: {
           theme: 'monokai'

@@ -4,7 +4,7 @@ function check_parameters($data) {
 	if (!$data) return FALSE;
 	foreach ($data as $val) {
 		if (is_array($val)) { 
-			if (checkParameters($val)) {
+			if (check_parameters($val)) {
 				continue;
 			} else {
 				return FALSE;

@@ -31,7 +31,7 @@ class Forum extends CI_Controller {
 		
 		foreach ($output['topics'] as &$one) {
 			$one['create_time_formatted'] = date('Y-m-d H:i:s', $one['create_time']);
-			$one['update_time_formatted'] = date('Y-m-d H:i:s', $one['update_time']);
+			$one['update_time_formatted'] = $one['update_time'] === '0' ? '-' : date('Y-m-d H:i:s', $one['update_time']);
 		}
 		
 		$output['total_num'] = $this->Forum_M->countTopics($params);
@@ -136,6 +136,30 @@ class Forum extends CI_Controller {
 	
 	public function search() {
 		
+	}
+	
+	public function comments() {
+		$params['topic_id'] = intval($this->input->get('topic_id', TRUE));
+		$params['item'] = intval($this->input->get('item', TRUE));
+		$params['page'] = intval($this->input->get('page', TRUE));
+		
+		header('Content-Type: application/json, charset=utf-8');
+		
+		$ret = array();
+		$ret['code'] = 0;
+		$ret['msg'] = 'success';
+		
+		$this->load->model('manage/Forum_M');
+		$comments = $this->Forum_M->loadComments($params);
+		
+		foreach ($comments as &$one) {
+			$one['create_time_formatted'] = date('Y-m-d H:i:s', $one['create_time']);
+		}
+		
+		$ret['comments'] = $comments;
+		$ret['is_finish'] = count($comments) < $params['item'] ? TRUE : FALSE;
+		
+		echo json_encode($ret);
 	}
 }
 /* End of file */

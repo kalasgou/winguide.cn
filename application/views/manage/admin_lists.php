@@ -59,7 +59,7 @@
 						<?php endforeach;?>
 						<?php } else { ?>
 						<tr>
-							<td colspan="6" align="center">暂无相关数据</td>
+							<td colspan="8" align="center">暂无相关数据</td>
 						</tr>
 						<?php } ?>
 					</tbody>

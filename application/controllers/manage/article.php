@@ -35,7 +35,7 @@ class Article extends CI_Controller {
 		foreach ($output['articles'] as &$one) {
 			list($one['course'], $one['module']) = explode('|', $one['category']);
 			$one['create_time_formatted'] = date('Y-m-d H:i:s', $one['create_time']);
-			$one['update_time_formatted'] = date('Y-m-d H:i:s', $one['update_time']);
+			$one['update_time_formatted'] = $one['update_time'] === '0' ? '-' : date('Y-m-d H:i:s', $one['update_time']);
 		}
 		
 		$output['total_num'] = $this->Article_M->countArticles($params);

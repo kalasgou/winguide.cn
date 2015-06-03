@@ -50,7 +50,7 @@ class Course extends CI_Controller {
 			exit(json_encode($ret));
 		}
 		
-		$params['user_id'] = 7;//$_SESSION['user']['id'];
+		$params['user_id'] = $_SESSION['user']['id'];
 		$params['exercise_id'] = trim($this->input->get('exercise_id', TRUE));
 		
 		$ret['code'] = 0;
@@ -74,7 +74,7 @@ class Course extends CI_Controller {
 			exit(json_encode($ret));
 		}
 		
-		$params['user_id'] = 7;//$_SESSION['user']['id'];
+		$params['user_id'] = $_SESSION['user']['id'];
 		$params['course'] = trim($this->input->get('course', TRUE));
 		
 		$ret['code'] = 1;

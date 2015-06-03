@@ -50,7 +50,8 @@ class Student extends CI_Controller {
 		$output['accounts'] = $this->Student_M->listAccounts($params);
 		
 		foreach ($output['accounts'] as &$one) {
-			$one['purchase_time_formatted'] = date('Y-m-d H:i:s', $one['purchase_time']);
+			$one['create_time_formatted'] = date('Y-m-d H:i:s', $one['purchase_time']);
+			$one['update_time_formatted'] = $one['start_time'] === '0' ? '-' : date('Y-m-d H:i:s', $one['start_time']);
 		}
 		
 		$output['total_num'] = $this->Student_M->countAccounts($params);

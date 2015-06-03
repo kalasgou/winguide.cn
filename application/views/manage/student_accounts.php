@@ -19,7 +19,6 @@
 				<form action="<?= base_url('console/student/view/accounts') ?>" method="get">
 					<div class="input-group">
 						<span class="input-group-addon">购买课程</span>
-						<input id="course" type="hidden" name="course" value="<?= $args['course']?>">
 						<select name="course" class="form-control course-options" required>
 							<option value=" ">全部课程</option>
 							<option value="gmat">GMAT</option>
@@ -51,7 +50,8 @@
 						<col style="width:15%;"/>
 						<col style="width:15%;"/>
 						<col style="width:15%"/>
-						<col style="width:20%;"/>
+						<col style="width:10%;"/>
+						<col style="width:10%;"/>
 						<col style="width:10%;"/>
 						<col style="width:10%"/>
 						<col style="width:10%;"/>
@@ -62,8 +62,9 @@
 							<th>课 程</th>
 							<th>帐 号</th>
 							<th>初始密码</th>
-							<th>购买日期</th>
 							<th>有限时长</th>
+							<th>购买日期</th>
+							<th>激活日期</th>
 							<th>状 态</th>
 							<th>操 作</th>
 						</tr>
@@ -76,8 +77,9 @@
 							<td><?= $one['course']?></td>
 							<td><?= $one['username']?></td>
 							<td><?= $one['init_pswd']?></td>
-							<td><?= $one['purchase_time_formatted']?></td>
 							<td><?= $one['duration']?>天</td>
+							<td title="<?= $one['create_time_formatted'];?>"><?= substr($one['create_time_formatted'], 0, 10);?></td>
+							<td title="<?= $one['update_time_formatted'];?>"><?= substr($one['update_time_formatted'], 0, 10);?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
 								<a href="#" title="查看学生信息"><span class="glyphicon glyphicon-info-sign"></span></a>
@@ -89,7 +91,7 @@
 						<?php endforeach;?>
 						<?php } else { ?>
 						<tr>
-							<td colspan="7" align="center">暂无相关数据</td>
+							<td colspan="9" align="center">暂无相关数据</td>
 						</tr>
 						<?php } ?>
 					</tbody>
@@ -124,6 +126,7 @@
 									<option value="ielts">IELTS</option>
 									<option value="sat">SAT</option>
 									<option value="toefl">TOEFL</option>
+									<option value="gaokao">高考</option>
 								<select>
 							</div>
 						</div>
@@ -162,7 +165,7 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
-		var _cur_course = $('#course').val();
+		var _cur_course = getQueryString('course');
 		$('.course-options option[value=' + _cur_course + ']').attr('selected', 'true');
 		
 		$('td a').click(function() {
@@ -218,6 +221,14 @@
 					alert('Network Error');
 				}
 			});
+		});
+		
+		$('.download-excel').click(function() {
+			var _course = $('.course-options').val();
+			var _start_date = $('.start-date').val();
+			var _end_date = $('.end-date').val();
+			
+			alert('<?= base_url('manage/student/accountsExcel?course=')?>' + _course + '&start_date=' + _start_date + '&end_date=' + _end_date);
 		});
     });
 </script>

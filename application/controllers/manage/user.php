@@ -22,7 +22,7 @@ class User extends CI_Controller {
 		
 		foreach ($output['users'] as &$one) {
 			$one['create_time_formatted'] = date('Y-m-d H:i:s', $one['create_time']);
-			$one['update_time_formatted'] = date('Y-m-d H:i:s', $one['update_time']);
+			$one['update_time_formatted'] = $one['update_time'] === '0' ? '-' : date('Y-m-d H:i:s', $one['update_time']);
 		}
 		
 		$output['total_num'] = $this->User_M->countUsers();

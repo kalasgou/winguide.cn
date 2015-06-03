@@ -22,7 +22,7 @@ class Admin extends CI_Controller {
 		
 		foreach ($output['admins'] as &$one) {
 			$one['create_time_formatted'] = date('Y-m-d H:i:s', $one['create_time']);
-			$one['update_time_formatted'] = date('Y-m-d H:i:s', $one['update_time']);
+			$one['update_time_formatted'] = $one['update_time'] === '0' ? '-' : date('Y-m-d H:i:s', $one['update_time']);
 		}
 		
 		$output['total_num'] = $this->Admin_M->countAdmins($params);
@@ -68,7 +68,10 @@ class Admin extends CI_Controller {
 				$ret['code'] = 0;
 				$ret['msg'] = 'success';
 				
-				header('Location: '.base_url('console/article'));
+				$_SESSION['admin']['id'] = $admin['admin_id'];
+				$_SESSION['admin']['username'] = $admin['username'];
+				
+				//header('Location: '.base_url('console/article'));
 			} else {
 				$ret['code'] = 2;
 				$ret['msg'] = 'password error';
