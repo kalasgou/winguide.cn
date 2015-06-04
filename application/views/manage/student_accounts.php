@@ -228,7 +228,7 @@
 			var _start_date = $('.start-date').val();
 			var _end_date = $('.end-date').val();
 			
-			alert('<?= base_url('manage/student/accountsExcel?course=')?>' + _course + '&start_date=' + _start_date + '&end_date=' + _end_date);
+			location.href = '<?= base_url('manage/student/accountsExcel?course=')?>' + _course + '&start_date=' + _start_date + '&end_date=' + _end_date;
 		});
     });
 </script>

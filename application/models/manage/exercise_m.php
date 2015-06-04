@@ -9,28 +9,54 @@ class Exercise_M extends CI_Model {
 		$this->db_conn = $this->load->database('default', TRUE);
 	}
 	
-	public function listTopics($params) {
-		$topics = array();
+	public function listExercises($params) {
+		$exercises = array();
 		
 		$item = $params['item'];
 		$offset = $params['item'] * $params['page'];
 		
 		$search = array();
-		$search['visibility'] = $params['visibility'];
-		
-		$query = $this->db_conn->select('*')->from('forum_topic')->where($search)->order_by('create_time DESC')->limit($item, $offset)->get();
-		if ($query->num_rows() > 0) {
-			$topics = $query->result_array();
+		if ($params['course'] !== '') {
+			$search['course'] = $params['course'];
+		}
+		if ($params['admin_id'] !== 0) {
+			$search['admin_id'] = $params['admin_id'];
+		}
+		if ($params['start_date'] !== '') {
+			$start_time = strtotime($params['start_date']);
+			$search['create_time >= '] = $start_time;
+		}
+		if ($params['end_date'] !== '') {
+			$end_time = strtotime($params['end_date']);
+			$search['create_time <= '] = $end_time;
 		}
 		
-		return $topics;
+		$query = $this->db_conn->select('*')->from('exercises')->where($search)->order_by('create_time DESC')->limit($item, $offset)->get();
+		if ($query->num_rows() > 0) {
+			$exercises = $query->result_array();
+		}
+		
+		return $exercises;
 	}
 	
-	public function countTopics($params) {
+	public function countExercises($params) {
 		$search = array();
-		$search['visibility'] = $params['visibility'];
+		if ($params['course'] !== '') {
+			$search['course'] = $params['course'];
+		}
+		if ($params['admin_id'] !== '') {
+			$search['admin_id'] = $params['admin_id'];
+		}
+		if ($params['start_date'] !== '') {
+			$start_time = strtotime($params['start_date']);
+			$search['create_time >= '] = $start_time;
+		}
+		if ($params['end_date'] !== '') {
+			$end_time = strtotime($params['end_date']);
+			$search['create_time <= '] = $end_time;
+		}
 		
-		return $this->db_conn->from('forum_topic')->where($search)->count_all_results();
+		return $this->db_conn->from('exercises')->where($search)->count_all_results();
 	}
 	
 	public function createTopic($params) {

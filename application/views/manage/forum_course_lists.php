@@ -11,11 +11,52 @@
 				<ul class="nav nav-tabs">
 					<li role="presentation" class="active"><a href="#">任务</a></li>
 					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/create?visibility=course')?>">布置作业</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/search?visibility=course')?>">题库</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/create?visibility=course')?>">新建习题</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/exercise/view/lists')?>">题库</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/exercise/view/create')?>">新建习题</a></li>
 				</ul>
 			</div>
 			<div class="panel-body">
+				<form action="<?= base_url('console/forum/view/lists') ?>" method="get">
+					<div class="input-group">
+						<span class="input-group-addon">购买课程</span>
+						<input id="course" type="hidden" name="course" value="<?= $args['course']?>">
+						<select name="course" class="form-control course-options" required>
+							<option value=" ">全部课程</option>
+							<option value="gmat">GMAT</option>
+							<option value="gre">GRE</option>
+							<option value="ielts">IELTS</option>
+							<option value="sat">SAT</option>
+							<option value="toefl">TOEFL</option>
+							<option value="gaokao">高考</option>
+						</select>
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">题库编者</span>
+						<input id="admin" type="hidden" name="admin_id" value="<?= $args['course']?>">
+						<select name="course" class="form-control course-options" required>
+							<option value=" ">全部课程</option>
+							<option value="gmat">GMAT</option>
+							<option value="gre">GRE</option>
+							<option value="ielts">IELTS</option>
+							<option value="sat">SAT</option>
+							<option value="toefl">TOEFL</option>
+							<option value="gaokao">高考</option>
+						</select>
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">起始</span>
+						<input class="form-control start-date" style="display:inline-block;" type="date" name="start_date" value="<?= $args['start_date']?>"/>
+						<span class="input-group-addon">创建日期</span>
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">结束</span>
+						<input class="form-control end-date" style="display:inline-block;" type="date" name="end_date" value="<?= $args['end_date']?>"/>
+						<span class="input-group-addon">创建日期</span>
+					</div>
+					<div class="pull-right">
+						<button class="btn btn-primary btn-sm" type="submit">筛选</button>
+					</div>
+				</form>
 				<table class="table table-striped">
 					<colspan>
 						<col style="width:5%;"/>
@@ -55,10 +96,10 @@
 							<td title="<?= $one['update_time_formatted'];?>"><?= substr($one['update_time_formatted'], 0, 10);?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
-								<a href="<?= base_url('console/forum/view/detail?topic_id='.$one['topic_id'])?>"><span class="glyphicon glyphicon-edit" title=""></span></a>
-								<a href="#"><span class="glyphicon glyphicon-comment"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
+								<a href="<?= base_url('console/forum/view/detail?topic_id='.$one['topic_id'])?>" title="编辑作业内容"><span class="glyphicon glyphicon-edit" title=""></span></a>
+								<a href="#" title="浏览作业反馈"><span class="glyphicon glyphicon-comment"></span></a>
+								<a href="#" title="变更作业属性"><span class="glyphicon glyphicon-wrench"></span></a>
+								<a href="#" title="删除作业记录"><span class="glyphicon glyphicon-trash"></span></a>
 							</td>
 						</tr>
 						<?php endforeach;?>

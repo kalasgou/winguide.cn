@@ -41,7 +41,6 @@
 						<span class="input-group-addon">生效日期</span>
 					</div>
 					<div class="pull-right">
-						<button class="btn btn-success btn-sm download-excel" type="button">导出</button>
 						<button class="btn btn-primary btn-sm" type="submit">筛选</button>
 					</div>
 				</form>

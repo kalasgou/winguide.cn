@@ -17,9 +17,10 @@
 			<div class="panel-body">
 				<form action="<?= base_url('manage/forum/create') ?>" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="visibility" value="course" required />
+					
 					<div class="input-group">
 						<span class="input-group-addon">课程模块</span>
-						<select name="module" class="form-control" required>
+						<select name="module" class="form-control" required >
 							<option value="gmat">GMAT</option>
 							<option value="gre">GRE</option>
 							<option value="ielts">IELTS</option>
@@ -27,6 +28,10 @@
 							<option value="toefl">TOEFL</option>
 							<option value="gaokao">高考</option>
 						</select>
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon">作业主题</span>
+						<input name="topic" type="text" class="form-control" required >
 					</div>
 					<!--<div class="input-group">
 						<span class="input-group-addon">论坛版块</span>
@@ -36,18 +41,12 @@
 						</select>
 					</div>-->
 					<div class="input-group">
-						<span class="input-group-addon">作业主题</span>
-						<input name="topic" type="text" class="form-control" required>
+						<span class="input-group-addon">题库选择</span>
 					</div>
 					<div class="input-group">
 						<div class="input-group-addon-instruction">~~~~~~~~主题正文内容~~~~~~~~</div>
-						<textarea name="thread" class="summernote form-control" required>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						<textarea name="thread" class="summernote form-control" required >
+							作业任务简要说明
 						</textarea>
 					</div>
 					<div class="pull-right">

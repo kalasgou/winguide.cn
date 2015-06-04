@@ -152,5 +152,81 @@ class Student extends CI_Controller {
 		
 		echo json_encode($ret);
 	}
+	
+	public function accountsExcel() {
+		$params['item'] = 9999;
+		$params['page'] = 0;
+		$params['course'] = trim($this->input->get('course', TRUE));
+		$params['start_date'] = trim($this->input->get('start_date', TRUE));
+		$params['end_date'] = trim($this->input->get('end_date', TRUE));
+		
+		require APPPATH .'third_party/office/PHPExcel.php';
+		
+		$objExcel = new PHPExcel();
+		$objExcel->getProperties()->setCreator('WinGuide赢凯')
+								->setTitle('帐号购买记录')
+								->setSubject('学生帐号')
+								->setDescription('Document generated using PHPExcel by KALASGOU');
+		
+		$objExcel->getActiveSheet()->getRowDimension('1')->setRowHeight(24);
+		
+		$objExcel->getActiveSheet()->getDefaultStyle()->getFont()->setSize(8)->setName('微软雅黑');
+		
+		$objExcel->getActiveSheet()->getColumnDimension('A')->setWidth(16);
+		$objExcel->getActiveSheet()->getColumnDimension('B')->setWidth(20);
+		$objExcel->getActiveSheet()->getColumnDimension('C')->setWidth(20);
+		$objExcel->getActiveSheet()->getColumnDimension('D')->setWidth(24);
+		$objExcel->getActiveSheet()->getColumnDimension('E')->setWidth(24);
+		$objExcel->getActiveSheet()->getColumnDimension('F')->setWidth(24);
+		$objExcel->getActiveSheet()->getColumnDimension('G')->setWidth(24);
+		
+		$objExcel->setActiveSheetIndex(0)
+					->setCellValue('A1', 'Course')
+					->setCellValue('B1', "Username")
+					->setCellValue('C1', "Password")
+					->setCellValue('D1', "Validity (Days)")
+					->setCellValue('E1', "Purchased At")
+					->setCellValue('F1', 'Registered At')
+					->setCellValue('G1', "Expired At");
+		
+		$objExcel->getActiveSheet()->getStyle('A1:G1')->getAlignment()->setWrapText(TRUE);
+		$objExcel->getActiveSheet()->getStyle('A1:G1')->getFont()->setBold(TRUE)->getColor()->setRGB('FFFFFF');
+		$objExcel->getActiveSheet()->getStyle('A1:G1')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objExcel->getActiveSheet()->getStyle('A1:G1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objExcel->getActiveSheet()->getStyle('A1:G1')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		$objExcel->getActiveSheet()->getStyle('A1:G1')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+		$objExcel->getActiveSheet()->getStyle('A1:G1')->getFill()->getStartColor()->setRGB('666699');
+		
+		$row_index = 1;
+		
+		$this->load->model('manage/Student_M');
+		$accounts = $this->Student_M->listAccounts($params);
+		//var_dump($accounts);exit();
+		foreach ($accounts as $one) {
+			++$row_index;
+			
+			$objExcel->setActiveSheetIndex(0)
+						->setCellValue("A$row_index", $one['course'])
+						->setCellValue("B$row_index", $one['username'])
+						->setCellValue("C$row_index", $one['init_pswd'])
+						->setCellValue("D$row_index", $one['duration'])
+						->setCellValue("E$row_index", date('Y-m-d', $one['purchase_time']))
+						->setCellValue("F$row_index", ($one['start_time'] === '0' ? '-' : date('Y-m-d', $one['start_time'])))
+						->setCellValue("G$row_index", ($one['end_time'] === '0' ? '-' : date('Y-m-d', $one['end_time'])));
+		}
+		
+		$objExcel->getActiveSheet()->setAutoFilter($objExcel->getActiveSheet()->calculateWorksheetDimension());
+		
+		/*******************************************************************************************/
+		
+		$filename = 'WinGuide';
+		
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header("Content-Disposition: attachment;filename={$filename}.xlsx");
+		header('Cache-Control: max-age=0');
+
+		$objWriter = PHPExcel_IOFactory::createWriter($objExcel, 'Excel2007');
+		$objWriter->save('php://output');
+	}
 }
 /* End of file */

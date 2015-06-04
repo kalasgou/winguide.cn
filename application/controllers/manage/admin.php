@@ -86,7 +86,11 @@ class Admin extends CI_Controller {
 	
 	public function logout() {
 		session_unset();
-		header('Location: '.base_url());
+		
+		echo 	'<script type="text/javascript">
+					alert("帐号已登出");
+					location.href = "'.base_url().'"
+				</script>';
 	}
 	
 	public function register() {

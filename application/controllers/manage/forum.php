@@ -18,6 +18,10 @@ class Forum extends CI_Controller {
 		$params['item'] = intval($item) <= 0 ? 15 : $item;
 		$params['page'] = intval($page) <= 0 ? 0 : $page - 1;
 		$params['course'] = trim($this->input->get('course', TRUE));
+		$params['admin_id'] = intval($this->input->get('admin_id', TRUE));
+		$params['start_date'] = trim($this->input->get('start_date', TRUE));
+		$params['end_date'] = trim($this->input->get('end_date', TRUE));
+		
 		$params['visibility'] = trim($this->input->get('visibility', TRUE));
 		if ($visibility !== '') {
 			$params['visibility'] = $visibility;
@@ -25,6 +29,7 @@ class Forum extends CI_Controller {
 		
 		$output = array();
 		$output['hover'] = 'forum_'.$params['visibility'];
+		$output['args'] = $params;
 		
 		$this->load->model('manage/Forum_M');
 		$output['topics'] = $this->Forum_M->listTopics($params);

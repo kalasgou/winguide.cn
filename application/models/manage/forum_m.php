@@ -17,6 +17,20 @@ class Forum_M extends CI_Model {
 		
 		$search = array();
 		$search['visibility'] = $params['visibility'];
+		if ($params['course'] !== '') {
+			$search['course'] = $params['course'];
+		}
+		if ($params['admin_id'] !== 0) {
+			$search['admin_id'] = $params['admin_id'];
+		}
+		if ($params['start_date'] !== '') {
+			$start_time = strtotime($params['start_date']);
+			$search['create_time >= '] = $start_time;
+		}
+		if ($params['end_date'] !== '') {
+			$end_time = strtotime($params['end_date']);
+			$search['create_time <= '] = $end_time;
+		}
 		
 		$query = $this->db_conn->select('*')->from('forum_topic')->where($search)->order_by('create_time DESC')->limit($item, $offset)->get();
 		if ($query->num_rows() > 0) {
@@ -29,6 +43,20 @@ class Forum_M extends CI_Model {
 	public function countTopics($params) {
 		$search = array();
 		$search['visibility'] = $params['visibility'];
+		if ($params['course'] !== '') {
+			$search['course'] = $params['course'];
+		}
+		if ($params['admin_id'] !== 0) {
+			$search['admin_id'] = $params['admin_id'];
+		}
+		if ($params['start_date'] !== '') {
+			$start_time = strtotime($params['start_date']);
+			$search['create_time >= '] = $start_time;
+		}
+		if ($params['end_date'] !== '') {
+			$end_time = strtotime($params['end_date']);
+			$search['create_time <= '] = $end_time;
+		}
 		
 		return $this->db_conn->from('forum_topic')->where($search)->count_all_results();
 	}

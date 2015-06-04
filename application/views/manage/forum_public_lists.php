@@ -20,7 +20,6 @@
 						<col style="width:5%;"/>
 						<col style="width:10%;"/>
 						<col style="width:40%;"/>
-						<!--<col style="width:20%"/>-->
 						<col style="width:5%;"/>
 						<col style="width:10%;"/>
 						<col style="width:10%;"/>
@@ -32,7 +31,6 @@
 							<th>#</th>
 							<th>课 程</th>
 							<th>话 题</th>
-							<!--<th>正 文</th>-->
 							<th>置 顶</th>
 							<th>创建时间</th>
 							<th>更新时间</th>
@@ -53,16 +51,16 @@
 							<td title="<?= $one['update_time_formatted'];?>"><?= substr($one['update_time_formatted'], 0, 10);?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
-								<a href="<?= base_url('console/forum/view/detail?topic_id='.$one['topic_id'])?>"><span class="glyphicon glyphicon-edit" title=""></span></a>
-								<a href="#"><span class="glyphicon glyphicon-comment"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
+								<a href="<?= base_url('console/forum/view/detail?topic_id='.$one['topic_id'])?>" title="编辑主题内容"><span class="glyphicon glyphicon-edit" title=""></span></a>
+								<a href="#" title="浏览讨论留言"><span class="glyphicon glyphicon-comment"></span></a>
+								<a href="#" title="变更主题属性"><span class="glyphicon glyphicon-wrench"></span></a>
+								<a href="#" title="删除主题记录"><span class="glyphicon glyphicon-trash"></span></a>
 							</td>
 						</tr>
 						<?php endforeach;?>
 						<?php } else { ?>
 						<tr>
-							<td colspan="9" align="center">暂无相关数据</td>
+							<td colspan="8" align="center">暂无相关数据</td>
 						</tr>
 						<?php } ?>
 					</tbody>
