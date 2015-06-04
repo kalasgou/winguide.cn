@@ -114,7 +114,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
 		var _cur_course = $('#course').val();
-		$('.course-options option[value=' + _cur_course + ']').attr('selected', 'true');
+		$('.course-options option[value="' + _cur_course + '"]').attr('selected', 'true');
     });
 </script>
 <?php include APPPATH .'views/manage/footer.php'?>

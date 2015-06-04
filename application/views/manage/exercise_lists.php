@@ -62,8 +62,8 @@
 						<col style="width:5%;"/>
 						<col style="width:10%;"/>
 						<col style="width:10%;"/>
-						<col style="width:30%;"/>
-						<col style="width:5%;"/>
+						<col style="width:25%;"/>
+						<col style="width:10%;"/>
 						<col style="width:10%;"/>
 						<col style="width:10%;"/>
 						<col style="width:10%;"/>
@@ -90,7 +90,7 @@
 							<td><?= $one['admin_id'];?></td>
 							<td><?= $one['course'];?></td>
 							<td><?= $one['topic'];?></td>
-							<td><?= $one['amount'];?></td>
+							<td><?= $one['amount'];?> 题</td>
 							<td title="<?= $one['create_time_formatted'];?>"><?= substr($one['create_time_formatted'], 0, 10);?></td>
 							<td title="<?= $one['update_time_formatted'];?>"><?= substr($one['update_time_formatted'], 0, 10);?></td>
 							<td><label class="label label-success">有效</label></td>

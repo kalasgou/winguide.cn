@@ -59,12 +59,27 @@ class Exercise_M extends CI_Model {
 		return $this->db_conn->from('exercises')->where($search)->count_all_results();
 	}
 	
-	public function createTopic($params) {
-		$this->db_conn->set($params)->insert('forum_topic');
+	public function getExerciseDetail($exercise_id) {
+		$exercise = array();
+		
+		$search = array();
+		$search['exercise_id'] = $exercise_id;
+		
+		$query = $this->db_conn->select('*')->from('exercises')->where($search)->limit(1)->get();
+		
+		if ($query->num_rows() > 0) {
+			$exercise = $query->row_array();
+		}
+		
+		return $exercise;
+	}
+	
+	public function createExerciseSet($params) {
+		$this->db_conn->set($params)->insert('exercises');
 		return $this->db_conn->insert_id();
 	}
 	
-	public function modifyTopic($params) {
+	public function modifyExerciseSet($params) {
 		$search = array();
 		$search['topic_id'] = $params['topic_id'];
 		
@@ -78,18 +93,5 @@ class Exercise_M extends CI_Model {
 		return $this->db_conn->where($search)->update('forum_topic', $refresh);
 	}
 	
-	public function viewTopic($params) {
-		$detail = array();
-		
-		$search = array();
-		$search['topic_id'] = $params['topic_id'];
-		
-		$query = $this->db_conn->select('*')->from('forum_topic')->where($search)->limit(1)->get();
-		if ($query->num_rows() > 0) {
-			$detail = $query->row_array();
-		}
-		
-		return $detail;
-	}
 }
 /* End of file */

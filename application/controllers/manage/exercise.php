@@ -27,7 +27,7 @@ class Exercise extends CI_Controller {
 		
 		foreach ($output['exercises'] as &$one) {
 			$one['create_time_formatted'] = date('Y-m-d', $one['create_time']);
-			$one['update_time_formatted'] = date('Y-m-d', $one['update_time']);
+			$one['update_time_formatted'] = $one['update_time'] === '0' ? '-' : date('Y-m-d H:i:s', $one['update_time']);
 		}
 		
 		$output['total_num'] = $this->Exercise_M->countExercises($params);
@@ -44,22 +44,19 @@ class Exercise extends CI_Controller {
 	}
 	
 	public function searchView() {
-		$output = array();
-		$output['hover'] = 'student';
 		
-		$this->load->view('manage/student_create.php', $output);
 	}
 	
 	public function detailView() {
-		$student_id = intval($this->input->get('student_id', TRUE));
+		$exercise_id = intval($this->input->get('exercise_id', TRUE));
 		
 		$output = array();
-		$output['hover'] = 'student';
+		$output['hover'] = 'forum_course';
 		
-		$this->load->model('manage/Student_M');
-		$output['detail'] = $this->Student_M->getAccountDetail($student_id);
+		$this->load->model('manage/Exercise_M');
+		$output['detail'] = $this->Exercise_M->getExerciseDetail($exercise_id);
 		//var_dump($output['detail']);
-		$this->load->view('manage/student_detail', $output);
+		$this->load->view('manage/exercise_detail', $output);
 	}
 	
 	public function lists() {
@@ -67,9 +64,26 @@ class Exercise extends CI_Controller {
 	}
 	
 	public function create() {
+		$params['admin_id'] = 1;
 		$params['course'] = trim($this->input->post('course', TRUE));
-		$params['duration_day'] = intval($this->input->post('duration_day', TRUE));
-		$params['amount'] = intval($this->input->post('amount', TRUE));
+		$params['subject'] = trim($this->input->post('exercise_action', TRUE));
+		$params['topic'] = trim($this->input->post('exercise_type', TRUE));
+		$params['create_time'] = $_SERVER['REQUEST_TIME'];
+		
+		$numbers_arr = array();
+		$exercise_ids = trim($this->input->post('exercise_ids', TRUE));
+		$tmp_arr = explode(',', $exercise_ids);
+		foreach ($tmp_arr as $one) {
+			if (ctype_digit($one)) {
+				$numbers_arr[] = intval($one);
+			} elseif (strpos($one, '-') !== FALSE) {
+				list($start, $end) = explode('-', $one);
+				$numbers_arr = array_merge($numbers_arr, range($start, $end));
+			}
+		}
+		
+		$params['numbers'] = implode(',', $numbers_arr);
+		$params['amount'] = count($numbers_arr);
 		
 		if (!check_parameters($params)) {
 			exit('Parameters Not Enough');
@@ -81,8 +95,8 @@ class Exercise extends CI_Controller {
 		$ret['code'] = 1;
 		$ret['msg'] = 'fail';
 		
-		$this->load->model('manage/Student_M');
-		$result = $this->Student_M->doRegistration($params);
+		$this->load->model('manage/Exercise_M');
+		$result = $this->Exercise_M->createExerciseSet($params);
 		
 		if ($result) {
 			$ret['code'] = 0;
@@ -104,5 +118,39 @@ class Exercise extends CI_Controller {
 		
 	}
 	
+	public function getExerciseTypes() {
+		$course = trim($this->input->get('course', TRUE));
+		
+		header('Content-Type: application/json, charset=utf-8');
+		
+		$ret = array();
+		$ret['code'] = 1;
+		$ret['msg'] = 'fail';
+		
+		if (in_array($course, array('gmat', 'gre', 'gaokao', 'ielts', 'sat', 'toefl'))) {
+			$ret['code'] = 0;
+			$ret['msg'] = 'success';
+			
+			$exercise_types = array();
+			
+			$exercise_tags = $this->config->item('exercises');
+			foreach ($exercise_tags[$course] as $one) {
+				if (!empty($one['subject'])) {
+					foreach ($one['subject'] as $action => $detail) {
+						$tmp = array();
+						$tmp['action'] = $action;
+						$tmp['table'] = $detail['0'];
+						$tmp['topic'] = $detail['1'];
+						
+						$exercise_types[] = $tmp;
+					}
+				}
+			}
+			
+			$ret['exercise_types'] = $exercise_types;
+		}		
+		
+		echo json_encode($ret);
+	}
 }
 /* End of file */

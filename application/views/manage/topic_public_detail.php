@@ -60,8 +60,8 @@
 <script type="text/javascript">
 	var _module = $('#cur-module').val();
 	var _visibility = $('#cur-visibility').val();
-	$('#module-option option[value=' + _module + ']').attr('selected', 'true');
-	$('#visibility-option option[value=' + _visibility + ']').attr('selected', 'true');
+	$('#module-option option[value="' + _module + '"]').attr('selected', 'true');
+	$('#visibility-option option[value="' + _visibility + '"]').attr('selected', 'true');
 	
 	$(document).ready(function() {
       $('.summernote').summernote({

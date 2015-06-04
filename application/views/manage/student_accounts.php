@@ -166,7 +166,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
 		var _cur_course = getQueryString('course');
-		$('.course-options option[value=' + _cur_course + ']').attr('selected', 'true');
+		$('.course-options option[value="' + _cur_course + '"]').attr('selected', 'true');
 		
 		$('td a').click(function() {
 			var _entry_id = $($(this).parent().siblings('td')[0]).html()

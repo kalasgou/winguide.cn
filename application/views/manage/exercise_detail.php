@@ -11,15 +11,14 @@
 					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/lists?visibility=course')?>">任务</a></li>
 					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/create?visibility=course')?>">布置作业</a></li>
 					<li role="presentation" class=""><a href="<?= base_url('console/exercise/view/lists')?>">题库</a></li>
-					<li role="presentation" class="active"><a href="#">新建习题</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/exercise/view/create')?>">新建习题</a></li>
 				</ul>
 			</div>
 			<div class="panel-body">
 				<form action="<?= base_url('manage/exercise/create') ?>" method="post" enctype="multipart/form-data">
 					<div class="input-group">
 						<span class="input-group-addon">课程模块</span>
-						<select name="course" class="form-control course-options" required>
-							<option value="-1">请选择课程模块</option>
+						<select name="course" class="form-control course-options" data-course="<?= $detail['course']?>" required>
 							<option value="gmat">GMAT</option>
 							<option value="gre">GRE</option>
 							<option value="ielts">IELTS</option>
@@ -31,16 +30,16 @@
 					<div class="input-group">
 						<span class="input-group-addon">题目类型</span>
 						<input id="hidden-exercise-action" name="exercise_action" type="hidden" required />
-						<select name="exercise_type" class="form-control exercise-options" required >
+						<select name="exercise_type" class="form-control exercise-options" data-exercise="<?= $detail['topic']?>" required >
 							<option value="-1">请选择题目类型</option>
 						</select>
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon">题目选择</span>
-						<textarea name="exercise_ids" type="text" class="form-control" required ></textarea>
+						<textarea name="exercise_ids" type="text" class="form-control" required ><?= $detail['numbers']?></textarea>
 					</div>
 					<div class="pull-right">
-						<button class="btn btn-success btn-sm" type="submit">提交</button>
+						<button class="btn btn-default btn-sm" type="submit">提交</button>
 					</div>
 				</form>
 			</div>
@@ -51,16 +50,12 @@
 </div>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('.course-options').change(function() {
-			var _course = $(this).val();
-			getExerciseTypes(_course);
-		});
+		var _cur_course = $('.course-options').data('course');
+		$('.course-options option[value="' + _cur_course + '"]').attr('selected', 'true');
 		
-		$('.exercise-options').change(function() {
-			var _action = $(this).find('option:selected').data('action');
-			$('#hidden-exercise-action').val(_action);
-		});
-		
+		getExerciseTypes(_cur_course);
+		var _cur_topic = $('.exercise-options').data('exercise');
+		$('.exercise-options option[value="' + _cur_topic + '"]').attr('selected', 'true');
     });
 	
 	function getExerciseTypes(_course) {
@@ -78,6 +73,8 @@
 				}
 				$('.exercise-options').empty();
 				$('.exercise-options').append(types);
+				//var _cur_topic = $('.exercise-options').data('exercise');
+				//$('.exercise-options option[value="' + _cur_topic + '"]').attr('selected', 'true');
 			},
 			error: function() {
 				alert('Network Error');

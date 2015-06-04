@@ -72,7 +72,7 @@
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>作 者</th>
+							<th>编 者</th>
 							<th>课 程</th>
 							<th>话 题</th>
 							<th>置 顶</th>

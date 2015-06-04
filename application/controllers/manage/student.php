@@ -219,7 +219,7 @@ class Student extends CI_Controller {
 		
 		/*******************************************************************************************/
 		
-		$filename = 'WinGuide';
+		$filename = "赢凯会员帐号列表-{$params['course']}";
 		
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 		header("Content-Disposition: attachment;filename={$filename}.xlsx");

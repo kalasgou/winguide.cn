@@ -50,7 +50,7 @@
 						</textarea>
 					</div>
 					<div class="pull-right">
-						<button class="btn btn-default btn-sm" type="submit">提交</button>
+						<button class="btn btn-success btn-sm" type="submit">提交</button>
 					</div>
 				</form>
 			</div>
