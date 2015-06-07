@@ -17,7 +17,7 @@
 			<div class="panel-body">
 				<form action="<?= base_url('console/article/view/lists') ?>" method="get">
 					<div class="input-group">
-						<span class="input-group-addon">课程模块</span>
+						<span class="input-group-addon">课程选择</span>
 						<input id="course-id" type="hidden" name="course_id" value="<?= $args['course_id']?>">
 						<select name="course" class="form-control course-options" required>
 							<option value="-1" data-course-id="-1">请选择课程模块</option>
@@ -29,7 +29,7 @@
 					<div class="input-group">
 						<span class="input-group-addon">文章栏目</span>
 						<input id="module-id" type="hidden" name="module_id" value="<?= $args['module_id']?>">
-						<select id="module" name="module" class="form-control module-options" required>
+						<select id="module" name="module" class="form-control module-options" >
 							<option value="-1" data-module-id="-1">请选择文章栏目</option>
 							<?php foreach ($modules as $one):?>
 							<option value="<?= $one['module']?>" data-module-id="<?= $one['id']?>"><?= $one['module_desc']?></option>
@@ -185,7 +185,7 @@
 		});
 		
 		$('td a').click(function() {
-			var _entry_id = $($(this).parent().siblings('td')[0]).html()
+			var _entry_id = $($(this).parent().siblings('td')[0]).html();
 			$('input.hidden-id').val(_entry_id);
 			
 			var _cur_title = $($(this).parent().siblings('td')[1]).html();

@@ -17,9 +17,9 @@
 			<div class="panel-body">
 				<form action="<?= base_url('manage/exercise/create') ?>" method="post" enctype="multipart/form-data">
 					<div class="input-group">
-						<span class="input-group-addon">课程模块</span>
-						<select name="course" class="form-control course-options" required>
-							<option value="-1">请选择课程模块</option>
+						<span class="input-group-addon">课程选择</span>
+						<select name="course" class="form-control course-options" required >
+							<option value="">请选择课程模块</option>
 							<option value="gmat">GMAT</option>
 							<option value="gre">GRE</option>
 							<option value="ielts">IELTS</option>
@@ -32,12 +32,12 @@
 						<span class="input-group-addon">题目类型</span>
 						<input id="hidden-exercise-action" name="exercise_action" type="hidden" required />
 						<select name="exercise_type" class="form-control exercise-options" required >
-							<option value="-1">请选择题目类型</option>
+							<option value="">请选择题目类型</option>
 						</select>
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon">题目选择</span>
-						<textarea name="exercise_ids" type="text" class="form-control" required ></textarea>
+						<textarea name="exercise_ids" type="text" class="form-control" placeholder="请在这里填写需要的题目标号，例如“1,2,5,6,9,10,20-50”，单个题号之间用英文逗号“,”隔开，连续的题号可以用段横线“-”连起来" required ></textarea>
 					</div>
 					<div class="pull-right">
 						<button class="btn btn-success btn-sm" type="submit">提交</button>
@@ -71,7 +71,7 @@
 			async: false,
 			dataType: 'json',
 			success: function(json) {
-				var types = '<option value="-1" data-course-id="-1">请选择题目类型</option>';
+				var types = '<option value="">请选择题目类型</option>';
 				var len = json.exercise_types.length;
 				for (var i = 0; i < len; i ++) {
 					types += '<option value="' + json.exercise_types[i].topic + '" data-action="' + json.exercise_types[i].action + '">' + json.exercise_types[i].topic + '</option>';

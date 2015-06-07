@@ -18,10 +18,10 @@
 			<div class="panel-body">
 				<form action="<?= base_url('console/exercise/view/lists') ?>" method="get">
 					<div class="input-group">
-						<span class="input-group-addon">购买课程</span>
-						<input id="course" type="hidden" name="course" value="<?= $args['course']?>">
-						<select name="course" class="form-control course-options" required>
-							<option value=" ">全部课程</option>
+						<span class="input-group-addon">课程选择</span>
+						<input id="course" type="hidden" value="<?= $args['course']?>">
+						<select name="course" class="form-control course-options" required >
+							<option value="">请选择课程模块</option>
 							<option value="gmat">GMAT</option>
 							<option value="gre">GRE</option>
 							<option value="ielts">IELTS</option>
@@ -32,15 +32,12 @@
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon">题库编者</span>
-						<input id="admin" type="hidden" name="admin_id" value="<?= $args['course']?>">
-						<select name="course" class="form-control course-options" required>
-							<option value=" ">全部课程</option>
-							<option value="gmat">GMAT</option>
-							<option value="gre">GRE</option>
-							<option value="ielts">IELTS</option>
-							<option value="sat">SAT</option>
-							<option value="toefl">TOEFL</option>
-							<option value="gaokao">高考</option>
+						<input id="admin" type="hidden" value="<?= $args['admin_id']?>">
+						<select name="admin_id" class="form-control exercise-options" >
+							<option value="">请选择题库创建人</option>
+							<?php foreach ($employees as $one):?>
+							<option value="<?= $one['admin_id']?>"><?= $one['username']?></option>
+							<?php endforeach;?>
 						</select>
 					</div>
 					<div class="input-group">
@@ -87,8 +84,8 @@
 						<?php foreach($exercises as $one):?>
 						<tr>
 							<td><?= $one['exercise_id'];?></span></td>
-							<td><?= $one['admin_id'];?></td>
-							<td><?= $one['course'];?></td>
+							<td><?= $one['username'];?></td>
+							<td><?= strtoupper($one['course']);?></td>
 							<td><?= $one['topic'];?></td>
 							<td><?= $one['amount'];?> 题</td>
 							<td title="<?= $one['create_time_formatted'];?>"><?= substr($one['create_time_formatted'], 0, 10);?></td>
@@ -122,7 +119,11 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
+		var _cur_course = $('#course').val();
+		$('.course-options option[value="' + _cur_course + '"]').attr('selected', 'true');
 		
+		var _cur_admin = $('#admin').val();
+		$('.exercise-options option[value="' + _cur_admin + '"]').attr('selected', 'true');
     });
 </script>
 <?php include APPPATH .'views/manage/footer.php'?>

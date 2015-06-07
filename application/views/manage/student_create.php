@@ -8,20 +8,22 @@
 				<ul class="nav nav-tabs">
 					<li role="presentation" class=""><a href="<?= base_url('console/student/view/lists') ?>">学员</a></li>
 					<li role="presentation" class=""><a href="<?= base_url('console/student/view/accounts') ?>">帐号</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/student/view/search') ?>">搜索</a></li>
+					<!--<li role="presentation" class=""><a href="<?= base_url('console/student/view/search') ?>">搜索</a></li>-->
 					<li role="presentation" class="active"><a href="#">添加</a></li>
 				</ul>
 			</div>
 			<div class="panel-body">
 				<form action="<?= base_url('manage/student/create') ?>" method="post" onsubmit="return submit_form();">
 					<div class="input-group">
-						<span class="input-group-addon">选择课程</span>
+						<span class="input-group-addon">课程选择</span>
 						<select name="course" class="form-control new-course">
+							<option value="">请选择课程模块</option>
 							<option value="gmat">GMAT</option>
 							<option value="gre">GRE</option>
 							<option value="ielts">IELTS</option>
 							<option value="sat">SAT</option>
 							<option value="toefl">TOEFL</option>
+							<option value="gaokao">高考</option>
 						</select>
 					</div>
 					<div class="input-group has-error123">

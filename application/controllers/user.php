@@ -30,11 +30,11 @@ class User extends CI_Controller {
 		$ret['msg'] = 'fail';
 		
 		// 
-		if (strcasecmp($code, '123456') !== 0) {
+		/*if (strcasecmp($code, '123456') !== 0) {
 			$ret['code'] = 4;
 			$ret['msg'] = 'verification code error';
 			exit(json_encode($ret));
-		}
+		}*/
 		
 		require APPPATH .'third_party/pass/PasswordHash.php';
 		$hasher = new PasswordHash(HASH_COST_LOG2, HASH_PORTABLE);

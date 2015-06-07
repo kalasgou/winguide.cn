@@ -12,13 +12,32 @@ class Admin_M extends CI_Model {
 		return FALSE;
 	}
 	
+	public function listEmployees() {
+		$employees = array();
+		
+		$query = $this->db_conn->select('*')->from('administrators')
+						->where('status = 1')->where_in('privilege', array(ADMIN, TEACHER))
+						->order_by('create_time DESC')->get();
+		if ($query->num_rows() > 0) {
+			$employees = $query->result_array();
+		}
+		
+		return $employees;
+	}
+	
 	public function listAdmins($params) {
 		$admins = array();
 		
 		$item = $params['item'];
 		$offset = $params['item'] * $params['page'];
 		
-		$query = $this->db_conn->select('*')->from('administrators')->order_by('create_time DESC')/*->limit($item, $offset)*/->get();
+		$search = array();
+		if ($params['privilege'] !== '') {
+			$search['privilege'] = $params['privilege'];
+		}
+		$search['status'] = $params['status'];
+		
+		$query = $this->db_conn->select('*')->from('administrators')->where($search)->order_by('create_time DESC')->limit($item, $offset)->get();
 		if ($query->num_rows() > 0) {
 			$admins = $query->result_array();
 		}
@@ -26,14 +45,19 @@ class Admin_M extends CI_Model {
 		return $admins;
 	}
 	
-	public function countAdmins() {
-		return $this->db_conn->count_all('administrators');
+	public function countAdmins($params) {
+		$search = array();
+		if ($params['privilege'] !== '') {
+			$search['privilege'] = $params['privilege'];
+		}
+		$search['status'] = $params['status'];
+		
+		return $this->db_conn->from('administrators')->where($search)->count_all_results();
 	}
 	
 	public function getAdminByEmail($email) {
 		$admin = array();
-		$query = $this->db_conn->select('admin_id, username, email, password, status')
-						->from('administrators')->where("email = '{$email}'")->limit(1)->get();
+		$query = $this->db_conn->select('*')->from('administrators')->where("email = '{$email}'")->limit(1)->get();
 		
 		if ($query->num_rows() > 0) {
 			$admin = $query->row_array();

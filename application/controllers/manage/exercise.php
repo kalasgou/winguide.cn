@@ -13,7 +13,7 @@ class Exercise extends CI_Controller {
 	public function listsView($item = 15, $page = 0) {
 		$params['item'] = intval($item) <= 0 ? 15 : $item;
 		$params['page'] = intval($page) <= 0 ? 0 : $page - 1;
-		$params['admin_id'] = intval($this->input->get('admin_id', TRUE));
+		$params['admin_id'] = trim($this->input->get('admin_id', TRUE));
 		$params['course'] = trim($this->input->get('course', TRUE));
 		$params['start_date'] = trim($this->input->get('start_date', TRUE));
 		$params['end_date'] = trim($this->input->get('end_date', TRUE));
@@ -26,9 +26,12 @@ class Exercise extends CI_Controller {
 		$output['exercises'] = $this->Exercise_M->listExercises($params);
 		
 		foreach ($output['exercises'] as &$one) {
-			$one['create_time_formatted'] = date('Y-m-d', $one['create_time']);
+			$one['create_time_formatted'] = date('Y-m-d H:i:s', $one['create_time']);
 			$one['update_time_formatted'] = $one['update_time'] === '0' ? '-' : date('Y-m-d H:i:s', $one['update_time']);
 		}
+		
+		$this->load->model('manage/Admin_M');
+		$output['employees'] = $this->Admin_M->listEmployees();
 		
 		$output['total_num'] = $this->Exercise_M->countExercises($params);
 		$output['pagination'] = gen_pagination(base_url("console/exercise/view/lists/item/{$params['item']}/page/"), 8, $output['total_num'], $params['item']);
@@ -48,19 +51,43 @@ class Exercise extends CI_Controller {
 	}
 	
 	public function detailView() {
-		$exercise_id = intval($this->input->get('exercise_id', TRUE));
+		$params['exercise_id'] = intval($this->input->get('exercise_id', TRUE));
 		
 		$output = array();
 		$output['hover'] = 'forum_course';
+		$output['args'] = $params;
 		
 		$this->load->model('manage/Exercise_M');
-		$output['detail'] = $this->Exercise_M->getExerciseDetail($exercise_id);
+		$output['detail'] = $this->Exercise_M->getExerciseDetail($params['exercise_id']);
 		//var_dump($output['detail']);
 		$this->load->view('manage/exercise_detail', $output);
 	}
 	
 	public function lists() {
+		$params['item'] = intval($this->input->get('item', TRUE));
+		$params['page'] = intval($this->input->get('page', TRUE));
+		$params['course'] = trim($this->input->get('course', TRUE));
+		$params['admin_id'] = trim($this->input->get('admin_id', TRUE));
+		$params['topic'] = trim($this->input->get('exercise_type', TRUE));
+		$params['start_date'] = trim($this->input->get('start_date', TRUE));
+		$params['end_date'] = trim($this->input->get('end_date', TRUE));
 		
+		header('Content-Type: application/json, charset=utf-8');
+		
+		$ret = array();
+		$ret['code'] = 0;
+		$ret['msg'] = 'success';
+		
+		$this->load->model('manage/Exercise_M');
+		$exercises = $this->Exercise_M->listExercises($params);
+		
+		foreach ($exercises as &$one) {
+			$one['create_time_formatted'] = date('Y-m-d', $one['create_time']);
+		}
+		
+		$ret['exercises'] = $exercises;
+		
+		echo json_encode($ret);
 	}
 	
 	public function create() {

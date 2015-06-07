@@ -9,7 +9,7 @@
 			<div class="panel-heading">
 				<ul class="nav nav-tabs">
 					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/lists?visibility=public')?>">列表</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/search?visibility=public')?>">搜索</a></li>
+					<!--<li role="presentation" class=""><a href="<?= base_url('console/forum/view/search?visibility=public')?>">搜索</a></li>-->
 					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/create?visibility=public')?>">添加</a></li>
 				</ul>
 			</div>
@@ -18,9 +18,10 @@
 					<input type="hidden" name="visibility" value="public"/>
 					<input type="hidden" name="topic_id" value="<?= $detail['topic_id']?>"/>
 					<div class="input-group">
-						<span class="input-group-addon">课程模块</span>
+						<span class="input-group-addon">课程选择</span>
 						<input type="hidden" id="cur-module" value="<?= $detail['module']?>"/>
-						<select id="module-option" name="module" class="form-control" required>
+						<select id="module-option" name="module" class="form-control" required >
+							<option value="">请选择课程模块</option>
 							<option value="gmat">GMAT</option>
 							<option value="gre">GRE</option>
 							<option value="ielts">IELTS</option>
@@ -39,13 +40,11 @@
 					</div>-->
 					<div class="input-group">
 						<span class="input-group-addon">讨论主题</span>
-						<input name="topic" type="text" class="form-control" value="<?= $detail['topic']?>" required>
+						<input name="topic" type="text" class="form-control" value="<?= $detail['topic']?>" required >
 					</div>
 					<div class="input-group">
 						<div class="input-group-addon-instruction">~~~~~~~~主题正文内容~~~~~~~~</div>
-						<textarea name="thread" class="summernote form-control" required>
-						<?= $detail['thread']?>
-						</textarea>
+						<textarea name="thread" class="summernote form-control" required ><?= $detail['thread']?></textarea>
 					</div>
 					<div class="pull-right">
 						<button class="btn btn-success btn-sm" type="submit">提交</button>

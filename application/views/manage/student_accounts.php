@@ -11,16 +11,16 @@
 				<ul class="nav nav-tabs">
 					<li role="presentation" class=""><a href="<?= base_url('console/student/view/lists') ?>">学员</a></li>
 					<li role="presentation" class="active"><a href="#">帐号</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/student/view/search') ?>">搜索</a></li>
+					<!--<li role="presentation" class=""><a href="<?= base_url('console/student/view/search') ?>">搜索</a></li>-->
 					<li role="presentation" class=""><a href="<?= base_url('console/student/view/create') ?>">添加</a></li>
 				</ul>
 			</div>
 			<div class="panel-body">
 				<form action="<?= base_url('console/student/view/accounts') ?>" method="get">
 					<div class="input-group">
-						<span class="input-group-addon">购买课程</span>
+						<span class="input-group-addon">课程选择</span>
 						<select name="course" class="form-control course-options" required>
-							<option value=" ">全部课程</option>
+							<option value="">请选择课程模块</option>
 							<option value="gmat">GMAT</option>
 							<option value="gre">GRE</option>
 							<option value="ielts">IELTS</option>
@@ -80,7 +80,13 @@
 							<td><?= $one['duration']?>天</td>
 							<td title="<?= $one['create_time_formatted'];?>"><?= substr($one['create_time_formatted'], 0, 10);?></td>
 							<td title="<?= $one['update_time_formatted'];?>"><?= substr($one['update_time_formatted'], 0, 10);?></td>
-							<td><label class="label label-success">有效</label></td>
+							<td>
+								<?php if ($one['status'] === '0') :?>
+								<label class="label label-default">未激活</label>
+								<?php elseif ($one['status'] === '1') :?>
+								<label class="label label-success">已激活</label>
+								<?php endif?>
+							</td>
 							<td>
 								<a href="#" title="查看学生信息"><span class="glyphicon glyphicon-info-sign"></span></a>
 								<a href="#" data-title="Edit" data-toggle="modal" data-target="#edit" title="编辑学生信息"><span class="glyphicon glyphicon-pencil"></span></a>
@@ -119,7 +125,7 @@
 								<input class="form-control username" type="text" placeholder="Username" readonly/>
 							</div>
 							<div class="input-group">
-								<span class="input-group-addon">选择课程</span>
+								<span class="input-group-addon">课程选择</span>
 								<select class="form-control courses" required>
 									<option value="gmat">GMAT</option>
 									<option value="gre">GRE</option>

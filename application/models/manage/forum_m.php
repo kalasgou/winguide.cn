@@ -18,9 +18,9 @@ class Forum_M extends CI_Model {
 		$search = array();
 		$search['visibility'] = $params['visibility'];
 		if ($params['course'] !== '') {
-			$search['course'] = $params['course'];
+			$search['module'] = $params['course'];
 		}
-		if ($params['admin_id'] !== 0) {
+		if ($params['admin_id'] !== '') {
 			$search['admin_id'] = $params['admin_id'];
 		}
 		if ($params['start_date'] !== '') {
@@ -44,9 +44,9 @@ class Forum_M extends CI_Model {
 		$search = array();
 		$search['visibility'] = $params['visibility'];
 		if ($params['course'] !== '') {
-			$search['course'] = $params['course'];
+			$search['module'] = $params['course'];
 		}
-		if ($params['admin_id'] !== 0) {
+		if ($params['admin_id'] !== '') {
 			$search['admin_id'] = $params['admin_id'];
 		}
 		if ($params['start_date'] !== '') {
@@ -62,8 +62,31 @@ class Forum_M extends CI_Model {
 	}
 	
 	public function createTopic($params) {
-		$this->db_conn->set($params)->insert('forum_topic');
-		return $this->db_conn->insert_id();
+		$result = FALSE;
+		
+		if ($params['visibility'] === 'public') {
+			$this->db_conn->set($params)->insert('forum_topic');
+			$result = $this->db_conn->insert_id();
+		} elseif ($params['visibility'] === 'course') {
+			$homework = array();
+			$homework['uuid'] = $params['uuid'];
+			$homework['admin_id'] = $params['admin_id'];
+			$homework['topic'] = $params['topic'];
+			$homework['thread'] = $params['thread'];
+			$homework['module'] = $params['module'];
+			$homework['visibility'] = $params['visibility'];
+			$homework['create_time'] = $params['create_time'];
+			
+			$exercises = $this->remarkExercises($params);
+			$homework['remark'] = serialize($exercises);
+			
+			$this->db_conn->set($homework)->insert('forum_topic');
+			$result = $this->db_conn->insert_id();
+			
+			$this->doAssignments($params, $result);
+		}
+		
+		return $result;
 	}
 	
 	public function modifyTopic($params) {
@@ -78,6 +101,45 @@ class Forum_M extends CI_Model {
 		}
 		
 		return $this->db_conn->where($search)->update('forum_topic', $refresh);
+	}
+	
+	private function remarkExercises($params) {
+		$exercises = array();
+		
+		$length = count($params['exercise_id']);
+		for ($i = 0; $i < $length; $i++) {
+			$tmp = array();
+			$tmp['exercise_id'] = $params['exercise_id'][$i];
+			$tmp['subject_en'] = $params['subject_en'][$i];
+			$tmp['subject_cn'] = $params['subject_cn'][$i];
+			$tmp['amount'] = $params['amount'][$i];
+			
+			$exercises[] = $tmp;
+		}
+		
+		return $exercises;
+	}
+	
+	private function doAssignments($params, $topic_id) {
+		$assignments = array();
+		$username_arr = explode(',', $params['assignment']);
+		
+		$query = $this->db_conn->select('user_id')->where('status = 1')->where_in('username', $username_arr)->get('students');
+		if ($query->num_rows() > 0) {
+			$rows = $query->result_array();
+			foreach ($rows as $one) {
+				$tmp = array();
+				$tmp['user_id'] = $one['user_id'];
+				$tmp['admin_id'] = $params['admin_id'];
+				$tmp['topic_id'] = $topic_id;
+				$tmp['status'] = 1;
+				$tmp['create_time'] = $params['create_time'];
+				
+				$assignments[] = $tmp;
+			}
+		}
+		
+		return $this->db_conn->insert_batch('assignment', $assignments); 
 	}
 	
 	public function viewTopic($params) {
@@ -115,6 +177,14 @@ class Forum_M extends CI_Model {
 		}
 		
 		return $comments;
+	}
+	
+	public function countComments($params) {
+		$search = array();
+		$search['topic_id'] = $params['topic_id'];
+		$search['status'] = 1;
+		
+		return $this->db_conn->from('forum_reply')->where($search)->count_all_results();
 	}
 }
 /* End of file */

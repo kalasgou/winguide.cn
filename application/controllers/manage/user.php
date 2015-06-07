@@ -10,12 +10,17 @@ class User extends CI_Controller {
 		$this->listsView();
 	}
 	
-	public function listsView($item = 15, $page = 0) {
-		$params['item'] = intval($item) <= 0 ? 15 : $item;
-		$params['page'] = intval($page) <= 0 ? 0 : $page - 1;
+	public function listsView($item = DEFAULT_PER_PAGE, $page = DEFAULT_START_PAGE) {
+		$params['item'] = intval($item) <= 0 ? DEFAULT_PER_PAGE : $item;
+		$params['page'] = intval($page) <= 0 ? DEFAULT_START_PAGE : $page - 1;
+		$params['start_date'] = trim($this->input->get('start_date', TRUE));
+		$params['end_date'] = trim($this->input->get('end_date', TRUE));
+		$params['account_type'] = CELLPHONE;
+		$params['status'] = 1;
 		
 		$output = array();
 		$output['hover'] = 'user';
+		$output['args'] = $params;
 		
 		$this->load->model('manage/User_M');
 		$output['users'] = $this->User_M->listUsers($params);
@@ -25,7 +30,7 @@ class User extends CI_Controller {
 			$one['update_time_formatted'] = $one['update_time'] === '0' ? '-' : date('Y-m-d H:i:s', $one['update_time']);
 		}
 		
-		$output['total_num'] = $this->User_M->countUsers();
+		$output['total_num'] = $this->User_M->countUsers($params);
 		$output['pagination'] = gen_pagination(base_url("console/user/view/lists/item/{$params['item']}/page/"), 8, $output['total_num'], $params['item']);
 		
 		$this->load->view('manage/user_lists', $output);
@@ -54,6 +59,10 @@ class User extends CI_Controller {
 	}
 	
 	public function search() {
+		
+	}
+	
+	public function usersExcel() {
 		
 	}
 }

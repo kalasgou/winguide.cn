@@ -10,7 +10,7 @@
 			<div class="panel-heading">
 				<ul class="nav nav-tabs">
 					<li role="presentation" class=""><a href="<?= base_url('console/admin/view/lists') ?>">列表</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/admin/view/search') ?>">搜索</a></li>
+					<!--<li role="presentation" class=""><a href="<?= base_url('console/admin/view/search') ?>">搜索</a></li>-->
 					<li role="presentation" class="active"><a href="#">添加</a></li>
 				</ul>
 			</div>
@@ -19,6 +19,7 @@
 					<div class="input-group">
 						<span class="input-group-addon">帐号类型</span>
 						<select type="email" name="email" class="form-control" required />
+							<option value="">请选择帐号类型</option>
 							<option value="<?= TEACHER?>">老师</option>
 							<option value="<?= AGENCY?>">中介</option>
 						</select>

@@ -11,17 +11,17 @@
 				<ul class="nav nav-tabs">
 					<li role="presentation" class="active"><a href="#">学员</a></li>
 					<li role="presentation" class=""><a href="<?= base_url('console/student/view/accounts') ?>">帐号</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/student/view/search') ?>">搜索</a></li>
+					<!--<li role="presentation" class=""><a href="<?= base_url('console/student/view/search') ?>">搜索</a></li>-->
 					<li role="presentation" class=""><a href="<?= base_url('console/student/view/create') ?>">添加</a></li>
 				</ul>
 			</div>
 			<div class="panel-body">
 				<form action="<?= base_url('console/student/view/lists') ?>" method="get">
 					<div class="input-group">
-						<span class="input-group-addon">购买课程</span>
-						<input id="course" type="hidden" name="course" value="<?= $args['course']?>">
-						<select name="course" class="form-control course-options" required>
-							<option value=" ">全部课程</option>
+						<span class="input-group-addon">课程选择</span>
+						<input id="course" type="hidden" value="<?= $args['course']?>">
+						<select name="course" class="form-control course-options" required >
+							<option value="">请选择课程模块</option>
 							<option value="gmat">GMAT</option>
 							<option value="gre">GRE</option>
 							<option value="ielts">IELTS</option>

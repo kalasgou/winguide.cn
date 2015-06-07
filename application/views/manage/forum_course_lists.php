@@ -17,11 +17,12 @@
 			</div>
 			<div class="panel-body">
 				<form action="<?= base_url('console/forum/view/lists') ?>" method="get">
+					<input type="hidden" name="visibility" value="course" required />
 					<div class="input-group">
-						<span class="input-group-addon">购买课程</span>
-						<input id="course" type="hidden" name="course" value="<?= $args['course']?>">
+						<span class="input-group-addon">课程选择</span>
+						<input id="course" type="hidden" value="<?= $args['course']?>">
 						<select name="course" class="form-control course-options" required>
-							<option value=" ">全部课程</option>
+							<option value="">请选择课程模块</option>
 							<option value="gmat">GMAT</option>
 							<option value="gre">GRE</option>
 							<option value="ielts">IELTS</option>
@@ -31,16 +32,13 @@
 						</select>
 					</div>
 					<div class="input-group">
-						<span class="input-group-addon">题库编者</span>
-						<input id="admin" type="hidden" name="admin_id" value="<?= $args['course']?>">
-						<select name="course" class="form-control course-options" required>
-							<option value=" ">全部课程</option>
-							<option value="gmat">GMAT</option>
-							<option value="gre">GRE</option>
-							<option value="ielts">IELTS</option>
-							<option value="sat">SAT</option>
-							<option value="toefl">TOEFL</option>
-							<option value="gaokao">高考</option>
+						<span class="input-group-addon">任务编者</span>
+						<input id="admin" type="hidden" value="<?= $args['admin_id']?>">
+						<select name="admin_id" class="form-control assignment-options"  >
+							<option value="">请选择任务创建人</option>
+							<?php foreach ($employees as $one):?>
+							<option value="<?= $one['admin_id']?>"><?= $one['username']?></option>
+							<?php endforeach;?>
 						</select>
 					</div>
 					<div class="input-group">
@@ -97,7 +95,7 @@
 							<td><label class="label label-success">有效</label></td>
 							<td>
 								<a href="<?= base_url('console/forum/view/detail?topic_id='.$one['topic_id'])?>" title="编辑作业内容"><span class="glyphicon glyphicon-edit" title=""></span></a>
-								<a href="#" title="浏览作业反馈"><span class="glyphicon glyphicon-comment"></span></a>
+								<a href="<?= base_url('console/forum/view/comments?visibility=course&topic_id='.$one['topic_id'])?>" title="浏览作业反馈"><span class="glyphicon glyphicon-comment"></span></a>
 								<a href="#" title="变更作业属性"><span class="glyphicon glyphicon-wrench"></span></a>
 								<a href="#" title="删除作业记录"><span class="glyphicon glyphicon-trash"></span></a>
 							</td>
@@ -124,7 +122,11 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
+		var _cur_course = $('#course').val();
+		$('.course-options option[value="' + _cur_course + '"]').attr('selected', 'true');
 		
+		var _cur_admin = $('#admin').val();
+		$('.assignment-options option[value="' + _cur_admin + '"]').attr('selected', 'true');
     });
 </script>
 <?php include APPPATH .'views/manage/footer.php'?>

@@ -9,58 +9,59 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<ul class="nav nav-tabs">
-					<li role="presentation" class="active"><a href="#">列表</a></li>
+					<?php if ($args['visibility'] === 'public') : ?>
+					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/lists?visibility=public')?>">列表</a></li>
 					<!--<li role="presentation" class=""><a href="<?= base_url('console/forum/view/search?visibility=public')?>">搜索</a></li>-->
 					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/create?visibility=public')?>">添加</a></li>
+					<li role="presentation" class="active"><a href="#">评论</a></li>
+					<?php elseif ($args['visibility'] === 'course') : ?>
+					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/lists?visibility=course')?>">任务</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/create?visibility=course')?>">布置作业</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/exercise/view/lists')?>">题库</a></li>
+					<li role="presentation" class=""><a href="<?= base_url('console/exercise/view/create')?>">新建习题</a></li>
+					<li role="presentation" class="active"><a href="#">作业反馈</a></li>
+					<?php endif ?>
 				</ul>
 			</div>
 			<div class="panel-body">
+				<h4>主题：<b><?= $topic['topic']?></b></h4>
+				<h5>共 <b><?= $total_num?></b> 条评论</h5>
 				<table class="table table-striped">
 					<colspan>
-						<col style="width:5%;"/>
+						<col style="width:6%;"/>
 						<col style="width:10%;"/>
-						<col style="width:40%;"/>
-						<col style="width:5%;"/>
-						<col style="width:10%;"/>
+						<col style="width:58%;"/>
 						<col style="width:10%;"/>
 						<col style="width:10%;"/>
-						<col style="width:10%;"/>
+						<col style="width:6%;"/>
 					</colspan>
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>课 程</th>
-							<th>话 题</th>
-							<th>置 顶</th>
+							<th>姓 名</th>
+							<th>留 言</th>
 							<th>创建时间</th>
-							<th>更新时间</th>
 							<th>状 态</th>
 							<th>操 作</th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php if (count($topics) > 0) { ?>
-						<?php foreach($topics as $one):?>
+						<?php if (count($comments) > 0) { ?>
+						<?php foreach($comments as $one):?>
 						<tr>
-							<td><span data-uuid="<?= $one['uuid']?>"><?= $one['topic_id'];?></span></td>
-							<td><?= $one['module'];?></td>
-							<td><?= $one['topic'];?></td>
-							<!--<td><?= $one['thread'];?></td>-->
-							<td><?= $one['recommend'];?></td>
+							<td><?= $one['reply_id'];?></span></td>
+							<td><?= $one['real_name'];?></td>
+							<td><?= $one['reply'];?></td>
 							<td title="<?= $one['create_time_formatted'];?>"><?= substr($one['create_time_formatted'], 0, 10);?></td>
-							<td title="<?= $one['update_time_formatted'];?>"><?= substr($one['update_time_formatted'], 0, 10);?></td>
-							<td><label class="label label-success">有效</label></td>
+							<td><label class="label label-success">正常</label></td>
 							<td>
-								<a href="<?= base_url('console/forum/view/detail?topic_id='.$one['topic_id'])?>" title="编辑主题内容"><span class="glyphicon glyphicon-edit" title=""></span></a>
-								<a href="<?= base_url('console/forum/view/comments?visibility=public&topic_id='.$one['topic_id'])?>" title="浏览讨论留言"><span class="glyphicon glyphicon-comment"></span></a>
-								<a href="#" title="变更主题属性"><span class="glyphicon glyphicon-wrench"></span></a>
 								<a href="#" title="删除主题记录"><span class="glyphicon glyphicon-trash"></span></a>
 							</td>
 						</tr>
 						<?php endforeach;?>
 						<?php } else { ?>
 						<tr>
-							<td colspan="8" align="center">暂无相关数据</td>
+							<td colspan="6" align="center">暂无相关数据</td>
 						</tr>
 						<?php } ?>
 					</tbody>

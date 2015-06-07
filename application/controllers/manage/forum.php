@@ -18,7 +18,7 @@ class Forum extends CI_Controller {
 		$params['item'] = intval($item) <= 0 ? 15 : $item;
 		$params['page'] = intval($page) <= 0 ? 0 : $page - 1;
 		$params['course'] = trim($this->input->get('course', TRUE));
-		$params['admin_id'] = intval($this->input->get('admin_id', TRUE));
+		$params['admin_id'] = trim($this->input->get('admin_id', TRUE));
 		$params['start_date'] = trim($this->input->get('start_date', TRUE));
 		$params['end_date'] = trim($this->input->get('end_date', TRUE));
 		
@@ -39,6 +39,9 @@ class Forum extends CI_Controller {
 			$one['update_time_formatted'] = $one['update_time'] === '0' ? '-' : date('Y-m-d H:i:s', $one['update_time']);
 		}
 		
+		$this->load->model('manage/Admin_M');
+		$output['employees'] = $this->Admin_M->listEmployees();
+		
 		$output['total_num'] = $this->Forum_M->countTopics($params);
 		$output['pagination'] = gen_pagination(base_url("console/forum/view/lists/item/{$params['item']}/page/"), 8, $output['total_num'], $params['item']);
 		
@@ -50,6 +53,9 @@ class Forum extends CI_Controller {
 		
 		$output = array();
 		$output['hover'] = 'forum_'.$params['visibility'];
+		
+		$this->load->model('manage/Admin_M');
+		$output['employees'] = $this->Admin_M->listEmployees();
 		
 		$this->load->view("manage/forum_{$params['visibility']}_create", $output);
 	}
@@ -72,13 +78,36 @@ class Forum extends CI_Controller {
 		$this->load->view("manage/topic_{$detail['visibility']}_detail", $output);
 	}
 	
-	public function commentView() {
+	public function commentsView($item = 15, $page = 0) {
+		$params['item'] = intval($item) <= 0 ? 15 : $item;
+		$params['page'] = intval($page) <= 0 ? 0 : $page - 1;
+		$params['topic_id'] = trim($this->input->get('topic_id', TRUE));
+		$params['visibility'] = trim($this->input->get('visibility', TRUE));
 		
+		$output = array();
+		$output['hover'] = 'forum_'.$params['visibility'];
+		$output['args'] = $params;
+		
+		$this->load->model('manage/Forum_M');
+		$output['comments'] = $this->Forum_M->loadComments($params);
+		
+		foreach ($output['comments'] as &$one) {
+			$one['create_time_formatted'] = date('Y-m-d H:i:s', $one['create_time']);
+			//$one['update_time_formatted'] = $one['update_time'] === '0' ? '-' : date('Y-m-d H:i:s', $one['update_time']);
+		}
+		
+		$output['topic'] = $this->Forum_M->viewTopic($params);
+		
+		$output['total_num'] = $this->Forum_M->countComments($params);
+		$output['pagination'] = gen_pagination(base_url("console/forum/view/comments/item/{$params['item']}/page/"), 8, $output['total_num'], $params['item']);
+		
+		$this->load->view("manage/forum_comments_lists", $output);
 	}
 	
 	public function create() {
-		$params['admin_id'] = 1;
+		$params['admin_id'] = $_SESSION['admin']['id'];
 		$params['uuid'] = hex16to64(uuid());
+		$params['status'] = 1;
 		$params['module'] = trim($this->input->post('module', TRUE));
 		$params['visibility'] = trim($this->input->post('visibility', TRUE));
 		$params['topic'] = trim($this->input->post('topic', TRUE));
@@ -88,6 +117,16 @@ class Forum extends CI_Controller {
 		if (!check_parameters($params)) {
 			exit('Parameters not enough');
 		}
+		
+		if ($params['visibility'] === 'course') {
+			$params['assignment'] = trim($this->input->post('assignment', TRUE));
+			$params['exercise_id'] = $this->input->post('exercise_id');
+			$params['subject_en'] = $this->input->post('subject_en');
+			$params['subject_cn'] = $this->input->post('subject_cn');
+			$params['amount'] = $this->input->post('amount');
+		}
+		
+		//var_dump($params);exit();
 		
 		header('Content-Type: application/json, charset=utf-8');
 		
@@ -109,7 +148,7 @@ class Forum extends CI_Controller {
 	public function update() {
 		$params['topic_id'] = intval($this->input->post('topic_id', TRUE));
 		$params['module'] = trim($this->input->post('module', TRUE));
-		//$params['visibility'] = trim($this->input->post('visibility', TRUE));
+		$params['visibility'] = trim($this->input->post('visibility', TRUE));
 		$params['topic'] = trim($this->input->post('topic', TRUE));
 		$params['thread'] = trim($this->input->post('thread'));
 		$params['update_time'] = $_SERVER['REQUEST_TIME'];
@@ -143,7 +182,7 @@ class Forum extends CI_Controller {
 		
 	}
 	
-	public function comments() {
+	/*public function comments() {
 		$params['topic_id'] = intval($this->input->get('topic_id', TRUE));
 		$params['item'] = intval($this->input->get('item', TRUE));
 		$params['page'] = intval($this->input->get('page', TRUE));
@@ -165,6 +204,6 @@ class Forum extends CI_Controller {
 		$ret['is_finish'] = count($comments) < $params['item'] ? TRUE : FALSE;
 		
 		echo json_encode($ret);
-	}
+	}*/
 }
 /* End of file */

@@ -63,16 +63,18 @@ class Student_M extends CI_Model {
 		
 		$search = array();
 		$search['S.status'] = 1;
+		$search['U.status'] = 1;
+		$search['U.account_type'] = STUDENT;
 		if ($params['course'] !== '') {
-			$search['course'] = $params['course'];
+			$search['S.course'] = $params['course'];
 		}
 		if ($params['start_date'] !== '') {
 			$start_time = strtotime($params['start_date']);
-			$search['start_time >= '] = $start_time;
+			$search['S.start_time >= '] = $start_time;
 		}
 		if ($params['end_date'] !== '') {
 			$end_time = strtotime($params['end_date']);
-			$search['start_time <= '] = $end_time;
+			$search['S.start_time <= '] = $end_time;
 		}
 		
 		$query = $this->db_conn->select('S.student_id, S.username, S.course, S.purchase_time, S.start_time, S.end_time, S.status, U.user_id, U.real_name, U.cellphone')

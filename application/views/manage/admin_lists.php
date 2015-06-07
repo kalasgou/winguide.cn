@@ -10,11 +10,26 @@
 			<div class="panel-heading">
 				<ul class="nav nav-tabs">
 					<li role="presentation" class="active"><a href="#">列表</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/admin/view/search') ?>">搜索</a></li>
+					<!--<li role="presentation" class=""><a href="<?= base_url('console/admin/view/search') ?>">搜索</a></li>-->
 					<li role="presentation" class=""><a href="<?= base_url('console/admin/view/create') ?>">添加</a></li>
 				</ul>
 			</div>
 			<div class="panel-body">
+				<form action="<?= base_url('console/admin/view/lists') ?>" method="get">
+					<div class="input-group">
+						<span class="input-group-addon">帐号类型</span>
+						<input id="privilege" type="hidden" value="<?= $args['privilege']?>">
+						<select class="form-control privilege-options" required >
+							<option value="">请选择帐号类型</option>
+							<option value="<?= ADMIN?>">系统管理员</option>
+							<option value="<?= TEACHER?>">教师</option>
+							<option value="<?= AGENCY?>">中介</option>
+						</select>
+					</div>
+					<div class="pull-right">
+						<button class="btn btn-primary btn-sm" type="submit">筛选</button>
+					</div>
+				</form>
 				<table class="table table-striped">
 					<colspan>
 						<col style="width:5%;"/>
@@ -42,18 +57,17 @@
 						<?php if (count($admins) > 0) { ?>
 						<?php foreach($admins as $one):?>
 						<tr>
-							<td><?= $one['privilege']?></td>
 							<td><?= $one['admin_id']?></td>
+							<td><?= $one['privilege']?></td>
 							<td><?= $one['username']?></td>
 							<td><?= $one['email']?></td>
 							<td title="<?= $one['create_time_formatted']?>"><?= substr($one['create_time_formatted'], 0, 10)?></td>
 							<td title="<?= $one['update_time_formatted']?>"><?= substr($one['update_time_formatted'], 0, 10)?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
-								<a href="#"><span class="glyphicon glyphicon-info-sign"></span></a>
-								<a href="#" data-title="Edit" data-toggle="modal" data-target="#edit" title="编辑管理帐户"><span class="glyphicon glyphicon-pencil"></span></a>
-								<a href="#" data-title="Configure" data-toggle="modal" data-target="#configure" title="变更管理帐户"><span class="glyphicon glyphicon-wrench"></span></a>
-								<a href="#" data-title="Delete" data-toggle="modal" data-target="#delete" title="删除管理帐户"><span class="glyphicon glyphicon-trash"></span></a>
+								<a href="#" data-title="Edit" data-toggle="modal" data-target="#edit" title="编辑帐户信息"><span class="glyphicon glyphicon-pencil"></span></a>
+								<a href="#" data-title="Configure" data-toggle="modal" data-target="#configure" title="重置帐户密码"><span class="glyphicon glyphicon-lock"></span></a>
+								<a href="#" data-title="Delete" data-toggle="modal" data-target="#delete" title="删除帐户记录"><span class="glyphicon glyphicon-trash"></span></a>
 							</td>
 						</tr>
 						<?php endforeach;?>
@@ -126,7 +140,8 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
-		
+		var _cur_privilege = $('#privilege').val();
+		$('.privilege-options option[value="' + _cur_privilege + '"]').attr('selected', 'true');
     });
 </script>
 <?php include APPPATH .'views/manage/footer.php'?>

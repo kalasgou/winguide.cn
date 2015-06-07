@@ -17,21 +17,26 @@ class Exercise_M extends CI_Model {
 		
 		$search = array();
 		if ($params['course'] !== '') {
-			$search['course'] = $params['course'];
+			$search['E.course'] = $params['course'];
 		}
-		if ($params['admin_id'] !== 0) {
-			$search['admin_id'] = $params['admin_id'];
+		if ($params['admin_id'] !== '') {
+			$search['A.admin_id'] = $params['admin_id'];
 		}
 		if ($params['start_date'] !== '') {
 			$start_time = strtotime($params['start_date']);
-			$search['create_time >= '] = $start_time;
+			$search['E.create_time >= '] = $start_time;
 		}
 		if ($params['end_date'] !== '') {
 			$end_time = strtotime($params['end_date']);
-			$search['create_time <= '] = $end_time;
+			$search['E.create_time <= '] = $end_time;
 		}
 		
-		$query = $this->db_conn->select('*')->from('exercises')->where($search)->order_by('create_time DESC')->limit($item, $offset)->get();
+		$query = $this->db_conn->select('E.exercise_id, E.admin_id, A.username, E.status, E.course, E.topic, E.subject, E.numbers, E.amount, E.create_time, E.update_time')
+								->from('exercises AS E')->join('administrators AS A', 'A.admin_id = E.admin_id')
+								->where($search)
+								->order_by('E.create_time DESC')
+								->limit($item, $offset)
+								->get();
 		if ($query->num_rows() > 0) {
 			$exercises = $query->result_array();
 		}

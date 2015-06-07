@@ -13,9 +13,12 @@ class Admin extends CI_Controller {
 	public function listsView($item = DEFAULT_PER_PAGE, $page = DEFAULT_START_PAGE) {
 		$params['item'] = intval($item) <= 0 ? DEFAULT_PER_PAGE : $item;
 		$params['page'] = intval($page) <= 0 ? DEFAULT_START_PAGE : $page - 1;
+		$params['privilege'] = trim($this->input->get('privilege', TRUE));
+		$params['status'] = 1;
 		
 		$output = array();
 		$output['hover'] = 'admin';
+		$output['args'] = $params;
 		
 		$this->load->model('manage/Admin_M');
 		$output['admins'] = $this->Admin_M->listAdmins($params);
@@ -49,8 +52,6 @@ class Admin extends CI_Controller {
 			exit('Parameters Not Enough');
 		}
 		
-		header('Content-Type: application/json, charset=utf-8');
-		
 		$ret = array();
 		$ret['code'] = 1;
 		$ret['msg'] = 'fail';
@@ -71,7 +72,17 @@ class Admin extends CI_Controller {
 				$_SESSION['admin']['id'] = $admin['admin_id'];
 				$_SESSION['admin']['username'] = $admin['username'];
 				
-				//header('Location: '.base_url('console/article'));
+				if ($admin['privilege'] == ADMIN || $admin['privilege'] == TEACHER) {
+					exit( '	<script type="text/javascript">
+								alert("'.$ret['msg'].'");
+								location.href = "'.base_url('console/article').'";
+							</script>');
+				} elseif ($admin['privilege'] == AGENCY) {
+					exit( '	<script type="text/javascript">
+								alert("'.$ret['msg'].'");
+								location.href = "'.base_url('manage/application/form').'";
+							</script>');
+				}
 			} else {
 				$ret['code'] = 2;
 				$ret['msg'] = 'password error';
@@ -81,6 +92,8 @@ class Admin extends CI_Controller {
 			$ret['msg'] = 'no this administrator';
 		}
 		
+		header('Content-Type: application/json, charset=utf-8');
+		
 		echo json_encode($ret);
 	}
 	
@@ -89,7 +102,7 @@ class Admin extends CI_Controller {
 		
 		echo 	'<script type="text/javascript">
 					alert("帐号已登出");
-					location.href = "'.base_url().'"
+					location.href = "'.base_url('manage/login').'"
 				</script>';
 	}
 	

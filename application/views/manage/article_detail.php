@@ -18,7 +18,7 @@
 				<form action="<?= base_url('manage/article/update') ?>" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="article_id" value="<?= $detail['article_id']?>"/>
 					<div class="input-group">
-						<span class="input-group-addon">课程模块</span>
+						<span class="input-group-addon">课程选择</span>
 						<input id="course-id" type="hidden" name="course_id" value="<?= $detail['course_id']?>"/>
 						<select name="course" class="form-control course-options" required>
 							<option value="-1" data-course-id="-1">请选择课程模块</option>
@@ -39,7 +39,7 @@
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon">文章标题</span>
-						<input name="title" type="text" class="form-control" value="<?= $detail['title']?>" required/>
+						<input name="title" type="text" class="form-control" placeholder="请输入文章标题" value="<?= $detail['title']?>" required/>
 					</div>
 					<!--<div class="input-group">
 						<span class="input-group-addon">关键字</span>
@@ -51,8 +51,9 @@
 					</div>-->
 					<div class="input-group">
 						<span class="input-group-addon">音视频地址</span>
-						<input name="multimedia_url" type="text" class="form-control" value="<?= $detail['multimedia_url']?>"/>
+						<input name="multimedia_url" type="text" class="form-control" placeholder="请输入音视频资源地址" value="<?= $detail['multimedia_url']?>"/>
 					</div>
+					<label>注意：音频支持mp3、aac格式，视频支持h.264、xvid格式，但不支持flash，如需挂靠优酷或土豆等外部资源，请使用下面富文本编辑框内的插入视频功能。</label>
 					<!--<div class="input-group">
 						<span class="input-group-addon">外部链接</span>
 						<input name="link" type="text" class="form-control" value="<?= $detail['link']?>"/>
@@ -63,9 +64,7 @@
 					</div>-->
 					<div class="input-group">
 						<div class="input-group-addon-instruction">~~~~~~~~文章正文内容~~~~~~~~</div>
-						<textarea name="content" class="summernote form-control">
-						<?= $detail['content']?>
-						</textarea>
+						<textarea name="content" class="summernote form-control"><?= $detail['content']?></textarea>
 					</div>
 					<div class="pull-right">
 						<button class="btn btn-success btn-sm" type="submit">提交</button>

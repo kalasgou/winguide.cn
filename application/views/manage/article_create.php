@@ -16,7 +16,7 @@
 			<div class="panel-body">
 				<form action="<?= base_url('manage/article/create') ?>" method="post" enctype="multipart/form-data">
 					<div class="input-group">
-						<span class="input-group-addon">课程模块</span>
+						<span class="input-group-addon">课程选择</span>
 						<input id="course-id" type="hidden" name="course_id" value="-1"/>
 						<select name="course" class="form-control course-options" required>
 							<option value="-1" data-course-id="-1">请选择课程模块</option>
@@ -29,11 +29,12 @@
 						<span class="input-group-addon">文章栏目</span>
 						<input id="module-id" type="hidden" name="module_id" value="-1"/>
 						<select id="module" name="module" class="form-control module-options" required>
+							<option value="-1" data-module-id="-1">请选择文章栏目</option>
 						</select>
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon">文章标题</span>
-						<input name="title" type="text" class="form-control" required/>
+						<input name="title" type="text" class="form-control" placeholder="请输入文章标题" required/>
 					</div>
 					<!--<div class="input-group">
 						<span class="input-group-addon">关键字</span>
@@ -45,8 +46,9 @@
 					</div>-->
 					<div class="input-group">
 						<span class="input-group-addon">音视频地址</span>
-						<input name="multimedia_url" type="text" class="form-control"/>
+						<input name="multimedia_url" type="text" class="form-control" placeholder="请输入音视频资源地址"/>
 					</div>
+					<label>注意：音频支持mp3、aac格式，视频支持h.264、xvid格式，但不支持flash，如需挂靠优酷或土豆等外部资源，请使用下面富文本编辑框内的插入视频功能。</label>
 					<!--<div class="input-group">
 						<span class="input-group-addon">外部链接</span>
 						<input name="link" type="text" class="form-control"/>
@@ -57,9 +59,7 @@
 					</div>-->
 					<div class="input-group">
 						<div class="input-group-addon-instruction">~~~~~~~~文章正文内容~~~~~~~~</div>
-						<textarea name="content" class="summernote form-control">
-						
-						</textarea>
+						<textarea name="content" class="summernote form-control"></textarea>
 					</div>
 					<button class="btn btn-success pull-right" type="submit">提交</button>
 				</form>
@@ -106,7 +106,7 @@
 				type: 'get',
 				dataType: 'json',
 				success: function(json) {
-					var modules = '<option value="-1" data-course-id="-1">请选择文章栏目</option>';
+					var modules = '<option value="-1" data-module-id="-1">请选择文章栏目</option>';
 					var len = json.modules.length;
 					for (var i = 0; i < len; i ++) {
 						modules += '<option value="' + json.modules[i].module + '" data-module-id="' + json.modules[i].id + '">' + json.modules[i].module_desc + '</option>';

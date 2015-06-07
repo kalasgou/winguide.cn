@@ -10,7 +10,7 @@
 				<ul class="nav nav-tabs">
 					<li role="presentation" class=""><a href="<?= base_url('console/student/view/lists') ?>">学员</a></li>
 					<li role="presentation" class=""><a href="<?= base_url('console/student/view/accounts') ?>">帐号</a></li>
-					<li role="presentation" class=""><a href="<?= base_url('console/student/view/search') ?>">搜索</a></li>
+					<!--<li role="presentation" class=""><a href="<?= base_url('console/student/view/search') ?>">搜索</a></li>-->
 					<li role="presentation" class=""><a href="<?= base_url('console/student/view/create') ?>">添加</a></li>
 				</ul>
 			</div>
