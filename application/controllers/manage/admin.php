@@ -41,7 +41,16 @@ class Admin extends CI_Controller {
 		$this->load->view('manage/admin_create', $output);
 	}
 	
+	public function detailView() {
+		
+	}
+	
 	public function searchView() {
+		
+	}
+	
+	public function resetPswdView() {
+		
 	}
 	
 	public function login() {
@@ -146,7 +155,42 @@ class Admin extends CI_Controller {
 	}
 	
 	public function update() {
+		$type = trim($this->input->post('type', TRUE));
+		$params['admin_id'] = trim($this->input->post('admin_id', TRUE));
+		$params['email'] = trim($this->input->post('email', TRUE));
+		$params['username'] = trim($this->input->post('username', TRUE));
+		$params['old_pswd'] = trim($this->input->post('old_pswd', TRUE));
+		$params['new_pswd'] = trim($this->input->post('new_pswd', TRUE));
+		$params['status'] = trim($this->input->post('status', TRUE));
+		$params['update_time'] = $_SERVER['REQUEST_TIME'];
 		
+		header('Content-Type: application/json, charset=utf-8');
+		
+		$ret = array();
+		$ret['code'] = 1;
+		$ret['msg'] = 'fail';
+		
+		$result = FALSE;
+		$this->load->model('manage/Admin_M');
+		switch ($type) {
+			case 'update': 
+			case 'trash': 
+					$result = $this->Admin_M->updateAccount($params);
+					break;
+			case 'reset': 
+					$result = $this->Admin_M->resetPassword($params);
+					break;
+			default : 
+					$ret['code'] = 2;
+					$ret['msg'] = 'Illeagal Operation';
+		}
+		
+		if ($result) {
+			$ret['code'] = 0;
+			$ret['msg'] = 'success';
+		}
+		
+		echo json_encode($ret);
 	}
 }
 /* End of file */

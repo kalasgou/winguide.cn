@@ -55,7 +55,7 @@
 						<tr>
 							<th>#</th>
 							<th>标 题</th>
-							<th>模 块</th>
+							<th>课 程</th>
 							<th>栏 目</th>
 							<th>创建日期</th>
 							<th>更新日期</th>
@@ -69,7 +69,7 @@
 						<tr>
 							<td><span data-uuid="<?= $one['uuid']?>"><?= $one['article_id']?></span></td>
 							<td><a href="#"><?= $one['title']?></a></td>
-							<td><?= $one['course']?></td>
+							<td><?= strtoupper($one['course'])?></td>
 							<td><?= $one['module']?></td>
 							<td title="<?= $one['create_time_formatted'];?>"><?= substr($one['create_time_formatted'], 0, 10);?></td>
 							<td title="<?= $one['update_time_formatted'];?>"><?= substr($one['update_time_formatted'], 0, 10);?></td>

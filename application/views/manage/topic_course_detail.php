@@ -37,17 +37,20 @@
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon">学生列表</span>
-						<textarea name="assignment" class="form-control" required placeholder="请在此输入学生帐号，并用英文逗号“,”隔开，例如“000001_wg,000003_wg,000008_wg”"></textarea>
+						<textarea name="assignment" class="form-control" required placeholder="请在此输入学生帐号，并用英文逗号“,”隔开，例如“000001_wg,000003_wg,000008_wg”"><?= $detail['usernames_str']?></textarea>
 					</div>
 					<div class="input-group">
-						<div class="chosen-exercise exercise-id-5">
-							<input type="hidden" name="exercise_id[]" value="5">
-							<input type="hidden" name="subject_en[]" value="语法练习">
-							<input type="hidden" name="subject_cn[]" value="SAT语法练习">
-							<input type="hidden" name="amount[]" value="36">
-							<span>ID: <b>5</b> # 编者: <b>系统管理员</b> # 课程: <b>SAT</b> # 题型: <b>SAT语法练习</b> # 题数: 共<b>36</b>题 # @<b>2015-05-22</b></span>
+						<?php foreach ($detail['remark_arr'] as $one) : ?>
+						<div class="chosen-exercise exercise-id-<?= $one['exercise_id']?>">
+							<input type="hidden" name="exercise_id[]" value="<?= $one['exercise_id']?>">
+							<input type="hidden" name="subject_en[]" value="<?= $one['subject_en']?>">
+							<input type="hidden" name="subject_cn[]" value="<?= $one['subject_cn']?>">
+							<input type="hidden" name="amount[]" value="<?= $one['amount']?>">
+							<input type="hidden" name="create_date[]" value="<?= $one['create_date']?>">
+							<span>ID: <b><?= $one['exercise_id']?></b> # 编者: <b>系统管理员</b> # 课程: <b><?= strtoupper($detail['module'])?></b> # 题型: <b><?= $one['subject_cn']?></b> # 题数: 共<b><?= $one['amount']?></b>题 # @<b><?= $one['create_date']?></b></span>
 							<a class="pull-right" data-exercise-id="5" href="#" onclick="javascript:removeChosen('5');"><span class="glyphicon glyphicon-minus-sign"></span> 移除</a>
 						</div>
+						<?php endforeach ?>
 						<div id="bottom-up"></div>
 					</div>
 					<div class="input-group">

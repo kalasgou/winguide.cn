@@ -43,7 +43,7 @@
 						<?php foreach($topics as $one):?>
 						<tr>
 							<td><span data-uuid="<?= $one['uuid']?>"><?= $one['topic_id'];?></span></td>
-							<td><?= $one['module'];?></td>
+							<td><?= strtoupper($one['module']);?></td>
 							<td><?= $one['topic'];?></td>
 							<!--<td><?= $one['thread'];?></td>-->
 							<td><?= $one['recommend'];?></td>

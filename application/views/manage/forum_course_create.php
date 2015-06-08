@@ -227,6 +227,7 @@
 													'<input type="hidden" name="subject_en[]" value="' + _action + '" />' +
 													'<input type="hidden" name="subject_cn[]" value="' + _topic + '" />' +
 													'<input type="hidden" name="amount[]" value="' + _amount + '" />' + 
+													'<input type="hidden" name="create_date[]" value="' + _create_date + '" />' + 
 													'<span>ID: <b>' + _exercise_id + '</b> # 编者: <b>' + _username + '</b> # 课程: <b>' + _cur_course + '</b> # 题型: <b>' + _topic + '</b> # 题数: 共<b>' + _amount + '</b>题 # @<b>' + _create_date + '</b></span>' +
 													'<a class="pull-right" data-exercise-id="' + _exercise_id + '" href="#" onclick="javascript:removeChosen(\'' + _exercise_id + '\');"><span class="glyphicon glyphicon-minus-sign"></span> 移除</a>' +
 												'</div>';

@@ -123,6 +123,7 @@ class Forum extends CI_Controller {
 			$params['exercise_id'] = $this->input->post('exercise_id');
 			$params['subject_en'] = $this->input->post('subject_en');
 			$params['subject_cn'] = $this->input->post('subject_cn');
+			$params['create_date'] = $this->input->post('create_date');
 			$params['amount'] = $this->input->post('amount');
 		}
 		

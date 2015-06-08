@@ -76,7 +76,7 @@
 							<td><span data-user-id="<?= $one['user_id']?>"><?= $one['student_id']?></span></td>
 							<td><?= $one['real_name']?></td>
 							<td><?= $one['cellphone']?></td>
-							<td><?= $one['course']?></td>
+							<td><?= strtoupper($one['course'])?></td>
 							<td><?= $one['username']?></td>
 							<td title="<?= $one['start_time_formatted'];?>"><?= substr($one['start_time_formatted'], 0, 10);?></td>
 							<td title="<?= $one['end_time_formatted'];?>"><?= substr($one['end_time_formatted'], 0, 10);?></td>

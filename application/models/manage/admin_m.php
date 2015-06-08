@@ -72,5 +72,48 @@ class Admin_M extends CI_Model {
 		$this->db_conn->insert('administrators', $params);
 		return $this->db_conn->insert_id();
 	}
+	
+	public function updateAccount($params) {
+		$search = array();
+		$search['admin_id'] = $params['admin_id'];
+		
+		$refresh = array();
+		foreach ($params as $key => $val) {
+			if ($key !== 'admin_id' && $val !== '') {
+				$refresh[$key] = $val;
+			}
+		}
+		
+		return $this->db_conn->where($search)->update('administrators', $refresh);
+	}
+	
+	public function resetPassword($params) {
+		$user = array();
+		
+		$query = $this->db_conn->select('*')->from('administrators')->where("admin_id = {$params['admin_id']}")->limit(1)->get();
+		if ($query->num_rows() > 0) {
+			$user = $query->row_array();
+			$query->free_result();
+		} else {
+			return FALSE;
+		}
+		
+		require APPPATH .'third_party/pass/PasswordHash.php';
+		$hasher = new PasswordHash(HASH_COST_LOG2, HASH_PORTABLE);
+		$chk_lower = $hasher->CheckPassword(strtolower($params['old_pswd']), $user['password']);
+		$chk_upper = $hasher->CheckPassword(strtoupper($params['old_pswd']), $user['password']);
+		
+		if (strlen($params['new_pswd']) < 6) {
+			return FALSE;
+		}
+		
+		if ($chk_lower || $chk_upper) {
+			$new_password = $hasher->HashPassword($params['new_pswd']);
+			
+			return $this->db_conn->where("admin_id = {$params['admin_id']}")->update('administrators', array('password' => $new_password, 'update_time' => $params['update_time']));
+		} else {
+			return FALSE;
+		}
+	}
 }
 /* End of file */

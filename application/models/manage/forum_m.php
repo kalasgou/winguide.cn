@@ -75,6 +75,7 @@ class Forum_M extends CI_Model {
 			$homework['thread'] = $params['thread'];
 			$homework['module'] = $params['module'];
 			$homework['visibility'] = $params['visibility'];
+			$homework['status'] = $params['status'];
 			$homework['create_time'] = $params['create_time'];
 			
 			$exercises = $this->remarkExercises($params);
@@ -113,6 +114,7 @@ class Forum_M extends CI_Model {
 			$tmp['subject_en'] = $params['subject_en'][$i];
 			$tmp['subject_cn'] = $params['subject_cn'][$i];
 			$tmp['amount'] = $params['amount'][$i];
+			$tmp['create_date'] = $params['create_date'][$i];
 			
 			$exercises[] = $tmp;
 		}
@@ -124,11 +126,12 @@ class Forum_M extends CI_Model {
 		$assignments = array();
 		$username_arr = explode(',', $params['assignment']);
 		
-		$query = $this->db_conn->select('user_id')->where('status = 1')->where_in('username', $username_arr)->get('students');
+		$query = $this->db_conn->select('student_id, user_id')->where('status = 1')->where_in('username', $username_arr)->get('students');
 		if ($query->num_rows() > 0) {
 			$rows = $query->result_array();
 			foreach ($rows as $one) {
 				$tmp = array();
+				$tmp['student_id'] = $one['student_id'];
 				$tmp['user_id'] = $one['user_id'];
 				$tmp['admin_id'] = $params['admin_id'];
 				$tmp['topic_id'] = $topic_id;
@@ -151,8 +154,25 @@ class Forum_M extends CI_Model {
 		$query = $this->db_conn->select('*')->from('forum_topic')->where($search)->limit(1)->get();
 		if ($query->num_rows() > 0) {
 			$detail = $query->row_array();
+			
+			if ($detail['visibility'] === 'course') {
+				$detail['remark_arr'] = unserialize($detail['remark']);
+				
+				$detail['username_arr'] = array();
+				$detail['usernames_str'] = NULL;
+				$query = $this->db_conn->select('username')->from('assignment AS A')->join('students AS S', 'S.student_id = A.student_id')->where('A.topic_id = '.$detail['topic_id'])->get();
+				
+				if ($query->num_rows() > 0) {
+					foreach ($query->result_array() as $one) {
+						$detail['username_arr'][] = $one['username'];
+					}
+					$detail['usernames_str'] = implode(',', $detail['username_arr']);
+				}
+			}
 		}
 		
+		$query->free_result();
+		//var_dump($detail);exit();
 		return $detail;
 	}
 	

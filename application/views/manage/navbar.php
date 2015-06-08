@@ -412,7 +412,8 @@ $(function () {
 							<li class=""><a href="#"><span class="glyphicon glyphicon-cog"></span> Other Link</a></li>
 							<li class=""><a href="#"><span class="glyphicon glyphicon-cog"></span> Other Link</a></li>
 							<li class="divider"></li>-->
-							<li><a href="<?= base_url('manage/admin/logout')?>"><span class="glyphicon glyphicon-lock"></span> 修改密码</a></li>
+							<li><a href="<?= base_url('console/admin/view/detail')?>"><span class="glyphicon glyphicon-user"></span> 编辑帐号</a></li>
+							<li><a href="<?= base_url('console/admin/view/resetPswd')?>"><span class="glyphicon glyphicon-lock"></span> 修改密码</a></li>
 							<li class="divider">
 							<li><a href="<?= base_url('manage/admin/logout')?>"><span class="glyphicon glyphicon-off"></span> 退出系统</a></li>
 						</ul>
