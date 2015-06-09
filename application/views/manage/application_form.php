@@ -352,7 +352,7 @@
 			var _dataStr = _form.serialize();
 			console.log(_dataStr);
 			$.ajax({
-				url: 'http://www.winguide.cn/manage/application/activateAccount',
+				url: '<?= base_url('manage/application/activateAccount')?>',
 				type: 'POST',
 				dataType: 'JSON',
 				data: _dataStr,

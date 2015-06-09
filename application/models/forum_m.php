@@ -11,6 +11,7 @@ class Forum_M extends CI_Model {
 	
 	public function getTopicByVisibility($params) {
 		$topic = array();
+		$topic['replies'] = array();
 		
 		$search = array();
 		$search['module'] = $params['module'];
@@ -27,8 +28,6 @@ class Forum_M extends CI_Model {
 			
 			$item = $params['item'];
 			$offset = $params['item'] * $params['page'];
-			
-			$topic['replies'] = array();
 			
 			$query = $this->db_conn->select('R.reply_id, R.topic_id, R.user_id, U.cellphone AS nickname, R.reply, R.create_time')
 									->from('forum_reply AS R')->join('users AS U', 'U.user_id = R.user_id', 'LEFT')

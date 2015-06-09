@@ -11,6 +11,7 @@ class Course_M extends CI_Controller {
 	
 	public function loadHomework($params) {
 		$homework = array();
+		$homework['replies'] = array();
 		
 		$search = array();
 		$search['T.module'] = $params['module'];
@@ -32,8 +33,6 @@ class Course_M extends CI_Controller {
 			
 			$item = $params['item'];
 			$offset = $params['item'] * $params['page'];
-			
-			$homework['replies'] = array();
 			
 			$query = $this->db_conn->select('R.reply_id, R.topic_id, R.user_id, U.cellphone AS nickname, R.reply, R.create_time')
 									->from('forum_reply AS R')->join('users AS U', 'U.user_id = R.user_id', 'LEFT')

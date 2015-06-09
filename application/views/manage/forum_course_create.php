@@ -6,6 +6,8 @@
 		.chosen-exercise {background-color:#EEEEEE; border-bottom:dotted 1px #999999;}
 		.pagination {width:100%; text-align:center;}
 		.pagination .active {color:grey; text-decoration:none; font-weight:bold;}
+		.add-green {color:#5cb85c;}
+		.minus-red {color:#D9534F;}
 	</style>
 	<div class="col-md-10 content">
 		<div class="panel panel-default">
@@ -220,9 +222,9 @@
 									'<td>' + json.exercises[i]['create_time_formatted'] + '</td>' +
 									'<td>'; 
 						if (_chosen_ids_arr.indexOf(json.exercises[i]['exercise_id']) === -1) {
-							sets += '<a data-title="Add" href="#"><span class="glyphicon glyphicon-plus-sign"></span></a></td></tr>';
+							sets += '<a class="add-green" data-title="Add" href="#"><span class="glyphicon glyphicon-plus-sign"></span></a></td></tr>';
 						} else {
-							sets += '<a data-title="Remove" href="#"><span class="glyphicon glyphicon-minus-sign"></span></a></td></tr>';
+							sets += '<a class="minus-red" data-title="Remove" href="#"><span class="glyphicon glyphicon-minus-sign"></span></a></td></tr>';
 						}
 					}
 					
@@ -245,6 +247,7 @@
 							case 'Add':
 										$(this).html('<span class="glyphicon glyphicon-minus-sign"></span>');
 										$(this).data('title', 'Remove');
+										$(this).attr('class', 'minus-red');
 										var chosen = '<div class="chosen-exercise exercise-id-' + _exercise_id + '">' +
 														'<input type="hidden" name="exercise_id[]" value="' + _exercise_id + '" />' +
 														'<input type="hidden" name="subject_en[]" value="' + _action + '" />' +
@@ -262,7 +265,7 @@
 							case 'Remove':
 										$(this).html('<span class="glyphicon glyphicon-plus-sign"></span>');
 										$(this).data('title', 'Add');
-										
+										$(this).attr('class', 'add-green');
 										$('.exercise-id-' + _exercise_id).remove();
 										
 										_chosen_ids_arr[_chosen_ids_arr.indexOf(_exercise_id)] = '0';
