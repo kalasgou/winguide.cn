@@ -16,11 +16,11 @@ class Exercise_M extends CI_Model {
 		$offset = $params['item'] * $params['page'];
 		
 		$search = array();
-		if ($params['course'] !== '') {
-			$search['E.course'] = $params['course'];
-		}
 		if ($params['admin_id'] !== '') {
 			$search['A.admin_id'] = $params['admin_id'];
+		}
+		if ($params['course'] !== '') {
+			$search['E.course'] = $params['course'];
 		}
 		if ($params['topic'] !== '') {
 			$search['E.topic'] = $params['topic'];
@@ -49,14 +49,14 @@ class Exercise_M extends CI_Model {
 	
 	public function countExercises($params) {
 		$search = array();
-		if ($params['course'] !== '') {
-			$search['course'] = $params['course'];
-		}
 		if ($params['admin_id'] !== '') {
 			$search['admin_id'] = $params['admin_id'];
 		}
+		if ($params['course'] !== '') {
+			$search['course'] = $params['course'];
+		}
 		if ($params['topic'] !== '') {
-			$search['E.topic'] = $params['topic'];
+			$search['topic'] = $params['topic'];
 		}
 		if ($params['start_date'] !== '') {
 			$start_time = strtotime($params['start_date']);

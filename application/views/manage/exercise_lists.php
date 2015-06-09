@@ -31,9 +31,16 @@
 						</select>
 					</div>
 					<div class="input-group">
+						<span class="input-group-addon">题目类型</span>
+						<input id="topic" type="hidden" value="<?= $args['topic']?>">
+						<select name="topic" class="form-control exercise-options" >
+							<option value="">请选择题目类型</option>
+						</select>
+					</div>
+					<div class="input-group">
 						<span class="input-group-addon">题库编者</span>
 						<input id="admin" type="hidden" value="<?= $args['admin_id']?>">
-						<select name="admin_id" class="form-control exercise-options" >
+						<select name="admin_id" class="form-control author-options" >
 							<option value="">请选择题库创建人</option>
 							<?php foreach ($employees as $one):?>
 							<option value="<?= $one['admin_id']?>"><?= $one['username']?></option>
@@ -122,8 +129,41 @@
 		var _cur_course = $('#course').val();
 		$('.course-options option[value="' + _cur_course + '"]').attr('selected', 'true');
 		
+		var _cur_topic = $('#topic').val();
+		if (_cur_topic !== '') {
+			getExerciseTypes(_cur_course);
+			$('.exercise-options option[value="' + _cur_topic + '"]').attr('selected', 'true');
+		}
+		
 		var _cur_admin = $('#admin').val();
-		$('.exercise-options option[value="' + _cur_admin + '"]').attr('selected', 'true');
+		$('.author-options option[value="' + _cur_admin + '"]').attr('selected', 'true');
+		
+		$('.course-options').change(function() {
+			var _course = $(this).val();
+			getExerciseTypes(_course);
+		});
     });
+	
+	function getExerciseTypes(_course) {
+		$.ajax({
+			url: '<?= base_url('manage/exercise/getExerciseTypes') ?>',
+			data: {course: _course},
+			type: 'get',
+			async: false,
+			dataType: 'json',
+			success: function(json) {
+				var types = '<option value="">请选择题目类型</option>';
+				var len = json.exercise_types.length;
+				for (var i = 0; i < len; i ++) {
+					types += '<option value="' + json.exercise_types[i].topic + '" data-action="' + json.exercise_types[i].action + '">' + json.exercise_types[i].topic + '</option>';
+				}
+				$('.exercise-options').empty();
+				$('.exercise-options').append(types);
+			},
+			error: function() {
+				alert('Network Error');
+			}
+		});
+	}
 </script>
 <?php include APPPATH .'views/manage/footer.php'?>

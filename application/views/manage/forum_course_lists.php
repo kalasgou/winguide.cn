@@ -34,7 +34,7 @@
 					<div class="input-group">
 						<span class="input-group-addon">任务编者</span>
 						<input id="admin" type="hidden" value="<?= $args['admin_id']?>">
-						<select name="admin_id" class="form-control assignment-options"  >
+						<select name="admin_id" class="form-control author-options"  >
 							<option value="">请选择任务创建人</option>
 							<?php foreach ($employees as $one):?>
 							<option value="<?= $one['admin_id']?>"><?= $one['username']?></option>
@@ -126,7 +126,7 @@
 		$('.course-options option[value="' + _cur_course + '"]').attr('selected', 'true');
 		
 		var _cur_admin = $('#admin').val();
-		$('.assignment-options option[value="' + _cur_admin + '"]').attr('selected', 'true');
+		$('.author-options option[value="' + _cur_admin + '"]').attr('selected', 'true');
     });
 </script>
 <?php include APPPATH .'views/manage/footer.php'?>

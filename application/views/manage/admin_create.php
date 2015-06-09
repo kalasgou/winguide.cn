@@ -18,7 +18,7 @@
 				<form action="<?= base_url('manage/admin/register') ?>" method="post" onsubmit="return submit_form();">
 					<div class="input-group">
 						<span class="input-group-addon">帐号类型</span>
-						<select type="email" name="email" class="form-control" required />
+						<select name="privilege" class="form-control" required />
 							<option value="">请选择帐号类型</option>
 							<option value="<?= TEACHER?>">老师</option>
 							<option value="<?= AGENCY?>">中介</option>
@@ -34,7 +34,7 @@
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon">登录密码</span>
-						<input id="password" type="password" name="password" class="form-control" required />
+						<input id="inputPassword" type="password" name="password" class="form-control" required />
 					</div>
 					<div class="pull-right">
 						<button class="btn btn-success btn-sm" type="submit">提交</button>
@@ -47,12 +47,14 @@
 </div>
 </div>
 <script type="text/javascript">
+	function submit_form() {
+		var password = $('#inputPassword').val();
+		$('#inputPassword').val(hex_md5(password));
+		return true;
+	}
+	
     $(document).ready(function() {
-		function submit_form() {
-			var password = $('#inputPassword').val();
-			$('#inputPassword').val(hex_md5(password));
-			return true;
-		}
+		
     });
 </script>
 <?php include APPPATH .'views/manage/footer.php'?>

@@ -123,10 +123,10 @@
 				</div>
 				<div class="modal-body">
 					<div class="input-group">
-						<span class="input-group-addon">旧密码</span><input class="form-control old-pswd" type="text" placeholder="请填写帐号原始密码" required />
+						<span class="input-group-addon">旧密码</span><input class="form-control old-pswd" type="password" placeholder="请填写帐号原始密码" required />
 					</div>
 					<div class="input-group">
-						<span class="input-group-addon">新密码</span><input class="form-control new-pswd" type="text" placeholder="请填写不少于6位字符长度的新密码" required />
+						<span class="input-group-addon">新密码</span><input class="form-control new-pswd" type="password" placeholder="请填写不少于6位字符长度的新密码" required />
 					</div>
 				</div>
 				<div class="modal-footer ">

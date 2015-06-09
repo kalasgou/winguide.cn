@@ -15,6 +15,7 @@ class Exercise extends CI_Controller {
 		$params['page'] = intval($page) <= 0 ? 0 : $page - 1;
 		$params['admin_id'] = trim($this->input->get('admin_id', TRUE));
 		$params['course'] = trim($this->input->get('course', TRUE));
+		$params['topic'] = trim($this->input->get('topic', TRUE));
 		$params['start_date'] = trim($this->input->get('start_date', TRUE));
 		$params['end_date'] = trim($this->input->get('end_date', TRUE));
 		

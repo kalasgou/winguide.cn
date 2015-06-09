@@ -138,7 +138,28 @@ class Course_M extends CI_Controller {
 	}
 	
 	private function myTOEFLScores($db_conn, $params) {
+		$yes = 0;
+		$no = 0;
 		
+		$query = $db_conn->select_sum('yes')->where('userid = '.$params['user_id'])->get('tftj_danci');
+		$row = $query->row_array();
+		$yes += intval($row['yes']);
+		
+		$query = $db_conn->select_sum('wrong')->where('userid = '.$params['user_id'])->get('tftj_danci');
+		$row = $query->row_array();
+		$no += intval($row['wrong']);
+		
+		$tmp = array();
+		$tmp['yes'] = $yes;
+		$tmp['subject'] = '对';
+		$scores[] = $tmp;
+		
+		$tmp = array();
+		$tmp['yes'] = $no;
+		$tmp['subject'] = '错';
+		$scores[] = $tmp;
+		
+		return $scores;
 	}
 	
 	private function myGAOKAOScores($db_conn, $params) {

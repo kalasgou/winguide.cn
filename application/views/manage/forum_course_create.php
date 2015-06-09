@@ -4,6 +4,8 @@
 	<style type="text/css">
 		.note-editable {min-height:200px;}
 		.chosen-exercise {background-color:#EEEEEE; border-bottom:dotted 1px #999999;}
+		.pagination {width:100%; text-align:center;}
+		.pagination .active {color:grey; text-decoration:none; font-weight:bold;}
 	</style>
 	<div class="col-md-10 content">
 		<div class="panel panel-default">
@@ -125,9 +127,12 @@
 </div>
 <script type="text/javascript">
 	var _page = 0;
-	var _item = 2;
+	var _item = 10;
 	var _link_count = 5;
 	var _chosen_ids_arr = new Array();
+	var _course = '';
+	var _topic = '';
+	var _admin_id = '';
 	
 	$(document).ready(function() {
       $('.summernote').summernote({
@@ -157,14 +162,14 @@
       });
 	  
 		$('.add-btn').click(function() {
-			var _course = $('.course-options').val();
+			_course = $('.course-options').val();
 			getExerciseTypes(_course);
 			getExerciseSets(_course, '', '');
 			
 			$('#add button.filter').click(function() {
 				_page = 0;
-				var _topic = $('.exercise-options').val();
-				var _admin_id = $('.author-options').val();
+				_topic = $('.exercise-options').val();
+				_admin_id = $('.author-options').val();
 				
 				getExerciseSets(_course, _topic, _admin_id);
 			});
@@ -205,64 +210,72 @@
 				var sets = '';
 				var _total_sets = json.total_sets;
 				var len = json.exercises.length;
-				for (var i = 0; i < len; i ++) {
-					sets += '<tr>' + 
-								'<td>' + json.exercises[i]['exercise_id'] + '</td>' + 
-								'<td>' + json.exercises[i]['username'] + '</td>' +
-								'<td data-action="' + json.exercises[i]['subject'] + '">' + json.exercises[i]['topic'] + '</td>' +
-								'<td>' + json.exercises[i]['amount'] + '</td>' +
-								'<td>' + json.exercises[i]['create_time_formatted'] + '</td>' +
-								'<td>'; 
-					if (_chosen_ids_arr.indexOf(json.exercises[i]['exercise_id']) === -1) {
-						sets += '<a data-title="Add" href="#"><span class="glyphicon glyphicon-plus-sign"></span></a></td></tr>';
-					} else {
-						sets += '<a data-title="Remove" href="#"><span class="glyphicon glyphicon-minus-sign"></span></a></td></tr>';
+				if (len > 0) {
+					for (var i = 0; i < len; i ++) {
+						sets += '<tr>' + 
+									'<td>' + json.exercises[i]['exercise_id'] + '</td>' + 
+									'<td>' + json.exercises[i]['username'] + '</td>' +
+									'<td data-action="' + json.exercises[i]['subject'] + '">' + json.exercises[i]['topic'] + '</td>' +
+									'<td>' + json.exercises[i]['amount'] + '</td>' +
+									'<td>' + json.exercises[i]['create_time_formatted'] + '</td>' +
+									'<td>'; 
+						if (_chosen_ids_arr.indexOf(json.exercises[i]['exercise_id']) === -1) {
+							sets += '<a data-title="Add" href="#"><span class="glyphicon glyphicon-plus-sign"></span></a></td></tr>';
+						} else {
+							sets += '<a data-title="Remove" href="#"><span class="glyphicon glyphicon-minus-sign"></span></a></td></tr>';
+						}
 					}
-				}
-				$('#add table tbody').empty();
-				$('#add table tbody').append(sets);
-				
-				++ _page;
-				getPagination(_page, _link_count, _item, _total_sets)
-				
-				$('#add td a').click(function() {
-					var _cur_course = _course.toUpperCase();
-					var _exercise_id = $($(this).parent().siblings('td')[0]).html();
-					var _username = $($(this).parent().siblings('td')[1]).html();
-					var _action = $($(this).parent().siblings('td')[2]).data('action');
-					var _topic = $($(this).parent().siblings('td')[2]).html();
-					var _amount = $($(this).parent().siblings('td')[3]).html();
-					var _create_date = $($(this).parent().siblings('td')[4]).html();
 					
-					switch ($(this).data('title')) {
-						case 'Add':
-									$(this).html('<span class="glyphicon glyphicon-minus-sign"></span>');
-									$(this).data('title', 'Remove');
-									var chosen = '<div class="chosen-exercise exercise-id-' + _exercise_id + '">' +
-													'<input type="hidden" name="exercise_id[]" value="' + _exercise_id + '" />' +
-													'<input type="hidden" name="subject_en[]" value="' + _action + '" />' +
-													'<input type="hidden" name="subject_cn[]" value="' + _topic + '" />' +
-													'<input type="hidden" name="amount[]" value="' + _amount + '" />' + 
-													'<input type="hidden" name="create_date[]" value="' + _create_date + '" />' + 
-													'<span>ID: <b>' + _exercise_id + '</b> # 编者: <b>' + _username + '</b> # 课程: <b>' + _cur_course + '</b> # 题型: <b>' + _topic + '</b> # 题数: 共<b>' + _amount + '</b>题 # @<b>' + _create_date + '</b></span>' +
-													'<a class="pull-right" data-exercise-id="' + _exercise_id + '" href="#" onclick="javascript:removeChosen(\'' + _exercise_id + '\');"><span class="glyphicon glyphicon-minus-sign"></span> 移除</a>' +
-												'</div>';
-									$('#bottom-up').before(chosen);
-									
-									_chosen_ids_arr.push(_exercise_id);
-									
-									break;
-						case 'Remove':
-									$(this).html('<span class="glyphicon glyphicon-plus-sign"></span>');
-									$(this).data('title', 'Add');
-									
-									$('.exercise-id-' + _exercise_id).remove();
-									
-									_chosen_ids_arr[_chosen_ids_arr.indexOf(_exercise_id)] = '0';
-									
-									break;
-					}
-				});
+					$('#add table tbody').empty();
+					$('#add table tbody').append(sets);
+					
+					++ _page;
+					getPagination(_page, _link_count, _item, _total_sets)
+					
+					$('#add td a').click(function() {
+						var _cur_course = _course.toUpperCase();
+						var _exercise_id = $($(this).parent().siblings('td')[0]).html();
+						var _username = $($(this).parent().siblings('td')[1]).html();
+						var _action = $($(this).parent().siblings('td')[2]).data('action');
+						var _topic = $($(this).parent().siblings('td')[2]).html();
+						var _amount = $($(this).parent().siblings('td')[3]).html();
+						var _create_date = $($(this).parent().siblings('td')[4]).html();
+						
+						switch ($(this).data('title')) {
+							case 'Add':
+										$(this).html('<span class="glyphicon glyphicon-minus-sign"></span>');
+										$(this).data('title', 'Remove');
+										var chosen = '<div class="chosen-exercise exercise-id-' + _exercise_id + '">' +
+														'<input type="hidden" name="exercise_id[]" value="' + _exercise_id + '" />' +
+														'<input type="hidden" name="subject_en[]" value="' + _action + '" />' +
+														'<input type="hidden" name="subject_cn[]" value="' + _topic + '" />' +
+														'<input type="hidden" name="amount[]" value="' + _amount + '" />' + 
+														'<input type="hidden" name="create_date[]" value="' + _create_date + '" />' + 
+														'<span>ID: <b>' + _exercise_id + '</b> # 编者: <b>' + _username + '</b> # 课程: <b>' + _cur_course + '</b> # 题型: <b>' + _topic + '</b> # 题数: 共<b>' + _amount + '</b>题 # @<b>' + _create_date + '</b></span>' +
+														'<a class="pull-right" data-exercise-id="' + _exercise_id + '" href="#" onclick="javascript:removeChosen(\'' + _exercise_id + '\');"><span class="glyphicon glyphicon-minus-sign"></span> 移除</a>' +
+													'</div>';
+										$('#bottom-up').before(chosen);
+										
+										_chosen_ids_arr.push(_exercise_id);
+										
+										break;
+							case 'Remove':
+										$(this).html('<span class="glyphicon glyphicon-plus-sign"></span>');
+										$(this).data('title', 'Add');
+										
+										$('.exercise-id-' + _exercise_id).remove();
+										
+										_chosen_ids_arr[_chosen_ids_arr.indexOf(_exercise_id)] = '0';
+										
+										break;
+						}
+					});
+				} else {
+					sets = '<tr><td colspan="6" align="center">暂无相关数据</td></tr>';
+					
+					$('#add table tbody').empty();
+					$('#add table tbody').append(sets);
+				}
 			},
 			error: function() {
 				alert('Network Error');
@@ -283,11 +296,28 @@
 		
 		//return [start, end];
 		var pagination = '';
-		for (var i = start; i <= end; i++) {
-			pagination += ' <a href="#" data-page="' + (i - 1) + '">' + i + '</a> ';
+		if (curr_index > 1) {
+			pagination += ' <a href="#" data-page="' + (curr_index - 2) + '"><上一页</a> ';
 		}
+		for (var i = start; i <= end; i++) {
+			if (_page === i) {
+				pagination += ' <a class="active" data-page="' + i + '">' + i + '</a> ';
+			} else {
+				pagination += ' <a href="#" data-page="' + (i - 1) + '">' + i + '</a> ';
+			}
+			
+		}
+		if (curr_index < page_count) {
+			pagination += ' <a href="#" data-page="' + (curr_index) + '">下一页></a> ';
+		}
+		
 		$('#add div.pagination').empty();
 		$('#add div.pagination').append(pagination);
+		
+		$('.pagination a').click(function() {
+			_page = $(this).data('page');
+			getExerciseSets(_course, _topic, _admin_id);
+		});
 	}
 </script>
 <?php include APPPATH .'views/manage/footer.php'?>
