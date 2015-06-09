@@ -23,17 +23,24 @@ class Course extends CI_Controller {
 		$params['item'] = intval($this->input->get('item', TRUE));
 		$params['module'] = trim($this->input->get('course', TRUE));
 		$params['visibility'] = 'course';
-		$ret['code'] = 0;
-		$ret['msg'] = 'success';
+		
+		$ret['code'] = 1;
+		$ret['msg'] = 'fail';
 		
 		$this->load->model('Course_M');
 		$homework = $this->Course_M->loadHomework($params);
-		$ret['homework'] = $homework;
 		
-		$total = $this->Course_M->countTopicReplies($homework['topic_id']);
-		$pages = intval($total / $params['item']);
-		$ret['homework']['total_page'] = ($total % $params['item']) === 0 ? $pages : $pages + 1;
-		$ret['homework']['total_replies'] = $total;
+		if (!empty($homework)) {
+			$ret['code'] = 0;
+			$ret['msg'] = 'success';
+			
+			$ret['homework'] = $homework;
+			
+			$total = $this->Course_M->countTopicReplies($homework['topic_id']);
+			$pages = intval($total / $params['item']);
+			$ret['homework']['total_page'] = ($total % $params['item']) === 0 ? $pages : $pages + 1;
+			$ret['homework']['total_replies'] = $total;
+		}
 		
 		echo json_encode($ret);
 	}

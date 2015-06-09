@@ -11,7 +11,6 @@ class Course_M extends CI_Controller {
 	
 	public function loadHomework($params) {
 		$homework = array();
-		$homework['replies'] = array();
 		
 		$search = array();
 		$search['T.module'] = $params['module'];
@@ -30,6 +29,8 @@ class Course_M extends CI_Controller {
 			$query = $this->db_conn->select('username')->where('admin_id = '.$homework['admin_id'])->get('administrators');
 			$admin = $query->row_array();
 			$homework['admin_name'] = $admin['username'];
+			
+			$homework['replies'] = array();
 			
 			$item = $params['item'];
 			$offset = $params['item'] * $params['page'];

@@ -11,7 +11,6 @@ class Forum_M extends CI_Model {
 	
 	public function getTopicByVisibility($params) {
 		$topic = array();
-		$topic['replies'] = array();
 		
 		$search = array();
 		$search['module'] = $params['module'];
@@ -25,6 +24,8 @@ class Forum_M extends CI_Model {
 			$query = $this->db_conn->select('username')->where('admin_id = '.$topic['admin_id'])->get('administrators');
 			$admin = $query->row_array();
 			$topic['admin_name'] = $admin['username'];
+			
+			$topic['replies'] = array();
 			
 			$item = $params['item'];
 			$offset = $params['item'] * $params['page'];
