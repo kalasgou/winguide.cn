@@ -16,12 +16,12 @@
 				</ul>
 			</div>
 			<div class="panel-body">
-				<form action="<?= base_url('manage/forum/create') ?>" method="post" enctype="multipart/form-data">
+				<form action="<?= base_url('manage/forum/update') ?>" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="visibility" value="course" required />
 					<div class="input-group">
 						<input id="course" type="hidden" value="<?= $detail['module']?>" />
 						<span class="input-group-addon">课程选择</span>
-						<select name="module" class="form-control course-options" required >
+						<select name="module" class="form-control course-options" disabled >
 							<option value="">请选择课程模块</option>
 							<option value="gmat">GMAT</option>
 							<option value="gre">GRE</option>

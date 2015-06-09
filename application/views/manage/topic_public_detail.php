@@ -19,8 +19,8 @@
 					<input type="hidden" name="topic_id" value="<?= $detail['topic_id']?>"/>
 					<div class="input-group">
 						<span class="input-group-addon">课程选择</span>
-						<input type="hidden" id="cur-module" value="<?= $detail['module']?>"/>
-						<select id="module-option" name="module" class="form-control" required >
+						<input type="hidden" id="cur-module" value="<?= $detail['module']?>" />
+						<select id="module-option" name="module" class="form-control" disabled >
 							<option value="">请选择课程模块</option>
 							<option value="gmat">GMAT</option>
 							<option value="gre">GRE</option>

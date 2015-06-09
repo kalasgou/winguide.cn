@@ -22,6 +22,9 @@ class Exercise_M extends CI_Model {
 		if ($params['admin_id'] !== '') {
 			$search['A.admin_id'] = $params['admin_id'];
 		}
+		if ($params['topic'] !== '') {
+			$search['E.topic'] = $params['topic'];
+		}
 		if ($params['start_date'] !== '') {
 			$start_time = strtotime($params['start_date']);
 			$search['E.create_time >= '] = $start_time;
@@ -51,6 +54,9 @@ class Exercise_M extends CI_Model {
 		}
 		if ($params['admin_id'] !== '') {
 			$search['admin_id'] = $params['admin_id'];
+		}
+		if ($params['topic'] !== '') {
+			$search['E.topic'] = $params['topic'];
 		}
 		if ($params['start_date'] !== '') {
 			$start_time = strtotime($params['start_date']);

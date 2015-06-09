@@ -93,12 +93,18 @@ class Forum_M extends CI_Model {
 	public function modifyTopic($params) {
 		$search = array();
 		$search['topic_id'] = $params['topic_id'];
+		$search['admin_id'] = $params['admin_id'];
 		
 		$refresh = array();
-		foreach ($params as $key => $val) {
-			if ($key !== 'topic_id' && $val !== '') {
-				$refresh[$key] = $val;
-			}
+		$refresh['topic'] = $params['topic'];
+		$refresh['thread'] = $params['thread'];
+		$refresh['update_time'] = $params['update_time'];
+		
+		if ($params['visibility'] === 'course') {
+			$exercises = $this->remarkExercises($params);
+			$refresh['remark'] = serialize($exercises);
+			
+			$this->updateAssignments($params);
 		}
 		
 		return $this->db_conn->where($search)->update('forum_topic', $refresh);
@@ -126,7 +132,7 @@ class Forum_M extends CI_Model {
 		$assignments = array();
 		$username_arr = explode(',', $params['assignment']);
 		
-		$query = $this->db_conn->select('student_id, user_id')->where('status = 1')->where_in('username', $username_arr)->get('students');
+		$query = $this->db_conn->select('student_id, user_id')->where("status = 1 AND course = '{$params['module']}'")->where_in('username', $username_arr)->get('students');
 		if ($query->num_rows() > 0) {
 			$rows = $query->result_array();
 			foreach ($rows as $one) {
@@ -143,6 +149,10 @@ class Forum_M extends CI_Model {
 		}
 		
 		return $this->db_conn->insert_batch('assignment', $assignments); 
+	}
+	
+	private function updateAssignments($params) {
+		
 	}
 	
 	public function viewTopic($params) {

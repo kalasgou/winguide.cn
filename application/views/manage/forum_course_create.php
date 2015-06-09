@@ -66,13 +66,13 @@
 				<div class="modal-body">
 					<div class="input-group">
 						<span class="input-group-addon">题目类型</span>
-						<select id="exercise_type" class="form-control exercise-options" required >
+						<select class="form-control exercise-options" required >
 							<option value="">请选择题目类型</option>
 						</select>
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon">题库编者</span>
-						<select id="admin_id" class="form-control exercise-options" required>
+						<select class="form-control author-options" required>
 							<option value="">请选择题库创建人</option>
 							<?php foreach ($employees as $one):?>
 							<option value="<?= $one['admin_id']?>"><?= $one['username']?></option>
@@ -81,7 +81,7 @@
 					</div>
 					<div class="input-group">
 						<div class="pull-right">
-							<button class="btn btn-primary btn-sm" type="submit">筛选</button>
+							<button class="btn btn-primary btn-sm filter" type="button">筛选</button>
 						</div>
 					</div>
 					<div class="input-group">
@@ -109,6 +109,9 @@
 							</tbody>
 						</table>
 					</div>
+					<div class="pagination">
+						
+					</div>
 				</div>
 				<div class="modal-footer ">
 					<button type="button" class="btn btn-warning btn-lg ok-go" data-dismiss="modal" aria-hidden="true" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> 确定</button>
@@ -122,7 +125,8 @@
 </div>
 <script type="text/javascript">
 	var _page = 0;
-	var _item = 8;
+	var _item = 2;
+	var _link_count = 5;
 	var _chosen_ids_arr = new Array();
 	
 	$(document).ready(function() {
@@ -156,6 +160,14 @@
 			var _course = $('.course-options').val();
 			getExerciseTypes(_course);
 			getExerciseSets(_course, '', '');
+			
+			$('#add button.filter').click(function() {
+				_page = 0;
+				var _topic = $('.exercise-options').val();
+				var _admin_id = $('.author-options').val();
+				
+				getExerciseSets(_course, _topic, _admin_id);
+			});
 		});
 		
     });
@@ -191,6 +203,7 @@
 			dataType: 'json',
 			success: function(json) {
 				var sets = '';
+				var _total_sets = json.total_sets;
 				var len = json.exercises.length;
 				for (var i = 0; i < len; i ++) {
 					sets += '<tr>' + 
@@ -208,6 +221,9 @@
 				}
 				$('#add table tbody').empty();
 				$('#add table tbody').append(sets);
+				
+				++ _page;
+				getPagination(_page, _link_count, _item, _total_sets)
 				
 				$('#add td a').click(function() {
 					var _cur_course = _course.toUpperCase();
@@ -257,6 +273,21 @@
 	function removeChosen(_exercise_id) {
 		$('.exercise-id-' + _exercise_id).remove();
 		_chosen_ids_arr[_chosen_ids_arr.indexOf(_exercise_id)] = '0';
+	}
+	
+	function getPagination(curr_index, link_count, per_page, total_item) {
+		var page_count = Math.ceil(total_item / per_page);
+		var start = Math.max(1, curr_index - parseInt(link_count/2));
+　　	var end = Math.min(page_count, start + link_count - 1);
+　　	start = Math.max(1, end - link_count + 1);
+		
+		//return [start, end];
+		var pagination = '';
+		for (var i = start; i <= end; i++) {
+			pagination += ' <a href="#" data-page="' + (i - 1) + '">' + i + '</a> ';
+		}
+		$('#add div.pagination').empty();
+		$('#add div.pagination').append(pagination);
 	}
 </script>
 <?php include APPPATH .'views/manage/footer.php'?>

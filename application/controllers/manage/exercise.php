@@ -68,7 +68,7 @@ class Exercise extends CI_Controller {
 		$params['page'] = intval($this->input->get('page', TRUE));
 		$params['course'] = trim($this->input->get('course', TRUE));
 		$params['admin_id'] = trim($this->input->get('admin_id', TRUE));
-		$params['topic'] = trim($this->input->get('exercise_type', TRUE));
+		$params['topic'] = trim($this->input->get('topic', TRUE));
 		$params['start_date'] = trim($this->input->get('start_date', TRUE));
 		$params['end_date'] = trim($this->input->get('end_date', TRUE));
 		
@@ -85,6 +85,7 @@ class Exercise extends CI_Controller {
 			$one['create_time_formatted'] = date('Y-m-d', $one['create_time']);
 		}
 		
+		$ret['total_sets'] = $this->Exercise_M->countExercises($params);
 		$ret['exercises'] = $exercises;
 		
 		echo json_encode($ret);

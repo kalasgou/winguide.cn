@@ -147,8 +147,9 @@ class Forum extends CI_Controller {
 	}
 	
 	public function update() {
+		$params['admin_id'] = $_SESSION['admin']['id'];
 		$params['topic_id'] = intval($this->input->post('topic_id', TRUE));
-		$params['module'] = trim($this->input->post('module', TRUE));
+		//$params['module'] = trim($this->input->post('module', TRUE));
 		$params['visibility'] = trim($this->input->post('visibility', TRUE));
 		$params['topic'] = trim($this->input->post('topic', TRUE));
 		$params['thread'] = trim($this->input->post('thread'));
@@ -156,6 +157,15 @@ class Forum extends CI_Controller {
 		
 		if (!check_parameters($params)) {
 			exit('Parameters not enough');
+		}
+		
+		if ($params['visibility'] === 'course') {
+			$params['assignment'] = trim($this->input->post('assignment', TRUE));
+			$params['exercise_id'] = $this->input->post('exercise_id');
+			$params['subject_en'] = $this->input->post('subject_en');
+			$params['subject_cn'] = $this->input->post('subject_cn');
+			$params['create_date'] = $this->input->post('create_date');
+			$params['amount'] = $this->input->post('amount');
 		}
 		
 		header('Content-Type: application/json, charset=utf-8');

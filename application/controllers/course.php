@@ -11,12 +11,12 @@ class Course extends CI_Controller {
 		
 		$ret = array();
 		
-		if (empty($_SESSION['user']) || !$_SESSION['user']['is_student']) {
+		/*if (empty($_SESSION['user']) || !$_SESSION['user']['is_student']) {
 			$ret['code'] = 12;
 			$ret['msg'] = 'only students can have homework';
 			
 			exit(json_encode($ret));
-		}
+		}*/
 		
 		$params['user_id'] = 7;//$_SESSION['user']['id'];
 		$params['page'] = intval($this->input->get('page', TRUE));

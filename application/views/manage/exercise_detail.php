@@ -41,7 +41,7 @@
 						<textarea name="exercise_ids" type="text" class="form-control" placeholder="请在这里填写需要的题目标号，例如“1,2,5,6,9,10,20-50”，单个题号之间用英文逗号“,”隔开，连续的题号可以用段横线“-”连起来" required ><?= $detail['numbers']?></textarea>
 					</div>
 					<div class="pull-right">
-						<button class="btn btn-default btn-sm" type="submit">提交</button>
+						<button class="btn btn-success btn-sm" type="submit">提交</button>
 					</div>
 				</form>
 			</div>
