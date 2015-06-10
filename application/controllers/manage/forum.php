@@ -129,7 +129,7 @@ class Forum extends CI_Controller {
 		
 		//var_dump($params);exit();
 		
-		header('Content-Type: application/json, charset=utf-8');
+		//header('Content-Type: application/json, charset=utf-8');
 		
 		$ret = array();
 		$ret['code'] = 1;
@@ -143,7 +143,14 @@ class Forum extends CI_Controller {
 			$ret['msg'] = 'success';
 		}
 		
-		echo json_encode($ret);
+		//echo json_encode($ret);
+		
+		header('Content-Type: text/html, charset=utf-8');
+		
+		echo 	'<script type="text/javascript">
+					alert("'.$ret['msg'].'");
+					location.href = "'.base_url('console/forum?visibility='.$params['visibility']).'"
+				</script>';
 	}
 	
 	public function update() {
@@ -168,7 +175,7 @@ class Forum extends CI_Controller {
 			$params['amount'] = $this->input->post('amount');
 		}
 		
-		header('Content-Type: application/json, charset=utf-8');
+		//header('Content-Type: application/json, charset=utf-8');
 		
 		$ret = array();
 		$ret['code'] = 1;
@@ -182,7 +189,14 @@ class Forum extends CI_Controller {
 			$ret['msg'] = 'success';
 		}
 		
-		echo json_encode($ret);
+		//echo json_encode($ret);
+		
+		header('Content-Type: text/html, charset=utf-8');
+		
+		echo 	'<script type="text/javascript">
+					alert("'.$ret['msg'].'");
+					location.href = "'.base_url('console/forum/view/detail?topic_id='.$params['topic_id']).'"
+				</script>';
 	}
 	
 	public function delete() {

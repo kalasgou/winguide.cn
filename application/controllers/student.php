@@ -34,7 +34,9 @@ class Student extends CI_Controller {
 					$ret['code'] = 0;
 					$ret['msg'] = 'success';
 					
-					session_unset();
+					if (!empty($_SESSION['user'])) {
+						unset($_SESSION['user']);
+					}
 					
 					$this->load->model('User_M');
 					$this->User_M->retrieveUserinfo($student);

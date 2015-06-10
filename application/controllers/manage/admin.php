@@ -57,6 +57,8 @@ class Admin extends CI_Controller {
 		$params['email'] = trim($this->input->get('email'));
 		$params['password'] = trim($this->input->get('password'));
 		
+		header('Content-Type: text/html, charset=utf-8');
+		
 		if (!check_parameters($params)) {
 			exit('Parameters Not Enough');
 		}
@@ -77,6 +79,10 @@ class Admin extends CI_Controller {
 			if ($chk_lower || $chk_upper) {
 				$ret['code'] = 0;
 				$ret['msg'] = 'success';
+				
+				if (!empty($_SESSION['admin'])) {
+					unset($_SESSION['admin']);
+				}
 				
 				$_SESSION['admin']['id'] = $admin['admin_id'];
 				$_SESSION['admin']['username'] = $admin['username'];
@@ -101,13 +107,22 @@ class Admin extends CI_Controller {
 			$ret['msg'] = 'no this administrator';
 		}
 		
-		header('Content-Type: application/json, charset=utf-8');
+		//header('Content-Type: application/json, charset=utf-8');
 		
-		echo json_encode($ret);
+		//echo json_encode($ret);
+		exit( '	<script type="text/javascript">
+					alert("'.$ret['msg'].'");
+					location.href = "'.base_url('manage/login').'";
+				</script>');
 	}
 	
 	public function logout() {
-		session_unset();
+		//session_unset();
+		if (!empty($_SESSION['admin'])) {
+			unset($_SESSION['admin']);
+		}
+		
+		header('Content-Type: text/html, charset=utf-8');
 		
 		echo 	'<script type="text/javascript">
 					alert("帐号已登出");
@@ -127,7 +142,8 @@ class Admin extends CI_Controller {
 			exit('Parameters Not Enough');
 		}
 		
-		header('Content-Type: application/json, charset=utf-8');
+		//header('Content-Type: application/json, charset=utf-8');
+		header('Content-Type: text/html, charset=utf-8');
 		
 		$ret = array();
 		$ret['code'] = 1;
@@ -151,7 +167,12 @@ class Admin extends CI_Controller {
 			$ret['msg'] = 'this email already registered';
 		}
 		
-		echo json_encode($ret);
+		//echo json_encode($ret);
+		
+		echo 	'<script type="text/javascript">
+					alert("'.$reg['msg'].'");
+					location.href = "'.base_url('console/admin').'"
+				</script>';
 	}
 	
 	public function update() {

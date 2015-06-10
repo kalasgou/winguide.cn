@@ -379,7 +379,7 @@ $(function () {
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="http://www.winguide.cn" target="_blank">
+				<a class="navbar-brand" href="<?= base_url()?>" target="_blank">
 					WinGuide赢凯
 				</a>
 			</div>

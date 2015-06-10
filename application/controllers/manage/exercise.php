@@ -118,7 +118,7 @@ class Exercise extends CI_Controller {
 			exit('Parameters Not Enough');
 		}
 		
-		header('Content-Type: application/json, charset=utf-8');
+		//header('Content-Type: application/json, charset=utf-8');
 		
 		$ret = array();
 		$ret['code'] = 1;
@@ -132,7 +132,14 @@ class Exercise extends CI_Controller {
 			$ret['msg'] = 'success';
 		}
 		
-		echo json_encode($ret);
+		//echo json_encode($ret);
+		
+		header('Content-Type: text/html, charset=utf-8');
+		
+		echo 	'<script type="text/javascript">
+					alert("'.$ret['msg'].'");
+					location.href = "'.base_url('console/exercise').'"
+				</script>';
 	}
 	
 	public function update() {

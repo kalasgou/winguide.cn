@@ -105,7 +105,7 @@ class Article extends CI_Controller {
 		$params['status'] = 1;
 		$params['create_time'] = $_SERVER['REQUEST_TIME'];
 		
-		header('Content-Type: application/json, charset=utf-8');
+		//header('Content-Type: application/json, charset=utf-8');
 		
 		$ret = array();
 		$ret['code'] = 1;
@@ -118,8 +118,15 @@ class Article extends CI_Controller {
 			$ret['code'] = 0;
 			$ret['msg'] = 'success';
 		}
-		header('Location: '.base_url('console/article/view/lists'));
-		echo json_encode($ret);
+		//header('Location: '.base_url('console/article/view/lists'));
+		//echo json_encode($ret);
+		
+		header('Content-Type: text/html, charset=utf-8');
+		
+		echo 	'<script type="text/javascript">
+					alert("'.$ret['msg'].'");
+					location.href = "'.base_url('console/article').'"
+				</script>';
 	}
 	
 	public function update() {
@@ -139,7 +146,7 @@ class Article extends CI_Controller {
 		//$params['status'] = 1;
 		$params['update_time'] = $_SERVER['REQUEST_TIME'];
 		
-		header('Content-Type: application/json, charset=utf-8');
+		//header('Content-Type: application/json, charset=utf-8');
 		
 		$ret = array();
 		$ret['code'] = 1;
@@ -152,8 +159,15 @@ class Article extends CI_Controller {
 			$ret['code'] = 0;
 			$ret['msg'] = 'success';
 		}
-		header('Location: '.base_url('console/article/view/lists'));
-		echo json_encode($ret);
+		//header('Location: '.base_url('console/article/view/lists'));
+		//echo json_encode($ret);
+		
+		header('Content-Type: text/html, charset=utf-8');
+		
+		echo 	'<script type="text/javascript">
+					alert("'.$ret['msg'].'");
+					location.href = "'.base_url('console/article/view/detail?article_id='.$params['article_id']).'"
+				</script>';
 	}
 	
 	public function delete() {

@@ -86,7 +86,9 @@ class User extends CI_Controller {
 				$ret['code'] = 0;
 				$ret['msg'] = 'success';
 				
-				session_unset();
+				if (!empty($_SESSION['user'])) {
+					unset($_SESSION['user']);
+				}
 				
 				$this->User_M->retrieveUserinfo($user);
 			} else {
@@ -124,7 +126,9 @@ class User extends CI_Controller {
 	public function logout() {
 		header('Content-Type: application/json, charset=utf-8');
 		
-		session_unset();
+		if (!empty($_SESSION['user'])) {
+			unset($_SESSION['user']);
+		}
 		
 		$ret = array();
 		$ret['code'] = 0;
