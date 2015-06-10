@@ -57,11 +57,11 @@
 				</form>
 				<table class="table table-striped">
 					<colspan>
-						<col style="width:5%;"/>
+						<col style="width:10%;"/>
 						<col style="width:10%;"/>
 						<col style="width:10%;"/>
 						<col style="width:30%;"/>
-						<col style="width:5%;"/>
+						<!--<col style="width:5%;"/>-->
 						<col style="width:10%;"/>
 						<col style="width:10%;"/>
 						<col style="width:10%;"/>
@@ -73,7 +73,7 @@
 							<th>编 者</th>
 							<th>课 程</th>
 							<th>话 题</th>
-							<th>置 顶</th>
+							<!--<th>置 顶</th>-->
 							<th>创建时间</th>
 							<th>更新时间</th>
 							<th>状 态</th>
@@ -89,7 +89,7 @@
 							<td><?= strtoupper($one['module']);?></td>
 							<td><?= $one['topic'];?></td>
 							<!--<td><?= $one['thread'];?></td>-->
-							<td><?= $one['recommend'];?></td>
+							<!--<td><?= $one['recommend'];?></td>-->
 							<td title="<?= $one['create_time_formatted'];?>"><?= substr($one['create_time_formatted'], 0, 10);?></td>
 							<td title="<?= $one['update_time_formatted'];?>"><?= substr($one['update_time_formatted'], 0, 10);?></td>
 							<td><label class="label label-success">有效</label></td>
