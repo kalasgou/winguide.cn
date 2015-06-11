@@ -107,7 +107,7 @@ class Forum extends CI_Controller {
 	public function create() {
 		$params['admin_id'] = $_SESSION['admin']['id'];
 		$params['uuid'] = hex16to64(uuid());
-		$params['status'] = 1;
+		$params['status'] = NORMAL;
 		$params['module'] = trim($this->input->post('module', TRUE));
 		$params['visibility'] = trim($this->input->post('visibility', TRUE));
 		$params['topic'] = trim($this->input->post('topic', TRUE));

@@ -4,10 +4,6 @@ class Student_M extends CI_Model {
 	
 	private $STUDENT_TYPE = 123;
 	
-	private $UNAVAILABLE = -1;
-	private $INITIALIZED = 0;
-	private $ACTIVATED = 1;
-	
 	private $db_conn;
 	
 	public function __construct() {
@@ -29,13 +25,13 @@ class Student_M extends CI_Model {
 			$tmp['password'] = $hasher->HashPassword($init_pswd_md5);
 			$tmp['purchase_time'] = $_SERVER['REQUEST_TIME'];
 			$tmp['duration'] = $params['duration_day'];
-			$tmp['status'] = $this->UNAVAILABLE;
+			$tmp['status'] = UNAVAILABLE;
 			
 			$students[] = $tmp;
 		}
 		
 		if ($this->db_conn->insert_batch('students', $students)) {
-			$query = $this->db_conn->select('student_id')->from('students')->where('status = ' .$this->UNAVAILABLE)->get();
+			$query = $this->db_conn->select('student_id')->from('students')->where('status = ' .UNAVAILABLE)->get();
 			if ($query->num_rows() > 0) {
 				$usernames = array();
 				$rows = $query->result_array();
@@ -43,7 +39,7 @@ class Student_M extends CI_Model {
 					$tmp = array();
 					$tmp['student_id'] = $one['student_id'];
 					$tmp['username'] = gen_student_serial($one['student_id']);
-					$tmp['status'] = $this->INITIALIZED;
+					$tmp['status'] = INITIALIZED;
 					$usernames[] = $tmp;
 				}
 			}
@@ -62,8 +58,8 @@ class Student_M extends CI_Model {
 		$offset = $params['item'] * $params['page'];
 		
 		$search = array();
-		$search['S.status'] = 1;
-		$search['U.status'] = 1;
+		$search['S.status'] = ACTIVATED;
+		$search['U.status'] = ACTIVATED;
 		$search['U.account_type'] = STUDENT;
 		if ($params['course'] !== '') {
 			$search['S.course'] = $params['course'];
@@ -138,7 +134,7 @@ class Student_M extends CI_Model {
 	
 	public function countStudents($params) {
 		$search = array();
-		$search['status'] = 1;
+		$search['status'] = ACTIVATED;
 		if ($params['course'] !== '') {
 			$search['course'] = $params['course'];
 		}

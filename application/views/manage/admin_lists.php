@@ -58,7 +58,7 @@
 						<?php foreach($admins as $one):?>
 						<tr>
 							<td><?= $one['admin_id']?></td>
-							<td><?= $one['privilege']?></td>
+							<td><?= $one['account_type']?></td>
 							<td><?= $one['username']?></td>
 							<td><?= $one['email']?></td>
 							<td title="<?= $one['create_time_formatted']?>"><?= substr($one['create_time_formatted'], 0, 10)?></td>

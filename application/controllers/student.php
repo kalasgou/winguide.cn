@@ -24,7 +24,7 @@ class Student extends CI_Controller {
 		$student = $this->Student_M->getStudentByUname($params['username']);
 		
 		if (!empty($student)) {
-			if ($student['status'] > 0) {
+			if ($student['status'] == ACTIVATED) {
 				require APPPATH .'third_party/pass/PasswordHash.php';
 				$hasher = new PasswordHash(HASH_COST_LOG2, HASH_PORTABLE);
 				$chk_lower = $hasher->CheckPassword(strtolower($params['password']), $student['password']);

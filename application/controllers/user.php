@@ -15,6 +15,7 @@ class User extends CI_Controller {
 		//$params['nickname'] = trim($this->input->post('nickname', TRUE));
 		$params['password'] = trim($this->input->post('password', TRUE));
 		$params['account_type'] = CELLPHONE;
+		$params['status'] = ACTIVATED;
 		$params['create_time'] = $_SERVER['REQUEST_TIME'];
 		
 		$code = trim($this->input->post('code', TRUE));

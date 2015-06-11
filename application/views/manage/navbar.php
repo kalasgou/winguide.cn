@@ -393,8 +393,8 @@ $(function () {
 					<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
 				</form>-->
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="<?= base_url()?>" target="_blank">
-						<span class="glyphicon glyphicon-home"></span> 主站首页
+					<li><a href="<?= base_url('manage/application/form')?>" target="_blank">
+						<span class="glyphicon glyphicon-check"></span> 课程申请
 						</a></li>
 					<li class="dropdown ">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">

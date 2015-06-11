@@ -16,7 +16,7 @@ class Article_M extends CI_Model {
 		$offset = $params['item'] * $params['page'];
 		
 		$search = array();
-		$search['status'] = $params['status'];
+		$search['N.status'] = $params['status'];
 		if ($params['course_id'] !== 0) {
 			$search['course_id'] = $params['course_id'];
 		}
@@ -24,7 +24,12 @@ class Article_M extends CI_Model {
 			$search['module_id'] = $params['module_id'];
 		}
 		
-		$query = $this->db_conn->select('*')->from('articles')->where($search)->order_by('create_time DESC')->limit($item, $offset)->get();
+		$query = $this->db_conn->select('article_id, uuid, admin_id, course_id, module_id, module_desc, recommend, N.status, category, title, content, multimedia_url, create_time, update_time')
+								->from('articles AS N')->join('article_module AS M', 'M.id = N.module_id')
+								->where($search)
+								->order_by('create_time DESC')
+								->limit($item, $offset)
+								->get();
 		if ($query->num_rows() > 0) {
 			$articles = $query->result_array();
 		}

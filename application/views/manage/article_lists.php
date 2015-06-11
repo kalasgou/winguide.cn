@@ -70,7 +70,7 @@
 							<td><span data-uuid="<?= $one['uuid']?>"><?= $one['article_id']?></span></td>
 							<td><a href="#"><?= $one['title']?></a></td>
 							<td><?= strtoupper($one['course'])?></td>
-							<td><?= $one['module']?></td>
+							<td><?= $one['module_desc']?></td>
 							<td title="<?= $one['create_time_formatted'];?>"><?= substr($one['create_time_formatted'], 0, 10);?></td>
 							<td title="<?= $one['update_time_formatted'];?>"><?= substr($one['update_time_formatted'], 0, 10);?></td>
 							<td><label class="label label-success">有效</label></td>

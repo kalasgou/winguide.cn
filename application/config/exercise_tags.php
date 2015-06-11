@@ -28,10 +28,12 @@ $config['exercises'] = array(
 									array('score_en' => '写作', 'score_cn' => '写作', 'subject' => array()),
 								),
 						'toefl' => array(
-									array('score_en' => '阅读', 'score_cn' => '阅读', 'subject' => array('阅读练习' => array('toefl_reading', 'TOEFL阅读练习'))),
-									array('score_en' => '听力', 'score_cn' => '听力', 'subject' => array('听力练习' => array('toefl_listening', 'TOEFL听力练习'))),
-									array('score_en' => '写作', 'score_cn' => '写作', 'subject' => array('写作练习' => array('toefl_writing', 'TOEFL写作练习'))),
-									array('score_en' => '口语', 'score_cn' => '口语', 'subject' => array('口语练习' => array('toefl_speaking', 'TOEFL口语练习'))),
+									array('score_en' => '阅读', 'score_cn' => '阅读', 'subject' => array('托福单词练习' => array('toefl_reading', '托福单词练习'))),
+									array('score_en' => '听力', 'score_cn' => '听力', 'subject' => array('托福SVO1' => array('toefl_listening', '托福句子选择SVO'))),
+									array('score_en' => '写作', 'score_cn' => '写作', 'subject' => array('托福SV' => array('toefl_writing', '托福SV替换练习'))),
+									array('score_en' => '口语', 'score_cn' => '口语', 'subject' => array('托福SVO2' => array('toefl_speaking', '托福原句改写对应SVO'))),
+									array('score_en' => '口语', 'score_cn' => '口语', 'subject' => array('托福SVO3' => array('toefl_speaking', '托福抽象具体练习'))),
+									array('score_en' => '口语', 'score_cn' => '口语', 'subject' => array('托福SVO4' => array('toefl_speaking', '托福指代练习'))),
 								),
 						'gaokao' => array(
 									array('score_en' => '单词', 'score_cn' => '单词', 'subject' => array('高考单词' => array('gktj_danci', '高考单词'))),

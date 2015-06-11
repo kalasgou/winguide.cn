@@ -55,5 +55,7 @@ define('UNAVAILABLE',	-1);
 define('INITIALIZED',	0);
 define('ACTIVATED',		1);
 
+define('NORMAL',		1);
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

@@ -63,10 +63,10 @@
 				</form>
 				<table class="table table-striped">
 					<colspan>
-						<col style="width:5%;"/>
+						<col style="width:8%;"/>
 						<col style="width:10%;"/>
-						<col style="width:10%;"/>
-						<col style="width:25%;"/>
+						<col style="width:8%;"/>
+						<col style="width:24%;"/>
 						<col style="width:10%;"/>
 						<col style="width:10%;"/>
 						<col style="width:10%;"/>

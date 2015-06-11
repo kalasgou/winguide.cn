@@ -14,7 +14,7 @@ class Admin extends CI_Controller {
 		$params['item'] = intval($item) <= 0 ? DEFAULT_PER_PAGE : $item;
 		$params['page'] = intval($page) <= 0 ? DEFAULT_START_PAGE : $page - 1;
 		$params['privilege'] = trim($this->input->get('privilege', TRUE));
-		$params['status'] = 1;
+		$params['status'] = ACTIVATED;
 		
 		$output = array();
 		$output['hover'] = 'admin';
@@ -23,7 +23,10 @@ class Admin extends CI_Controller {
 		$this->load->model('manage/Admin_M');
 		$output['admins'] = $this->Admin_M->listAdmins($params);
 		
+		$account_types = array(ADMIN => '管理员', TEACHER => '老师', AGENCY => '中介');
+		
 		foreach ($output['admins'] as &$one) {
+			$one['account_type'] = $account_types[$one['privilege']];
 			$one['create_time_formatted'] = date('Y-m-d H:i:s', $one['create_time']);
 			$one['update_time_formatted'] = $one['update_time'] === '0' ? '-' : date('Y-m-d H:i:s', $one['update_time']);
 		}
@@ -135,7 +138,7 @@ class Admin extends CI_Controller {
 		$params['password'] = trim($this->input->post('password', TRUE));
 		$params['username'] = trim($this->input->post('username', TRUE));
 		$params['privilege'] = intval($this->input->post('privilege', TRUE));
-		$params['status'] = 1;
+		$params['status'] = ACTIVATED;
 		$params['create_time'] = $_SERVER['REQUEST_TIME'];
 		
 		if (!check_parameters($params)) {

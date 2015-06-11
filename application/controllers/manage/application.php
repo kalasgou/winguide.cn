@@ -53,7 +53,7 @@ class Application extends CI_Controller {
 		$student = $this->Application_M->getStudentByUname($params['student']['username']);
 		
 		if (!empty($student)) {
-			if ($student['status'] === '0') {
+			if ($student['status'] == INITIALIZED) {
 				require APPPATH .'third_party/pass/PasswordHash.php';
 				$hasher = new PasswordHash(HASH_COST_LOG2, HASH_PORTABLE);
 				$chk_lower = $hasher->CheckPassword(strtolower($params['student']['password']), $student['password']);

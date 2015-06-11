@@ -18,21 +18,26 @@ class Forum_M extends CI_Model {
 		$search = array();
 		$search['visibility'] = $params['visibility'];
 		if ($params['course'] !== '') {
-			$search['module'] = $params['course'];
+			$search['T.module'] = $params['course'];
 		}
 		if ($params['admin_id'] !== '') {
-			$search['admin_id'] = $params['admin_id'];
+			$search['T.admin_id'] = $params['admin_id'];
 		}
 		if ($params['start_date'] !== '') {
 			$start_time = strtotime($params['start_date']);
-			$search['create_time >= '] = $start_time;
+			$search['T.create_time >= '] = $start_time;
 		}
 		if ($params['end_date'] !== '') {
 			$end_time = strtotime($params['end_date']);
-			$search['create_time <= '] = $end_time;
+			$search['T.create_time <= '] = $end_time;
 		}
 		
-		$query = $this->db_conn->select('*')->from('forum_topic')->where($search)->order_by('create_time DESC')->limit($item, $offset)->get();
+		$query = $this->db_conn->select('T.topic_id, T.admin_id, A.username, T.uuid, T.module, T.visibility, T.topic, T.thread, T.remark, T.recommend, T.status, T.create_time, T.update_time')
+								->from('forum_topic AS T')->join('administrators AS A', 'A.admin_id = T.admin_id')
+								->where($search)
+								->order_by('T.create_time DESC')
+								->limit($item, $offset)
+								->get();
 		if ($query->num_rows() > 0) {
 			$topics = $query->result_array();
 		}
@@ -141,7 +146,7 @@ class Forum_M extends CI_Model {
 				$tmp['user_id'] = $one['user_id'];
 				$tmp['admin_id'] = $params['admin_id'];
 				$tmp['topic_id'] = $topic_id;
-				$tmp['status'] = 1;
+				$tmp['status'] = NORMAL;
 				$tmp['create_time'] = $params['create_time'];
 				
 				$assignments[] = $tmp;
@@ -212,7 +217,7 @@ class Forum_M extends CI_Model {
 	public function countComments($params) {
 		$search = array();
 		$search['topic_id'] = $params['topic_id'];
-		$search['status'] = 1;
+		$search['status'] = NORMAL;
 		
 		return $this->db_conn->from('forum_reply')->where($search)->count_all_results();
 	}

@@ -18,7 +18,7 @@ class Article extends CI_Controller {
 		$params['page'] = intval($page) <= 0 ? DEFAULT_START_PAGE : $page - 1;
 		$params['course_id'] = intval($this->input->get('course_id', TRUE));
 		$params['module_id'] = intval($this->input->get('module_id', TRUE));
-		$params['status'] = 1;
+		$params['status'] = NORMAL;
 		
 		$output = array();
 		$output['hover'] = 'article';
@@ -88,7 +88,7 @@ class Article extends CI_Controller {
 	}
 	
 	public function create() {
-		$params['admin_id'] = 1;
+		$params['admin_id'] = $_SESSION['admin']['id'];
 		$params['uuid'] = hex16to64(uuid());
 		$params['course_id'] = intval($this->input->post('course_id', TRUE));
 		$params['module_id'] = intval($this->input->post('module_id', TRUE));
@@ -102,7 +102,7 @@ class Article extends CI_Controller {
 		$params['multimedia_url'] = trim($this->input->post('multimedia_url', TRUE));
 		//$params['link'] = $this->input->post('link', TRUE);
 		//$params['attachment'] = $this->input->post('attachment', TRUE);
-		$params['status'] = 1;
+		$params['status'] = NORMAL;
 		$params['create_time'] = $_SERVER['REQUEST_TIME'];
 		
 		//header('Content-Type: application/json, charset=utf-8');
@@ -143,7 +143,7 @@ class Article extends CI_Controller {
 		$params['multimedia_url'] = trim($this->input->post('multimedia_url', TRUE));
 		//$params['link'] = $this->input->post('link', TRUE);
 		//$params['attachment'] = $this->input->post('attachment', TRUE);
-		//$params['status'] = 1;
+		//$params['status'] = NORMAL;
 		$params['update_time'] = $_SERVER['REQUEST_TIME'];
 		
 		//header('Content-Type: application/json, charset=utf-8');

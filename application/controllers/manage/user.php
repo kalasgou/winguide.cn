@@ -16,7 +16,7 @@ class User extends CI_Controller {
 		$params['start_date'] = trim($this->input->get('start_date', TRUE));
 		$params['end_date'] = trim($this->input->get('end_date', TRUE));
 		$params['account_type'] = CELLPHONE;
-		$params['status'] = 1;
+		$params['status'] = ACTIVATED;
 		
 		$output = array();
 		$output['hover'] = 'user';

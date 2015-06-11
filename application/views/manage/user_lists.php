@@ -62,9 +62,9 @@
 							<td title="<?= $one['update_time_formatted'];?>"><?= substr($one['update_time_formatted'], 0, 10);?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
-								<a href="#"><span class="glyphicon glyphicon-info-sign"></span></a>
+								<!--<a href="#"><span class="glyphicon glyphicon-info-sign"></span></a>
 								<a href="#"><span class="glyphicon glyphicon-pencil"></span></a>
-								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
+								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>-->
 								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
 							</td>
 						</tr>

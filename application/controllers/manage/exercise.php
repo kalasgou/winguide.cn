@@ -93,7 +93,7 @@ class Exercise extends CI_Controller {
 	}
 	
 	public function create() {
-		$params['admin_id'] = 1;
+		$params['admin_id'] = $_SESSION['admin']['id'];
 		$params['course'] = trim($this->input->post('course', TRUE));
 		$params['subject'] = trim($this->input->post('exercise_action', TRUE));
 		$params['topic'] = trim($this->input->post('exercise_type', TRUE));

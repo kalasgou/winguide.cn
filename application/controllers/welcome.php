@@ -21,6 +21,10 @@ class Welcome extends CI_Controller {
 		//$this->load->view('welcome_message');
 		header('Location: '.base_url('index.html'));
 	}
+	
+	public function userinfo() {
+		var_dump($_SESSION['user']);
+	}
 }
 
 /* End of file welcome.php */
