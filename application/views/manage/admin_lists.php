@@ -32,10 +32,10 @@
 				</form>
 				<table class="table table-striped">
 					<colspan>
-						<col style="width:5%;"/>
+						<col style="width:10%;"/>
 						<col style="width:10%;"/>
 						<col style="width:15%;"/>
-						<col style="width:26%"/>
+						<col style="width:21%"/>
 						<col style="width:12%;"/>
 						<col style="width:12%;"/>
 						<col style="width:10%;"/>

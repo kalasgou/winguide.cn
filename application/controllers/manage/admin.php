@@ -60,7 +60,7 @@ class Admin extends CI_Controller {
 		$params['email'] = trim($this->input->get('email'));
 		$params['password'] = trim($this->input->get('password'));
 		
-		header('Content-Type: text/html, charset=utf-8');
+		//header('Content-Type: text/html, charset=utf-8');
 		
 		if (!check_parameters($params)) {
 			exit('Parameters Not Enough');
@@ -69,6 +69,7 @@ class Admin extends CI_Controller {
 		$ret = array();
 		$ret['code'] = 1;
 		$ret['msg'] = 'fail';
+		$ret['msg_cn'] = '系统错误，请联系技术人员';
 		
 		$this->load->model('manage/Admin_M');
 		$admin = $this->Admin_M->getAdminByEmail($params['email']);
@@ -82,6 +83,7 @@ class Admin extends CI_Controller {
 			if ($chk_lower || $chk_upper) {
 				$ret['code'] = 0;
 				$ret['msg'] = 'success';
+				$ret['msg_cn'] = '登录成功';
 				
 				if (!empty($_SESSION['admin'])) {
 					unset($_SESSION['admin']);
@@ -91,24 +93,28 @@ class Admin extends CI_Controller {
 				$_SESSION['admin']['username'] = $admin['username'];
 				
 				if ($admin['privilege'] == ADMIN || $admin['privilege'] == TEACHER) {
-					echo( '	<script type="text/javascript">
+					/*echo( '	<script type="text/javascript">
 								alert("'.$ret['msg'].'");
 								location.href = "'.base_url('console/article').'";
-							</script>');
+							</script>');*/
+					header('Location: '.base_url('console/article'));
 				} elseif ($admin['privilege'] == AGENCY) {
-					echo( '	<script type="text/javascript">
+					/*echo( '	<script type="text/javascript">
 								alert("'.$ret['msg'].'");
 								location.href = "'.base_url('manage/application/form').'";
-							</script>');
+							</script>');*/
+					header('Location: '.base_url('manage/application/form'));
 				}
 				exit();
 			} else {
 				$ret['code'] = 2;
 				$ret['msg'] = 'password error';
+				$ret['msg_cn'] = '登录密码错误';
 			}
 		} else {
 			$ret['code'] = 3;
 			$ret['msg'] = 'no this administrator';
+			$ret['msg_cn'] = '帐号不存在';
 		}
 		
 		//header('Content-Type: application/json, charset=utf-8');
@@ -119,11 +125,13 @@ class Admin extends CI_Controller {
 					location.href = "'.base_url('manage/login').'";
 				</script></head><body></body></html>');
 		exit();*/
-		$msg['tips'] = '你的帐户无此操作权限！';
+		
+		$msg = array();
+		$msg['tips'] = $ret['msg_cn'];
 		$link = 'javascript:history.go(-1);';
 		$location = '返回上一页';
 		$msg['target'] = '<a href="'.$link.'">'.$location.'</a>';
-		show_error($msg, 500, $ret['msg']);
+		show_error($msg, 403, $ret['msg']);
 	}
 	
 	public function logout() {
@@ -132,12 +140,24 @@ class Admin extends CI_Controller {
 			unset($_SESSION['admin']);
 		}
 		
-		header('Content-Type: text/html, charset=utf-8');
+		//header('Content-Type: text/html, charset=utf-8');
 		
-		echo 	'<script type="text/javascript">
+		$ret = array();
+		$ret['code'] = 0;
+		$ret['msg'] = 'success';
+		$ret['msg_cn'] = '成功登出系统';
+		
+		/*echo 	'<script type="text/javascript">
 					alert("帐号已登出");
 					location.href = "'.base_url('manage/login').'"
-				</script>';
+				</script>';*/
+		
+		$msg = array();
+		$msg['tips'] = $ret['msg_cn'];
+		$link = base_url('manage/login');
+		$location = '返回登录页';
+		$msg['target'] = '<a href="'.$link.'">'.$location.'</a>';
+		show_error($msg, 200, $ret['msg']);
 	}
 	
 	public function register() {
@@ -153,11 +173,12 @@ class Admin extends CI_Controller {
 		}
 		
 		//header('Content-Type: application/json, charset=utf-8');
-		header('Content-Type: text/html, charset=utf-8');
+		//header('Content-Type: text/html, charset=utf-8');
 		
 		$ret = array();
 		$ret['code'] = 1;
 		$ret['msg'] = 'fail';
+		$ret['msg_cn'] = '系统错误，请联系技术人员';
 		
 		$this->load->model('manage/Admin_M');
 		$admin = $this->Admin_M->getAdminByEmail($params['email']);
@@ -171,18 +192,30 @@ class Admin extends CI_Controller {
 			if ($admin_id > 0) {
 				$ret['code'] = 0;
 				$ret['msg'] = 'success';
+				$ret['msg_cn'] = '已成功新建帐号';
+				
+				header('Location: '.base_url('console/admin'));
 			}
+			exit();
 		} else {
 			$ret['code'] = 4;
 			$ret['msg'] = 'this email already registered';
+			$ret['msg_cn'] = '此电子邮箱地址已被使用，请选择另一个';
 		}
 		
 		//echo json_encode($ret);
 		
-		echo 	'<script type="text/javascript">
+		/*echo 	'<script type="text/javascript">
 					alert("'.$reg['msg'].'");
 					location.href = "'.base_url('console/admin').'"
-				</script>';
+				</script>';*/
+		
+		$msg = array();
+		$msg['tips'] = $ret['msg_cn'];
+		$link = 'javascript:history.go(-1);';
+		$location = '返回上一页';
+		$msg['target'] = '<a href="'.$link.'">'.$location.'</a>';
+		show_error($msg, 403, $ret['msg']);
 	}
 	
 	public function update() {
@@ -195,11 +228,13 @@ class Admin extends CI_Controller {
 		$params['status'] = trim($this->input->post('status', TRUE));
 		$params['update_time'] = $_SERVER['REQUEST_TIME'];
 		
-		header('Content-Type: application/json, charset=utf-8');
+		//header('Content-Type: application/json, charset=utf-8');
+		//header('Content-Type: text/html, charset=utf-8');
 		
 		$ret = array();
 		$ret['code'] = 1;
 		$ret['msg'] = 'fail';
+		$ret['msg_cn'] = '系统错误，请联系技术人员';
 		
 		$result = FALSE;
 		$this->load->model('manage/Admin_M');
@@ -214,11 +249,13 @@ class Admin extends CI_Controller {
 			default : 
 					$ret['code'] = 2;
 					$ret['msg'] = 'Illeagal Operation';
+					$ret['msg_cn'] = '非法操作';
 		}
 		
 		if ($result) {
 			$ret['code'] = 0;
 			$ret['msg'] = 'success';
+			$ret['msg_cn'] = '更新帐号成功';
 		}
 		
 		echo json_encode($ret);

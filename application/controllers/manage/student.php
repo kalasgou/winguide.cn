@@ -101,10 +101,12 @@ class Student extends CI_Controller {
 		}
 		
 		//header('Content-Type: application/json, charset=utf-8');
+		//header('Content-Type: text/html, charset=utf-8');
 		
 		$ret = array();
 		$ret['code'] = 1;
 		$ret['msg'] = 'fail';
+		$ret['msg_cn'] = '系统错误，请联系技术人员';
 		
 		$this->load->model('manage/Student_M');
 		$result = $this->Student_M->doRegistration($params);
@@ -112,16 +114,25 @@ class Student extends CI_Controller {
 		if ($result) {
 			$ret['code'] = 0;
 			$ret['msg'] = 'success';
+			$ret['msg_cn'] = '新建付费帐号成功';
+			
+			header('Location: '.base_url('console/student/view/accounts'));
+			exit();
 		}
 		
 		//echo json_encode($ret);
 		
-		header('Content-Type: text/html, charset=utf-8');
-		
-		echo 	'<script type="text/javascript">
+		/*echo 	'<script type="text/javascript">
 					alert("'.$ret['msg'].'");
 					location.href = "'.base_url('console/student/view/accounts').'"
-				</script>';
+				</script>';*/
+		
+		$msg = array();
+		$msg['tips'] = $ret['msg_cn'];
+		$link = 'javascript:history.go(-1);';
+		$location = '返回上一页';
+		$msg['target'] = '<a href="'.$link.'">'.$location.'</a>';
+		show_error($msg, 403, $ret['msg']);
 	}
 	
 	public function update() {

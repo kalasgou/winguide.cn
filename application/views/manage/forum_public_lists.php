@@ -17,10 +17,10 @@
 			<div class="panel-body">
 				<table class="table table-striped">
 					<colspan>
-						<col style="width:5%;"/>
 						<col style="width:10%;"/>
 						<col style="width:10%;"/>
-						<col style="width:35%;"/>
+						<col style="width:10%;"/>
+						<col style="width:30%;"/>
 						<!--<col style="width:5%;"/>-->
 						<col style="width:10%;"/>
 						<col style="width:10%;"/>

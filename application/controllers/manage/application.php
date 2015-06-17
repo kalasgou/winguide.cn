@@ -48,6 +48,7 @@ class Application extends CI_Controller {
 		$ret = array();
 		$ret['code'] = 1;
 		$ret['msg'] = 'fail';
+		$ret['msg_cn'] = '系统错误，请联系技术人员';
 		
 		$this->load->model('manage/Application_M');
 		$student = $this->Application_M->getStudentByUname($params['student']['username']);
@@ -67,18 +68,22 @@ class Application extends CI_Controller {
 					if ($result) {
 						$ret['code'] = 0;
 						$ret['msg'] = 'success';
+						$ret['msg_cn'] = '帐号激活成功';
 					}
 				} else {
 					$ret['code'] = 2;
 					$ret['msg'] = 'password error';
+					$ret['msg_cn'] = '帐号密码错误';
 				}
 			} else {
 				$ret['code'] = 6;
 				$ret['msg'] = 'already activated';
+				$ret['msg_cn'] = '帐号已经激活，无需重复操作';
 			}
 		} else {
 			$ret['code'] = 3;
 			$ret['msg'] = 'no this student';
+			$ret['msg_cn'] = '帐号不存在';
 		}
 		
 		echo json_encode($ret);

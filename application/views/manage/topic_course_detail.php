@@ -186,6 +186,7 @@
 		}).get();
 		
 		$('.add-btn').click(function() {
+			_page = 0;
 			_course = $('.course-options').val();
 			getExerciseTypes(_course);
 			getExerciseSets(_course, '', '');

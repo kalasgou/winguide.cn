@@ -28,12 +28,12 @@
 				<h5>共 <b><?= $total_num?></b> 条评论</h5>
 				<table class="table table-striped">
 					<colspan>
-						<col style="width:6%;"/>
-						<col style="width:10%;"/>
-						<col style="width:58%;"/>
 						<col style="width:10%;"/>
 						<col style="width:10%;"/>
-						<col style="width:6%;"/>
+						<col style="width:55%;"/>
+						<col style="width:10%;"/>
+						<col style="width:10%;"/>
+						<col style="width:5%;"/>
 					</colspan>
 					<thead>
 						<tr>

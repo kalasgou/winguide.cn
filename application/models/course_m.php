@@ -99,40 +99,7 @@ class Course_M extends CI_Controller {
 	private function mySATScores($db_conn, $params) {
 		$scores = array();
 		
-		$query = $db_conn->select_sum('yes')->where('userid = '.$params['user_id'])->get('sattj_math1');
-		$row = $query->row_array();
-		$row['yes'] = intval($row['yes']);
-		$row['subject'] = '数学';
 		
-		$scores[] = $row;
-		
-		$query = $db_conn->select_sum('yes')->where('userid = '.$params['user_id'])->get('sattj_danci');
-		$row = $query->row_array();
-		$row['yes'] = intval($row['yes']);
-		$row['subject'] = '单词';
-		
-		$scores[] = $row;
-		
-		$query = $db_conn->select_sum('yes')->where('userid = '.$params['user_id'])->get('sattj_yufa');
-		$row = $query->row_array();
-		$row['yes'] = intval($row['yes']);
-		$row['subject'] = '语法';
-		
-		$scores[] = $row;
-		
-		$query = $db_conn->select_sum('yes')->where('userid = '.$params['user_id'])->get('sattj_yufa');
-		$row = $query->row_array();
-		$row['yes'] = intval($row['yes']);
-		$row['subject'] = '阅读';
-		
-		$scores[] = $row;
-		
-		$query = $db_conn->select_sum('yes')->where('userid = '.$params['user_id'])->get('sattj_yufa');
-		$row = $query->row_array();
-		$row['yes'] = intval($row['yes']);
-		$row['subject'] = '写作';
-		
-		$scores[] = $row;
 		
 		return $scores;
 	}

@@ -130,10 +130,12 @@ class Forum extends CI_Controller {
 		//var_dump($params);exit();
 		
 		//header('Content-Type: application/json, charset=utf-8');
+		//header('Content-Type: text/html, charset=utf-8');
 		
 		$ret = array();
 		$ret['code'] = 1;
 		$ret['msg'] = 'fail';
+		$ret['msg_cn'] = '系统错误，请联系技术人员';
 		
 		$this->load->model('manage/Forum_M');
 		$result = $this->Forum_M->createTopic($params);
@@ -141,16 +143,25 @@ class Forum extends CI_Controller {
 		if ($result) {
 			$ret['code'] = 0;
 			$ret['msg'] = 'success';
+			$ret['msg_cn'] = '新建讨论话题/作业任务成功';
+			
+			header('Location: '.base_url('console/forum?visibility='.$params['visibility']));
+			exit();
 		}
 		
 		//echo json_encode($ret);
 		
-		header('Content-Type: text/html, charset=utf-8');
-		
-		echo 	'<script type="text/javascript">
+		/*echo 	'<script type="text/javascript">
 					alert("'.$ret['msg'].'");
 					location.href = "'.base_url('console/forum?visibility='.$params['visibility']).'"
-				</script>';
+				</script>';*/
+		
+		$msg = array();
+		$msg['tips'] = $ret['msg_cn'];
+		$link = 'javascript:history.go(-1);';
+		$location = '返回上一页';
+		$msg['target'] = '<a href="'.$link.'">'.$location.'</a>';
+		show_error($msg, 403, $ret['msg']);
 	}
 	
 	public function update() {
@@ -176,10 +187,12 @@ class Forum extends CI_Controller {
 		}
 		
 		//header('Content-Type: application/json, charset=utf-8');
+		//header('Content-Type: text/html, charset=utf-8');
 		
 		$ret = array();
 		$ret['code'] = 1;
 		$ret['msg'] = 'fail';
+		$ret['msg_cn'] = '系统错误，请联系技术人员';
 		
 		$this->load->model('manage/Forum_M');
 		$result = $this->Forum_M->modifyTopic($params);
@@ -187,16 +200,25 @@ class Forum extends CI_Controller {
 		if ($result) {
 			$ret['code'] = 0;
 			$ret['msg'] = 'success';
+			$ret['msg_cn'] = '更新讨论话题/作业任务成功';
+			
+			header('Location: '.base_url('console/forum/view/detail?topic_id='.$params['topic_id']));
+			exit();
 		}
 		
 		//echo json_encode($ret);
 		
-		header('Content-Type: text/html, charset=utf-8');
-		
-		echo 	'<script type="text/javascript">
+		/*echo 	'<script type="text/javascript">
 					alert("'.$ret['msg'].'");
 					location.href = "'.base_url('console/forum/view/detail?topic_id='.$params['topic_id']).'"
-				</script>';
+				</script>';*/
+		
+		$msg = array();
+		$msg['tips'] = $ret['msg_cn'];
+		$link = 'javascript:history.go(-1);';
+		$location = '返回上一页';
+		$msg['target'] = '<a href="'.$link.'">'.$location.'</a>';
+		show_error($msg, 403, $ret['msg']);
 	}
 	
 	public function delete() {
