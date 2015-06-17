@@ -91,16 +91,17 @@ class Admin extends CI_Controller {
 				$_SESSION['admin']['username'] = $admin['username'];
 				
 				if ($admin['privilege'] == ADMIN || $admin['privilege'] == TEACHER) {
-					exit( '	<script type="text/javascript">
+					echo( '	<script type="text/javascript">
 								alert("'.$ret['msg'].'");
 								location.href = "'.base_url('console/article').'";
 							</script>');
 				} elseif ($admin['privilege'] == AGENCY) {
-					exit( '	<script type="text/javascript">
+					echo( '	<script type="text/javascript">
 								alert("'.$ret['msg'].'");
 								location.href = "'.base_url('manage/application/form').'";
 							</script>');
 				}
+				exit();
 			} else {
 				$ret['code'] = 2;
 				$ret['msg'] = 'password error';
@@ -113,10 +114,16 @@ class Admin extends CI_Controller {
 		//header('Content-Type: application/json, charset=utf-8');
 		
 		//echo json_encode($ret);
-		exit( '	<script type="text/javascript">
+		/*echo( '	<!DOCTYPE html><html><head><script type="text/javascript">
 					alert("'.$ret['msg'].'");
 					location.href = "'.base_url('manage/login').'";
-				</script>');
+				</script></head><body></body></html>');
+		exit();*/
+		$msg['tips'] = '你的帐户无此操作权限！';
+		$link = 'javascript:history.go(-1);';
+		$location = '返回上一页';
+		$msg['target'] = '<a href="'.$link.'">'.$location.'</a>';
+		show_error($msg, 500, $ret['msg']);
 	}
 	
 	public function logout() {

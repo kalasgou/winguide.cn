@@ -71,6 +71,8 @@ class User_M extends CI_Model {
 			$user_info['courses'] = $query->result_array();
 		}
 		
+		$_SESSION['userid'] = $user_info['basic']['id'];
+		
 		$_SESSION['user']['id'] = $user_info['basic']['id'];
 		$_SESSION['user']['nickname'] = $user_info['basic']['nickname'];
 		$_SESSION['user']['realname'] = $user_info['basic']['realname'];
