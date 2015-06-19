@@ -85,21 +85,109 @@ class Course_M extends CI_Controller {
 	}
 	
 	private function myGMATScores($db_conn, $params) {
+		$yes = 0;
+		$no = 0;
+		$statistics_tables = array();
 		
+		/*foreach ($statistics_tables as $one) {
+			$query = $db_conn->select_sum('yes')->where('userid = '.$params['user_id'])->get($one);
+			$row = $query->row_array();
+			$yes += intval($row['yes']);
+			
+			$query = $db_conn->select_sum('wrong')->where('userid = '.$params['user_id'])->get($one);
+			$row = $query->row_array();
+			$no += intval($row['wrong']);
+		}*/
+		
+		$tmp = array();
+		$tmp['yes'] = $yes;
+		$tmp['subject'] = '对';
+		$scores[] = $tmp;
+		
+		$tmp['yes'] = $no;
+		$tmp['subject'] = '错';
+		$scores[] = $tmp;
+		
+		return $scores;
 	}
 	
 	private function myGREScores($db_conn, $params) {
+		$yes = 0;
+		$no = 0;
+		$statistics_tables = array();
 		
+		/*foreach ($statistics_tables as $one) {
+			$query = $db_conn->select_sum('yes')->where('userid = '.$params['user_id'])->get($one);
+			$row = $query->row_array();
+			$yes += intval($row['yes']);
+			
+			$query = $db_conn->select_sum('wrong')->where('userid = '.$params['user_id'])->get($one);
+			$row = $query->row_array();
+			$no += intval($row['wrong']);
+		}*/
+		
+		$tmp = array();
+		$tmp['yes'] = $yes;
+		$tmp['subject'] = '对';
+		$scores[] = $tmp;
+		
+		$tmp['yes'] = $no;
+		$tmp['subject'] = '错';
+		$scores[] = $tmp;
+		
+		return $scores;
 	}
 	
 	private function myIELTSScores($db_conn, $params) {
+		$yes = 0;
+		$no = 0;
+		$statistics_tables = array();
 		
+		/*foreach ($statistics_tables as $one) {
+			$query = $db_conn->select_sum('yes')->where('userid = '.$params['user_id'])->get($one);
+			$row = $query->row_array();
+			$yes += intval($row['yes']);
+			
+			$query = $db_conn->select_sum('wrong')->where('userid = '.$params['user_id'])->get($one);
+			$row = $query->row_array();
+			$no += intval($row['wrong']);
+		}*/
+		
+		$tmp = array();
+		$tmp['yes'] = $yes;
+		$tmp['subject'] = '对';
+		$scores[] = $tmp;
+		
+		$tmp['yes'] = $no;
+		$tmp['subject'] = '错';
+		$scores[] = $tmp;
+		
+		return $scores;
 	}
 	
 	private function mySATScores($db_conn, $params) {
-		$scores = array();
+		$yes = 0;
+		$no = 0;
+		$statistics_tables = array('sattj_math1', 'sattj_math2', 'sattj_math3', 'sattj_math4', 'sattj_math5', 'sat_dctj', 'sat_dctj2', 'sat_yfcytj', 'sat_yflxtj');
 		
+		foreach ($statistics_tables as $one) {
+			$query = $db_conn->select_sum('yes')->where('userid = '.$params['user_id'])->get($one);
+			$row = $query->row_array();
+			$yes += intval($row['yes']);
+			
+			$query = $db_conn->select_sum('wrong')->where('userid = '.$params['user_id'])->get($one);
+			$row = $query->row_array();
+			$no += intval($row['wrong']);
+		}
 		
+		$tmp = array();
+		$tmp['yes'] = $yes;
+		$tmp['subject'] = '对';
+		$scores[] = $tmp;
+		
+		$tmp['yes'] = $no;
+		$tmp['subject'] = '错';
+		$scores[] = $tmp;
 		
 		return $scores;
 	}
@@ -107,21 +195,23 @@ class Course_M extends CI_Controller {
 	private function myTOEFLScores($db_conn, $params) {
 		$yes = 0;
 		$no = 0;
+		$statistics_tables = array('tftj_danci', 'tftj_svo1', 'tftj_svo2', 'tftj_svo3', 'tftj_svo4', 'tftj_svo15');
 		
-		$query = $db_conn->select_sum('yes')->where('userid = '.$params['user_id'])->get('tftj_danci');
-		$row = $query->row_array();
-		$yes += intval($row['yes']);
-		
-		$query = $db_conn->select_sum('wrong')->where('userid = '.$params['user_id'])->get('tftj_danci');
-		$row = $query->row_array();
-		$no += intval($row['wrong']);
+		foreach ($statistics_tables as $one) {
+			$query = $db_conn->select_sum('yes')->where('userid = '.$params['user_id'])->get($one);
+			$row = $query->row_array();
+			$yes += intval($row['yes']);
+			
+			$query = $db_conn->select_sum('wrong')->where('userid = '.$params['user_id'])->get($one);
+			$row = $query->row_array();
+			$no += intval($row['wrong']);
+		}
 		
 		$tmp = array();
 		$tmp['yes'] = $yes;
 		$tmp['subject'] = '对';
 		$scores[] = $tmp;
 		
-		$tmp = array();
 		$tmp['yes'] = $no;
 		$tmp['subject'] = '错';
 		$scores[] = $tmp;
@@ -130,7 +220,30 @@ class Course_M extends CI_Controller {
 	}
 	
 	private function myGAOKAOScores($db_conn, $params) {
+		$yes = 0;
+		$no = 0;
+		$statistics_tables = array('gktj_1', 'gktj_2', 'gktj_danci');
 		
+		foreach ($statistics_tables as $one) {
+			$query = $db_conn->select_sum('yes')->where('userid = '.$params['user_id'])->get($one);
+			$row = $query->row_array();
+			$yes += intval($row['yes']);
+			
+			$query = $db_conn->select_sum('wrong')->where('userid = '.$params['user_id'])->get($one);
+			$row = $query->row_array();
+			$no += intval($row['wrong']);
+		}
+		
+		$tmp = array();
+		$tmp['yes'] = $yes;
+		$tmp['subject'] = '对';
+		$scores[] = $tmp;
+		
+		$tmp['yes'] = $no;
+		$tmp['subject'] = '错';
+		$scores[] = $tmp;
+		
+		return $scores;
 	}
 }
 /* End of File */
