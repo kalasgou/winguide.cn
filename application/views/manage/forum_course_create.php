@@ -251,6 +251,7 @@
 										$(this).attr('class', 'minus-red');
 										var chosen = '<div class="chosen-exercise exercise-id-' + _exercise_id + '">' +
 														'<input type="hidden" name="exercise_id[]" value="' + _exercise_id + '" />' +
+														'<input type="hidden" name="admin[]" value="' + _username + '" />' +
 														'<input type="hidden" name="subject_en[]" value="' + _action + '" />' +
 														'<input type="hidden" name="subject_cn[]" value="' + _topic + '" />' +
 														'<input type="hidden" name="amount[]" value="' + _amount + '" />' + 

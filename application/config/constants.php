@@ -56,6 +56,8 @@ define('INITIALIZED',	0);
 define('ACTIVATED',		1);
 
 define('NORMAL',		1);
+define('DEFAULT',		0);
+define('TRASHED',		-1);
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

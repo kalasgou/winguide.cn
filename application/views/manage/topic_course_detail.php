@@ -24,7 +24,9 @@
 			</div>
 			<div class="panel-body">
 				<form action="<?= base_url('manage/forum/update') ?>" method="post" enctype="multipart/form-data">
-					<input type="hidden" name="visibility" value="course" required />
+					<input type="hidden" name="visibility" value="course" />
+					<input type="hidden" name="topic_id" value="<?= $detail['topic_id']?>" />
+					<input type="hidden" name="module" value="<?= $detail['module']?>" />
 					<div class="input-group">
 						<input id="course" type="hidden" value="<?= $detail['module']?>" />
 						<span class="input-group-addon">课程选择</span>
@@ -58,6 +60,7 @@
 						<?php foreach ($detail['remark_arr'] as $one) : ?>
 						<div class="chosen-exercise exercise-id-<?= $one['exercise_id']?>">
 							<input type="hidden" name="exercise_id[]" value="<?= $one['exercise_id']?>">
+							<input type="hidden" name="admin[]" value="<?= $one['admin']?>">
 							<input type="hidden" name="subject_en[]" value="<?= $one['subject_en']?>">
 							<input type="hidden" name="subject_cn[]" value="<?= $one['subject_cn']?>">
 							<input type="hidden" name="amount[]" value="<?= $one['amount']?>">
@@ -72,11 +75,11 @@
 						<button class="btn btn-primary btn-block add-btn" type="button" data-title="Add" data-toggle="modal" data-target="#add"><span class="glyphicon glyphicon-plus"></span> 添加习题（必选）</button>
 					</div>
 					<div class="input-group">
-						<div class="input-group-addon-instruction">~~~~~~~~主题正文内容~~~~~~~~</div>
+						<div class="input-group-addon-instruction">~~~~~~~~作业任务简介~~~~~~~~</div>
 						<textarea name="thread" class="summernote form-control" required ><?= $detail['thread']?></textarea>
 					</div>
 					<div class="pull-right">
-						<button class="btn btn-success btn-sm" type="submit">提交</button>
+						<button class="btn btn-success btn-sm" type="submit">更新</button>
 					</div>
 				</form>
 			</div>
@@ -286,6 +289,7 @@
 										$(this).attr('class', 'minus-red');
 										var chosen = '<div class="chosen-exercise exercise-id-' + _exercise_id + '">' +
 														'<input type="hidden" name="exercise_id[]" value="' + _exercise_id + '" />' +
+														'<input type="hidden" name="admin[]" value="' + _username + '" />' +
 														'<input type="hidden" name="subject_en[]" value="' + _action + '" />' +
 														'<input type="hidden" name="subject_cn[]" value="' + _topic + '" />' +
 														'<input type="hidden" name="amount[]" value="' + _amount + '" />' + 

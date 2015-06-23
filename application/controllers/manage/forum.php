@@ -122,10 +122,15 @@ class Forum extends CI_Controller {
 		if ($params['visibility'] === 'course') {
 			$params['assignment'] = trim($this->input->post('assignment', TRUE));
 			$params['exercise_id'] = $this->input->post('exercise_id');
+			$params['admin'] = $this->input->post('admin');
 			$params['subject_en'] = $this->input->post('subject_en');
 			$params['subject_cn'] = $this->input->post('subject_cn');
 			$params['create_date'] = $this->input->post('create_date');
 			$params['amount'] = $this->input->post('amount');
+			
+			if (empty($params['exercise_id'])) {
+				exit('Parameters not enough');
+			}
 		}
 		
 		//var_dump($params);exit();
@@ -167,8 +172,8 @@ class Forum extends CI_Controller {
 	
 	public function update() {
 		$params['admin_id'] = $_SESSION['admin']['id'];
-		$params['topic_id'] = intval($this->input->post('topic_id', TRUE));
-		//$params['module'] = trim($this->input->post('module', TRUE));
+		$params['topic_id'] = trim($this->input->post('topic_id', TRUE));
+		$params['module'] = trim($this->input->post('module', TRUE));
 		$params['visibility'] = trim($this->input->post('visibility', TRUE));
 		$params['topic'] = trim($this->input->post('topic', TRUE));
 		$params['thread'] = trim($this->input->post('thread'));
@@ -181,10 +186,16 @@ class Forum extends CI_Controller {
 		if ($params['visibility'] === 'course') {
 			$params['assignment'] = trim($this->input->post('assignment', TRUE));
 			$params['exercise_id'] = $this->input->post('exercise_id');
+			$params['admin'] = $this->input->post('admin');
 			$params['subject_en'] = $this->input->post('subject_en');
 			$params['subject_cn'] = $this->input->post('subject_cn');
 			$params['create_date'] = $this->input->post('create_date');
 			$params['amount'] = $this->input->post('amount');
+			
+			//var_dump($params);exit();
+			if (empty($params['exercise_id'])) {
+				exit('Parameters not enough');
+			}
 		}
 		
 		//header('Content-Type: application/json, charset=utf-8');
@@ -253,5 +264,32 @@ class Forum extends CI_Controller {
 		
 		echo json_encode($ret);
 	}*/
+	
+	public function trashAssignment() {
+		$params['admin_id'] = $_SESSION['admin']['id'];
+		$params['topic_id'] = trim($this->input->post('topic_id', TRUE));
+		$params['student_id'] = trim($this->input->post('student_id', TRUE));
+		$params['update_time'] = $_SERVER['REQUEST_TIME'];
+		
+		header('Content-Type: application/json, charset=utf-8');
+		
+		if (!check_parameters($params)) {
+			exit('Parameters not enough');
+		}
+		
+		$ret = array();
+		$ret['code'] = 1;
+		$ret['msg'] = 'fail';
+		
+		$this->load->model('manage/Forum_M');
+		$result = $this->Forum_M->trashAssignment($params);
+		
+		if ($result) {
+			$ret['code'] = 0;
+			$ret['msg'] = 'success';
+		}
+		
+		echo json_encode($ret);
+	}
 }
 /* End of file */

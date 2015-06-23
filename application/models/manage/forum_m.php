@@ -85,6 +85,7 @@ class Forum_M extends CI_Model {
 			
 			$exercises = $this->remarkExercises($params);
 			$homework['remark'] = serialize($exercises);
+			$homework['exercise_ids'] = implode(',', $params['exercise_id']);
 			
 			$this->db_conn->set($homework)->insert('forum_topic');
 			$result = $this->db_conn->insert_id();
@@ -108,8 +109,9 @@ class Forum_M extends CI_Model {
 		if ($params['visibility'] === 'course') {
 			$exercises = $this->remarkExercises($params);
 			$refresh['remark'] = serialize($exercises);
+			$refresh['exercise_ids'] = implode(',', $params['exercise_id']);
 			
-			$this->updateAssignments($params);
+			$this->doAssignments($params, $params['topic_id']);
 		}
 		
 		return $this->db_conn->where($search)->update('forum_topic', $refresh);
@@ -122,6 +124,7 @@ class Forum_M extends CI_Model {
 		for ($i = 0; $i < $length; $i++) {
 			$tmp = array();
 			$tmp['exercise_id'] = $params['exercise_id'][$i];
+			$tmp['admin'] = $params['admin'][$i];
 			$tmp['subject_en'] = $params['subject_en'][$i];
 			$tmp['subject_cn'] = $params['subject_cn'][$i];
 			$tmp['amount'] = $params['amount'][$i];
@@ -137,27 +140,29 @@ class Forum_M extends CI_Model {
 		$assignments = array();
 		$username_arr = explode(',', $params['assignment']);
 		
-		$query = $this->db_conn->select('student_id, user_id')->where("status = 1 AND course = '{$params['module']}'")->where_in('username', $username_arr)->get('students');
-		if ($query->num_rows() > 0) {
-			$rows = $query->result_array();
-			foreach ($rows as $one) {
-				$tmp = array();
-				$tmp['student_id'] = $one['student_id'];
-				$tmp['user_id'] = $one['user_id'];
-				$tmp['admin_id'] = $params['admin_id'];
-				$tmp['topic_id'] = $topic_id;
-				$tmp['status'] = NORMAL;
-				$tmp['create_time'] = $params['create_time'];
-				
-				$assignments[] = $tmp;
+		if (!empty($username_arr)) {
+			$query = $this->db_conn->select('student_id, user_id')->where("status = 1 AND course = '{$params['module']}'")->where_in('username', $username_arr)->get('students');
+			if ($query->num_rows() > 0) {
+				$rows = $query->result_array();
+				foreach ($rows as $one) {
+					$tmp = array();
+					$tmp['student_id'] = $one['student_id'];
+					$tmp['user_id'] = $one['user_id'];
+					$tmp['admin_id'] = $params['admin_id'];
+					$tmp['topic_id'] = $topic_id;
+					$tmp['status'] = NORMAL;
+					$tmp['create_time'] = $params['create_time'];
+					
+					$assignments[] = $tmp;
+				}
 			}
 		}
 		
-		return $this->db_conn->insert_batch('assignment', $assignments); 
-	}
-	
-	private function updateAssignments($params) {
+		if (!empty($assignments)) {
+			return $this->db_conn->insert_batch('assignment', $assignments);
+		}
 		
+		return FALSE;
 	}
 	
 	public function viewTopic($params) {
@@ -179,7 +184,7 @@ class Forum_M extends CI_Model {
 										->from('assignment AS A')
 										->join('students AS S', 'S.student_id = A.student_id')
 										->join('users AS U', 'U.user_id = A.user_id')
-										->where('A.topic_id = '.$detail['topic_id'])
+										->where('A.topic_id = '.$detail['topic_id'].' AND A.status = 1')
 										->get();
 				
 				if ($query->num_rows() > 0) {
@@ -227,6 +232,19 @@ class Forum_M extends CI_Model {
 		$search['status'] = NORMAL;
 		
 		return $this->db_conn->from('forum_reply')->where($search)->count_all_results();
+	}
+	
+	public function trashAssignment($params) {
+		$search = array();
+		$search['admin_id'] = $params['admin_id'];
+		$search['topic_id'] = $params['topic_id'];
+		$search['student_id'] = $params['student_id'];
+		
+		$refresh = array();
+		$refresh['status'] = TRASHED;
+		$refresh['update_time'] = $params['update_time'];
+		
+		return $this->db_conn->set($refresh)->where($search)->update('assignment');
 	}
 	
 	public function testJoin() {

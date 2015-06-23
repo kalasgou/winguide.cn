@@ -16,8 +16,9 @@
 			</div>
 			<div class="panel-body">
 				<form action="<?= base_url('manage/forum/update') ?>" method="post" enctype="multipart/form-data">
-					<input type="hidden" name="visibility" value="public"/>
-					<input type="hidden" name="topic_id" value="<?= $detail['topic_id']?>"/>
+					<input type="hidden" name="visibility" value="public" />
+					<input type="hidden" name="topic_id" value="<?= $detail['topic_id']?>" />
+					<input type="hidden" name="module" value="<?= $detail['module']?>" />
 					<div class="input-group">
 						<span class="input-group-addon">课程选择</span>
 						<input type="hidden" id="cur-module" value="<?= $detail['module']?>" />

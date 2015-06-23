@@ -16,6 +16,7 @@ class Course_M extends CI_Controller {
 		$search['T.module'] = $params['module'];
 		$search['T.visibility'] = $params['visibility'];
 		$search['A.user_id'] = $params['user_id'];
+		$search['A.status'] = NORMAL;
 		
 		$query = $this->db_conn->select('T.topic_id, T.admin_id, T.uuid, T.topic, T.thread, T.remark, A.create_time')
 								->from('assignment AS A')->join('forum_topic AS T', 'T.topic_id = A.topic_id')
