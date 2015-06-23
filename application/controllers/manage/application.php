@@ -7,7 +7,10 @@ class Application extends CI_Controller {
 	}
 	
 	public function form() {
-		$this->load->view('manage/application_form');
+		$params['username'] = trim($this->input->get('username', TRUE));
+		$params['password'] = trim($this->input->get('password', TRUE));
+		
+		$this->load->view('manage/application_form', $params);
 	}
 	
 	public function activateAccount() {

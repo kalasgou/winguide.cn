@@ -40,7 +40,7 @@
 						<span class="input-group-addon">购买日期</span>
 					</div>
 					<div class="pull-right">
-						<button class="btn btn-success btn-sm download-excel" type="button">导出</button>
+						<button class="btn btn-warning btn-sm download-excel" type="button">导出</button>
 						<button class="btn btn-primary btn-sm" type="submit">筛选</button>
 					</div>
 				</form>
@@ -88,7 +88,7 @@
 								<?php endif?>
 							</td>
 							<td>
-								<a href="#" title="查看学生信息"><span class="glyphicon glyphicon-info-sign"></span></a>
+								<a href="<?= base_url('manage/application/form?username='.$one['username'].'&password='.$one['init_pswd'])?>" target="_blank" title="学生课程申请"><span class="glyphicon glyphicon-check"></span></a>
 								<a href="#" data-title="Edit" data-toggle="modal" data-target="#edit" title="编辑学生信息"><span class="glyphicon glyphicon-pencil"></span></a>
 								<a href="#" data-title="Configure" data-toggle="modal" data-target="#configure" title="变更学生状态"><span class="glyphicon glyphicon-wrench"></span></a>
 								<a href="#" data-title="Delete" data-toggle="modal" data-target="#delete" title="删除学生记录"><span class="glyphicon glyphicon-trash"></span></a>

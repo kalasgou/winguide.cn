@@ -12,10 +12,11 @@
 					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/create?visibility=course')?>">布置作业</a></li>
 					<li role="presentation" class=""><a href="<?= base_url('console/exercise/view/lists')?>">题库</a></li>
 					<li role="presentation" class=""><a href="<?= base_url('console/exercise/view/create')?>">新建习题</a></li>
+					<li role="presentation" class="active"><a href="#">题库详情</a></li>
 				</ul>
 			</div>
 			<div class="panel-body">
-				<form action="<?= base_url('manage/exercise/modify') ?>" method="post" enctype="multipart/form-data">
+				<form action="<?= base_url('manage/exercise/update') ?>" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="exercise_id" value="<?= $args['exercise_id']?>">
 					<div class="input-group">
 						<span class="input-group-addon">课程选择</span>
@@ -41,7 +42,7 @@
 						<textarea name="exercise_ids" type="text" class="form-control" placeholder="请在这里填写需要的题目标号，例如“1,2,5,6,9,10,20-50”，单个题号之间用英文逗号“,”隔开，连续的题号可以用段横线“-”连起来" required ><?= $detail['numbers']?></textarea>
 					</div>
 					<div class="pull-right">
-						<button class="btn btn-success btn-sm" type="submit">提交</button>
+						<button class="btn btn-success btn-sm" type="submit">更新</button>
 					</div>
 				</form>
 			</div>

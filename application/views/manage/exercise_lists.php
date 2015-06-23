@@ -99,7 +99,7 @@
 							<td title="<?= $one['update_time_formatted'];?>"><?= substr($one['update_time_formatted'], 0, 10);?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
-								<a href="<?= base_url('console/exercise/view/detail?exercise_id='.$one['exercise_id'])?>" title="编辑题库内容"><span class="glyphicon glyphicon-edit"></span></a>
+								<a href="<?= base_url('console/exercise/view/detail?exercise_id='.$one['exercise_id'])?>" target="_blank" title="编辑题库内容"><span class="glyphicon glyphicon-edit"></span></a>
 								<a href="#" title="变更题库属性"><span class="glyphicon glyphicon-wrench"></span></a>
 								<a href="#" title="删除题库记录"><span class="glyphicon glyphicon-trash"></span></a>
 							</td>

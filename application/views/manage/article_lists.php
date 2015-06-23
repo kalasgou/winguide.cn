@@ -75,7 +75,7 @@
 							<td title="<?= $one['update_time_formatted'];?>"><?= substr($one['update_time_formatted'], 0, 10);?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
-								<a href="<?= base_url('console/article/view/detail?article_id='.$one['article_id'])?>" title="编辑文章内容"><span class="glyphicon glyphicon-edit"></span></a>
+								<a href="<?= base_url('console/article/view/detail?article_id='.$one['article_id'])?>" target="_blank" title="编辑文章内容"><span class="glyphicon glyphicon-edit"></span></a>
 								<a href="#" data-title="Configure" data-toggle="modal" data-target="#configure" title="变更文章属性"><span class="glyphicon glyphicon-wrench"></span></a>
 								<a href="#" data-title="Delete" data-toggle="modal" data-target="#delete" title="删除文章记录"><span class="glyphicon glyphicon-trash"></span></a>
 							</td>

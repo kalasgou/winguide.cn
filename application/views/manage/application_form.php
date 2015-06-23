@@ -22,14 +22,14 @@
         	<form action="" id="form">
         		
         		<!--第一行 姓名-->
-				<input class="t1_1" name="basic:real_name" type="text" value="" />
+				<input class="t1_1" name="basic:real_name" type="text" value="" placeholder="请输入学生姓名"/>
 				<input class="t1_2" name="basic:used_name" type="text" value="" />
 				<input class="t1_3" name="basic:birthday" type="text" value="" />
 				<input class="t1_4" name="basic:sex" type="text" value="" />
 				
 				<!--第二行 Username-->
-				<input class="t2_1" name="student:username" type="text" value="" />
-				<input class="t2_2" name="student:password" type="password" id="password" value="" />
+				<input class="t2_1" name="student:username" type="text" value="<?= $username?>" placeholder="请输入付费帐号"/>
+				<input class="t2_2" name="student:password" type="password" id="password" value="<?= $password?>" placeholder="请输入帐号密码"/>
 				<input class="t2_3" name="basic:born_city" type="text" value="" />
 				<input class="t2_4" name="basic:marriage" type="text" value="" />
 
@@ -44,7 +44,7 @@
 				<!--第五行 Email-->
 				<input class="t5_1" name="basic:email" type="text" value="" />
 				<input class="t5_2" name="basic:telephone" type="text" value="" />
-				<input class="t5_3" name="basic:cellphone" type="text" value="" />
+				<input class="t5_3" name="basic:cellphone" type="text" value="" placeholder="请输入手机号码" />
 
 				<!--第六行 TOEFL (IBT)-->
 				<div class="t6_1">

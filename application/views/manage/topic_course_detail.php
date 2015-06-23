@@ -4,8 +4,12 @@
 	<style type="text/css">
 		.note-editable {min-height:200px;}
 		.chosen-exercise {background-color:#EEEEEE; border-bottom:dotted 1px #999999;}
+		.chosen-student {display:inline-block; border:dotted 1px #000000; width:192px; line-height:24px; padding:4px; margin:2px 0; background-color:rgb(238, 238, 238);}
+		.chosen-student .glyphicon {line-height:24px;}
 		.pagination {width:100%; text-align:center;}
 		.pagination .active {color:grey; text-decoration:none; font-weight:bold;}
+		.add-green {color:#5cb85c;}
+		.minus-red {color:#D9534F;}
 	</style>
 	<div class="col-md-10 content">
 		<div class="panel panel-default">
@@ -15,6 +19,7 @@
 					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/create?visibility=course')?>">布置作业</a></li>
 					<li role="presentation" class=""><a href="<?= base_url('console/exercise/view/lists')?>">题库</a></li>
 					<li role="presentation" class=""><a href="<?= base_url('console/exercise/view/create')?>">新建习题</a></li>
+					<li role="presentation" class="active"><a href="#">任务详情</a></li>
 				</ul>
 			</div>
 			<div class="panel-body">
@@ -41,6 +46,14 @@
 						<span class="input-group-addon">学生列表</span>
 						<textarea name="assignment" class="form-control" required placeholder="请在此输入学生帐号，并用英文逗号“,”隔开，例如“000001_wg,000003_wg,000008_wg”"><?= $detail['usernames_str']?></textarea>
 					</div>
+					<div style="clear:both;">已选择学生：</div>
+					<?php foreach($detail['chosen_students'] as $student) : ?>
+					<div class="chosen-student student-id-<?= $student['student_id']?>">
+						<font><?= $student['real_name']?>（<?= $student['username']?>）</font>
+						<a data-user-id="<?= $student['student_id']?>" href="#"><span class="glyphicon glyphicon-remove pull-right"></span></a>
+					</div>
+					<?php endforeach ?>
+					<div style="clear:both;">已选择习题：</div>
 					<div class="input-group">
 						<?php foreach ($detail['remark_arr'] as $one) : ?>
 						<div class="chosen-exercise exercise-id-<?= $one['exercise_id']?>">
@@ -56,7 +69,7 @@
 						<div id="bottom-up"></div>
 					</div>
 					<div class="input-group">
-						<a class="add-btn pull-right" data-title="Add" data-toggle="modal" data-target="#add" href=""><span class="glyphicon glyphicon-plus"></span> 添加习题</a>
+						<button class="btn btn-primary btn-block add-btn" type="button" data-title="Add" data-toggle="modal" data-target="#add"><span class="glyphicon glyphicon-plus"></span> 添加习题（必选）</button>
 					</div>
 					<div class="input-group">
 						<div class="input-group-addon-instruction">~~~~~~~~主题正文内容~~~~~~~~</div>
@@ -245,9 +258,9 @@
 									'<td>' + json.exercises[i]['create_time_formatted'] + '</td>' +
 									'<td>'; 
 						if (_chosen_ids_arr.indexOf(json.exercises[i]['exercise_id']) === -1) {
-							sets += '<a data-title="Add" href="#"><span class="glyphicon glyphicon-plus-sign"></span></a></td></tr>';
+							sets += '<a class="add-green" data-title="Add" href="#"><span class="glyphicon glyphicon-plus-sign"></span></a></td></tr>';
 						} else {
-							sets += '<a data-title="Remove" href="#"><span class="glyphicon glyphicon-minus-sign"></span></a></td></tr>';
+							sets += '<a  class="minus-red" data-title="Remove" href="#"><span class="glyphicon glyphicon-minus-sign"></span></a></td></tr>';
 						}
 					}
 					
@@ -270,6 +283,7 @@
 							case 'Add':
 										$(this).html('<span class="glyphicon glyphicon-minus-sign"></span>');
 										$(this).data('title', 'Remove');
+										$(this).attr('class', 'minus-red');
 										var chosen = '<div class="chosen-exercise exercise-id-' + _exercise_id + '">' +
 														'<input type="hidden" name="exercise_id[]" value="' + _exercise_id + '" />' +
 														'<input type="hidden" name="subject_en[]" value="' + _action + '" />' +
@@ -287,7 +301,7 @@
 							case 'Remove':
 										$(this).html('<span class="glyphicon glyphicon-plus-sign"></span>');
 										$(this).data('title', 'Add');
-										
+										$(this).attr('class', 'add-green');
 										$('.exercise-id-' + _exercise_id).remove();
 										
 										_chosen_ids_arr[_chosen_ids_arr.indexOf(_exercise_id)] = '0';

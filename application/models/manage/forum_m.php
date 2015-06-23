@@ -175,7 +175,12 @@ class Forum_M extends CI_Model {
 				
 				$detail['username_arr'] = array();
 				$detail['usernames_str'] = NULL;
-				$query = $this->db_conn->select('username')->from('assignment AS A')->join('students AS S', 'S.student_id = A.student_id')->where('A.topic_id = '.$detail['topic_id'])->get();
+				$query = $this->db_conn->select('U.user_id, S.student_id, real_name, username')
+										->from('assignment AS A')
+										->join('students AS S', 'S.student_id = A.student_id')
+										->join('users AS U', 'U.user_id = A.user_id')
+										->where('A.topic_id = '.$detail['topic_id'])
+										->get();
 				
 				if ($query->num_rows() > 0) {
 					foreach ($query->result_array() as $one) {
@@ -183,6 +188,8 @@ class Forum_M extends CI_Model {
 					}
 					$detail['usernames_str'] = implode(',', $detail['username_arr']);
 				}
+				
+				$detail['chosen_students'] = $query->result_array();
 			}
 		}
 		
@@ -220,6 +227,15 @@ class Forum_M extends CI_Model {
 		$search['status'] = NORMAL;
 		
 		return $this->db_conn->from('forum_reply')->where($search)->count_all_results();
+	}
+	
+	public function testJoin() {
+		$query = $this->db_conn->select('real_name, username')
+								->from('assignment AS A')
+								->join('students AS S', 'S.student_id = A.student_id')
+								->join('users AS U', 'U.user_id = A.user_id')
+								->get();
+		var_dump($query->result_array());
 	}
 }
 /* End of file */

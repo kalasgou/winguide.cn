@@ -82,7 +82,7 @@
 							<td title="<?= $one['end_time_formatted'];?>"><?= substr($one['end_time_formatted'], 0, 10);?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
-								<a href="<?= base_url('console/student/view/detail?student_id='.$one['student_id'])?>" target="_blank"><span class="glyphicon glyphicon-edit"></span></a>
+								<a href="<?= base_url('console/student/view/detail?student_id='.$one['student_id'])?>" target="_blank" title="查看学生详情"><span class="glyphicon glyphicon-info-sign"></span></a>
 								<a href="#"><span class="glyphicon glyphicon-wrench"></span></a>
 								<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
 							</td>

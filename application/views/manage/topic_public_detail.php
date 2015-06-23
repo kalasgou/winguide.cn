@@ -11,6 +11,7 @@
 					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/lists?visibility=public')?>">列表</a></li>
 					<!--<li role="presentation" class=""><a href="<?= base_url('console/forum/view/search?visibility=public')?>">搜索</a></li>-->
 					<li role="presentation" class=""><a href="<?= base_url('console/forum/view/create?visibility=public')?>">添加</a></li>
+					<li role="presentation" class="active"><a href="#">主题详情</a></li>
 				</ul>
 			</div>
 			<div class="panel-body">

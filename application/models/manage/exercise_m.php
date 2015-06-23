@@ -90,6 +90,18 @@ class Exercise_M extends CI_Model {
 		return $this->db_conn->insert_id();
 	}
 	
+	public function updateExerciseSet($params) {
+		$search = array();
+		$search['exercise_id'] = $params['exercise_id'];
+		$search['admin_id'] = $params['admin_id'];
+		
+		$refresh = array();
+		$refresh['numbers'] = $params['numbers'];
+		$refresh['amount'] = $params['amount'];
+		
+		return $this->db_conn->set($refresh)->where($search)->update('exercises');
+	}
+	
 	public function modifyExerciseSet($params) {
 		$search = array();
 		$search['topic_id'] = $params['topic_id'];

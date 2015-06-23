@@ -12,6 +12,7 @@
 					<li role="presentation"><a href="<?= base_url('console/article/view/lists') ?>">列表</a></li>
 					<li role="presentation"><a href="<?= base_url('console/article/view/search') ?>">搜索</a></li>
 					<li role="presentation"><a href="<?= base_url('console/article/view/create') ?>">添加</a></li>
+					<li role="presentation" class="active"><a href="#">文章详情</a></li>
 				</ul>
 			</div>
 			<div class="panel-body">

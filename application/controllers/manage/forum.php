@@ -61,7 +61,8 @@ class Forum extends CI_Controller {
 	}
 	
 	public function searchView() {
-		
+		$this->load->model('manage/Forum_M');
+		$this->Forum_M->testJoin();
 	}
 	
 	public function detailView() {

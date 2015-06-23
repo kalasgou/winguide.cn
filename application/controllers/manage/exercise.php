@@ -154,6 +154,59 @@ class Exercise extends CI_Controller {
 	}
 	
 	public function update() {
+		$params['admin_id'] = $_SESSION['admin']['id'];
+		$params['exercise_id'] = trim($this->input->post('exercise_id', TRUE));
+		/*$params['course'] = trim($this->input->post('course', TRUE));
+		$params['subject'] = trim($this->input->post('exercise_action', TRUE));
+		$params['topic'] = trim($this->input->post('exercise_type', TRUE));*/
+		$params['create_time'] = $_SERVER['REQUEST_TIME'];
+		
+		$numbers_arr = array();
+		$exercise_ids = trim($this->input->post('exercise_ids', TRUE));
+		$tmp_arr = explode(',', $exercise_ids);
+		foreach ($tmp_arr as $one) {
+			if (ctype_digit($one)) {
+				$numbers_arr[] = intval($one);
+			} elseif (strpos($one, '-') !== FALSE) {
+				list($start, $end) = explode('-', $one);
+				$numbers_arr = array_merge($numbers_arr, range($start, $end));
+			}
+		}
+		
+		$params['numbers'] = implode(',', $numbers_arr);
+		$params['amount'] = count($numbers_arr);
+		
+		if (!check_parameters($params)) {
+			exit('Parameters Not Enough');
+		}
+		
+		//header('Content-Type: application/json, charset=utf-8');
+		//header('Content-Type: text/html, charset=utf-8');
+		
+		$ret = array();
+		$ret['code'] = 1;
+		$ret['msg'] = 'fail';
+		$ret['msg_cn'] = '系统错误，请联系技术人员';
+		
+		$this->load->model('manage/Exercise_M');
+		$result = $this->Exercise_M->updateExerciseSet($params);
+		
+		if ($result) {
+			$ret['code'] = 0;
+			$ret['msg'] = 'success';
+			$ret['msg_cn'] = '更新题库成功';
+			
+			header('Location: '.base_url('console/exercise/view/detail?exercise_id='.$params['exercise_id']));
+			exit();
+		}
+		
+		//echo json_encode($ret);
+		
+		/*echo 	'<script type="text/javascript">
+					alert("'.$ret['msg'].'");
+					location.href = "'.base_url('console/exercise').'"
+				</script>';*/
+		
 		$msg = array();
 		$msg['tips'] = $ret['msg_cn'];
 		$link = 'javascript:history.go(-1);';

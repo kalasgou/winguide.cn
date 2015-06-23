@@ -46,7 +46,7 @@
 						<div id="bottom-up"></div>
 					</div>
 					<div class="input-group">
-						<a class="add-btn pull-right" data-title="Add" data-toggle="modal" data-target="#add" href=""><span class="glyphicon glyphicon-plus"></span> 添加习题</a>
+						<button class="btn btn-primary btn-block add-btn" type="button" data-title="Add" data-toggle="modal" data-target="#add"><span class="glyphicon glyphicon-plus"></span> 添加习题（必选）</button>
 					</div>
 					<div class="input-group">
 						<div class="input-group-addon-instruction">~~~~~~~~主题正文内容~~~~~~~~</div>

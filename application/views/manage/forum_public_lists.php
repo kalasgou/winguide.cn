@@ -54,10 +54,10 @@
 							<td title="<?= $one['update_time_formatted'];?>"><?= substr($one['update_time_formatted'], 0, 10);?></td>
 							<td><label class="label label-success">有效</label></td>
 							<td>
-								<a href="<?= base_url('console/forum/view/detail?topic_id='.$one['topic_id'])?>" title="编辑主题内容"><span class="glyphicon glyphicon-edit" title=""></span></a>
-								<a href="<?= base_url('console/forum/view/comments?visibility=public&topic_id='.$one['topic_id'])?>" title="浏览讨论留言"><span class="glyphicon glyphicon-comment"></span></a>
-								<a href="#" title="变更主题属性"><span class="glyphicon glyphicon-wrench"></span></a>
-								<a href="#" title="删除主题记录"><span class="glyphicon glyphicon-trash"></span></a>
+								<a href="<?= base_url('console/forum/view/detail?topic_id='.$one['topic_id'])?>" target="_blank" title="编辑主题内容"><span class="glyphicon glyphicon-edit" title=""></span></a>
+								<a href="<?= base_url('console/forum/view/comments?visibility=public&topic_id='.$one['topic_id'])?>" target="_blank" title="浏览讨论留言"><span class="glyphicon glyphicon-comment"></span></a>
+								<!--<a href="#" title="变更主题属性"><span class="glyphicon glyphicon-wrench"></span></a>
+								<a href="#" title="删除主题记录"><span class="glyphicon glyphicon-trash"></span></a>-->
 							</td>
 						</tr>
 						<?php endforeach;?>
