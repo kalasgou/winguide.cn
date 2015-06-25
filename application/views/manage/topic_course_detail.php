@@ -163,7 +163,7 @@
 					<div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> 移除 <b class="hints"></b>的该作业任务，你确定？</div>
 				</div>
 				<div class="modal-footer ">
-					<button type="button" class="btn btn-success confirm" ><span class="glyphicon glyphicon-ok-sign"></span> 确定</button>
+					<button type="button" class="btn btn-success confirm" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-ok-sign"></span> 确定</button>
 					<button type="button" class="btn btn-default cancel" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> 取消</button>
 				</div>
 			</div>
