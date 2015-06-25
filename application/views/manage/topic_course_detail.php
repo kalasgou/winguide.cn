@@ -4,7 +4,7 @@
 	<style type="text/css">
 		.note-editable {min-height:200px;}
 		.chosen-exercise {background-color:#EEEEEE; border-bottom:dotted 1px #999999;}
-		.chosen-student {display:inline-block; border:dotted 1px #000000; width:192px; line-height:24px; padding:4px; margin:2px 0; background-color:rgb(238, 238, 238);}
+		.chosen-student {display:inline-block; border:dotted 1px #000000; min-width:192px; line-height:24px; padding:4px; margin:2px 0; background-color:rgb(238, 238, 238);}
 		.chosen-student .glyphicon {line-height:24px;}
 		.pagination {width:100%; text-align:center;}
 		.pagination .active {color:grey; text-decoration:none; font-weight:bold;}
@@ -46,13 +46,13 @@
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon">学生列表</span>
-						<textarea name="assignment" class="form-control" required placeholder="请在此输入学生帐号，并用英文逗号“,”隔开，例如“000001_wg,000003_wg,000008_wg”"><?= $detail['usernames_str']?></textarea>
+						<textarea name="assignment" class="form-control" placeholder="如需布置给更多学生，请在此输入学生帐号，并用英文逗号“,”隔开，例如“000001_wg,000003_wg,000008_wg”"></textarea>
 					</div>
 					<div style="clear:both;">已选择学生：</div>
 					<?php foreach($detail['chosen_students'] as $student) : ?>
 					<div class="chosen-student student-id-<?= $student['student_id']?>">
 						<font><?= $student['real_name']?>（<?= $student['username']?>）</font>
-						<a data-user-id="<?= $student['student_id']?>" href="#"><span class="glyphicon glyphicon-remove pull-right"></span></a>
+						<a href="#" data-title="Remove" data-toggle="modal" data-target="#remove" data-student-id="<?= $student['student_id']?>"><span class="glyphicon glyphicon-remove pull-right"></span></a>
 					</div>
 					<?php endforeach ?>
 					<div style="clear:both;">已选择习题：</div>
@@ -65,7 +65,7 @@
 							<input type="hidden" name="subject_cn[]" value="<?= $one['subject_cn']?>">
 							<input type="hidden" name="amount[]" value="<?= $one['amount']?>">
 							<input type="hidden" name="create_date[]" value="<?= $one['create_date']?>">
-							<span>ID: <b><?= $one['exercise_id']?></b> # 编者: <b>系统管理员</b> # 课程: <b><?= strtoupper($detail['module'])?></b> # 题型: <b><?= $one['subject_cn']?></b> # 题数: 共<b><?= $one['amount']?></b>题 # @<b><?= $one['create_date']?></b></span>
+							<span>ID: <b><?= $one['exercise_id']?></b> # 编者: <b><?= $one['admin']?></b> # 课程: <b><?= strtoupper($detail['module'])?></b> # 题型: <b><?= $one['subject_cn']?></b> # 题数: 共<b><?= $one['amount']?></b>题 # @<b><?= $one['create_date']?></b></span>
 							<a class="pull-right" data-exercise-id="<?= $one['exercise_id']?>" href="#" onclick="javascript:removeChosen('<?= $one['exercise_id']?>');"><span class="glyphicon glyphicon-minus-sign"></span> 移除</a>
 						</div>
 						<?php endforeach ?>
@@ -151,6 +151,26 @@
 		</div>
 		<!-- /.modal-dialog --> 
 	</div>
+	
+	<div class="modal fade" id="remove" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+					<h4 class="modal-title custom_align" id="Heading">移除作业任务</h4>
+				</div>
+				<div class="modal-body">
+					<div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> 移除 <b class="hints"></b>的该作业任务，你确定？</div>
+				</div>
+				<div class="modal-footer ">
+					<button type="button" class="btn btn-success confirm" ><span class="glyphicon glyphicon-ok-sign"></span> 确定</button>
+					<button type="button" class="btn btn-default cancel" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> 取消</button>
+				</div>
+			</div>
+		<!-- /.modal-content --> 
+		</div>
+		<!-- /.modal-dialog --> 
+    </div>
 </div>
 </div>
 <script type="text/javascript">
@@ -161,6 +181,9 @@
 	var _course = '';
 	var _topic = '';
 	var _admin_id = '';
+	
+	var _topic_id = $('input[name=topic_id]').val();
+	var _student_id;
 	
 	$(document).ready(function() {
       $('.summernote').summernote({
@@ -216,6 +239,14 @@
 			});
 		});
 		
+		$('.chosen-student a').click(function() {
+			$('#remove b.hints').html($(this).siblings().html());
+			_student_id = $(this).data('student-id');
+		});
+		
+		$('#remove button.confirm').click(function() {
+			removeAssignment();
+		});
     });
 	
 	function getExerciseTypes(_course) {
@@ -360,6 +391,24 @@
 		$('.pagination a').click(function() {
 			_page = $(this).data('page');
 			getExerciseSets(_course, _topic, _admin_id);
+		});
+	}
+	
+	function removeAssignment() {
+		$.ajax({
+			url: '<?= base_url('manage/forum/trashAssignment') ?>',
+			data: {student_id: _student_id, topic_id:_topic_id},
+			type: 'post',
+			dataType: 'json',
+			success: function(json) {
+				alert(json.msg);
+				if (json.code === 0) {
+					$('.student-id-' + _student_id).remove();
+				}
+			},
+			error: function() {
+				alert('Network Error');
+			}
 		});
 	}
 </script>
