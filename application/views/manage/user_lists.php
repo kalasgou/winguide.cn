@@ -19,12 +19,12 @@
 					<div class="input-group">
 						<span class="input-group-addon">起始</span>
 						<input class="form-control start-date" style="display:inline-block;" type="date" name="start_date" value="<?= $args['start_date']?>"/>
-						<span class="input-group-addon">生效日期</span>
+						<span class="input-group-addon">注册日期</span>
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon">结束</span>
 						<input class="form-control end-date" style="display:inline-block;" type="date" name="end_date" value="<?= $args['end_date']?>"/>
-						<span class="input-group-addon">生效日期</span>
+						<span class="input-group-addon">注册日期</span>
 					</div>
 					<div class="pull-right">
 						<button class="btn btn-primary btn-sm" type="submit">筛选</button>
